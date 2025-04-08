@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
-    container: {
-      padding: 20,
-      marginTop: 100,
-    },
+export const fontStyle = StyleSheet.create({
     h1: {
       fontSize: 50,
       color: "white",
@@ -19,18 +15,11 @@ export const styles = StyleSheet.create({
       textAlign: "center",
       fontFamily: "AbhayaLibre-Bold",
     },
-    input: {
-      borderWidth: 1,
-      borderColor: "#ccc",
-      padding: 10,
-      marginBottom: 10,
-      borderRadius: 5,
+    p: {
+      fontSize: 10,
+      color: "white",
+      textAlign: "justify",
+      fontFamily: "AbhayaLibre-Medium",
     },
-    spacer: {
-      height: 10,
-    },
-    background: {
-      width: "100%",
-      height: "100%",
-}});
+});
   
