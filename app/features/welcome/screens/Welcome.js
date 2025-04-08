@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Button, ImageBackground } from "react-native";
+import { View, Button } from "react-native";
 import LoginHeader from "../components/LoginHeader";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+
 const Welcome = () => {
   const navigation = useNavigation();
   return (
