@@ -9,6 +9,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useFonts } from "expo-font";
 import Login from "./app/features/welcome/screens/Login";
 import SignUp from "./app/features/welcome/screens/SignUp";
+import HomeScreen from "./app/features/welcome/screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
