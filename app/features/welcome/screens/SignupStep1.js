@@ -3,6 +3,9 @@ import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+import NextButton from "../components/NextButton";
+import GoBackButton from "../components/GoBackButton";
 const SignupStep1 = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,35 +65,49 @@ const SignupStep1 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={uiStyle.container}>
-        <Text style={fontStyle.h1}>Step 1: Email & Password</Text>
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 15, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View style={{ gap: 15 }}>
+          <Text style={fontStyle.h2}>Completa tu perfil</Text>
+          <Text style={fontStyle.h3}>Correo electrónico</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Email (ej: usuario@gmail.com)"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <Text style={fontStyle.h3}>Contraseña segura</Text>
 
-        <TextInput
-          style={uiStyle.input}
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+          <TextInput
+            style={uiStyle.input}
+            value={password}
+            onChangeText={checkPasswordStrength}
+            secureTextEntry
+            placeholder="Contraseña (mínimo 8 caracteres)"
+            autoCapitalize="none"
+          />
 
-        <TextInput
-          style={uiStyle.input}
-          value={password}
-          onChangeText={checkPasswordStrength}
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-        />
-        {passwordFeedback ? (
-          <Text
-            style={{ color: passwordFeedback.includes("✅") ? "green" : "red" }}
-          >
-            {passwordFeedback}
-          </Text>
-        ) : null}
+          {passwordFeedback ? (
+            <Text
+              style={{
+                color: passwordFeedback.includes("✅") ? "green" : "red",
+              }}
+            >
+              {passwordFeedback}
+            </Text>
+          ) : null}
+        </View>
 
-        <Button title="Continue" onPress={goToStep2} />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={goToStep2} />
+        </View>
       </View>
     </ImageBackground>
   );
