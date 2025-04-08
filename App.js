@@ -1,4 +1,5 @@
 import Navigation from "./app/infraestructure/Navigation";
+import { useFonts } from "expo-font";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -9,7 +10,7 @@ export default function App() {
     "AbhayaLibre-SemiBold": require("./assets/fonts/AbhayaLibre-SemiBold.ttf"),
   });
 
-  if (!fontsLoaded || initializing) {
+  if (!fontsLoaded) {
     return null;
   }
 
