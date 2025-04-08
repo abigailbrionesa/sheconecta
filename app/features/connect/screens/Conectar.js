@@ -82,7 +82,14 @@ export default function Conectar({ navigation }) {
       <View style={styles.container}>
         {currentUser ? (
           <View style={styles.profileContainer}>
-            <View style={{ justifyContent: "center", alignItems: "center", marginVertical:10, gap:3 }}>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 10,
+                gap: 3,
+              }}
+            >
               <Image
                 source={{ uri: currentUser.profilePictureUrl }}
                 style={styles.profileImage}
@@ -104,15 +111,11 @@ export default function Conectar({ navigation }) {
 
               <Text style={fontStyle.p}>Career: {currentUser.career}</Text>
 
-              <Text style={fontStyle.h4}>
-                Interest Areas:
-              </Text>
+              <Text style={fontStyle.h4}>Interest Areas:</Text>
 
               <Text style={fontStyle.p}>
                 {currentUser.interestAreas?.join(", ")}
               </Text>
-
-
             </View>
 
             <View>
@@ -167,12 +170,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    marginBottom:20,
+    marginBottom: 20,
   },
 
   heartButton: {
     backgroundColor: "white",
-    marginTop:20,
+    marginTop: 20,
     padding: 10,
     borderRadius: 50,
     elevation: 3,
