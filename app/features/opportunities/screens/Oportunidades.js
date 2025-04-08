@@ -1,27 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { TextInput, Button, View, Text } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
-import { FIREBASE_AUTH, FIREBASE_DB } from '../../../../FirebaseConfig';
-import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { ImageBackground } from 'react-native';
-import backgroundStyle from '../../../../utils/backgroundStyle';
+import React, { useState, useEffect } from "react";
+import { TextInput, Button, View, Text, StyleSheet } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+import Button1 from "../../welcome/components/Button1";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
+import {
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
+import { ImageBackground } from "react-native";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { uiStyle } from "../../../utils/uiStyle";
+import { fontStyle } from "../../../utils/fontStyle";
 
 const Oportunidades = () => {
   const user = FIREBASE_AUTH.currentUser;
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [type, setType] = useState('experiencia');
-  
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [type, setType] = useState(null);
+
   useEffect(() => {
     if (user) {
       const fetchUserData = async () => {
-        const userDoc = doc(FIREBASE_DB, 'usuarios', user.uid);
+        const userDoc = doc(FIREBASE_DB, "usuarios", user.uid);
         const docSnap = await getDoc(userDoc);
         if (docSnap.exists()) {
-          console.log('User data:', docSnap.data());
+          console.log("User data:", docSnap.data());
         } else {
-          console.log('No such document!');
+          console.log("No such document!");
         }
       };
 
@@ -31,7 +40,7 @@ const Oportunidades = () => {
 
   const handlePostSubmit = async () => {
     if (!title || !description) {
-      alert('Por favor, llena todos los campos.');
+      alert("Por favor, llena todos los campos.");
       return;
     }
 
@@ -40,58 +49,99 @@ const Oportunidades = () => {
         type,
         title,
         description,
-        createdAt: serverTimestamp(), 
+        createdAt: serverTimestamp(),
       };
 
-      await addDoc(collection(FIREBASE_DB, 'usuarios', user.uid, 'publications'), newPublication);
+      await addDoc(
+        collection(FIREBASE_DB, "usuarios", user.uid, "publications"),
+        newPublication
+      );
 
-      setTitle('');
-      setDescription('');
-      setType('experiencia');
+      setTitle("");
+      setDescription("");
+      setType(null); 
 
-      alert('¡Publicación creada con éxito!');
+      alert("¡Publicación creada con éxito!");
     } catch (error) {
-      console.error('Error al crear la publicación:', error);
-      alert('Hubo un problema al crear la publicación');
+      console.error("Error al crear la publicación:", error);
+      alert("Hubo un problema al crear la publicación");
     }
   };
 
   return (
-
-        <ImageBackground
-          source={require("../../../../assets/background.png")}
-          style={backgroundStyle.background}
-        >
-    <View>
-      <Text>Crear nueva publicación</Text>
-      <TextInput
-        placeholder="Título"
-        value={title}
-        onChangeText={setTitle}
-      />
-      <TextInput
-        placeholder="Descripción"
-        value={description}
-        onChangeText={setDescription}
-        multiline
-      />
-      
-      <RNPickerSelect
-        onValueChange={setType}
-        value={type}
-        items={[
-          { label: 'Experiencia', value: 'experiencia' },
-          { label: 'Beca', value: 'beca' },
-          { label: 'Curso', value: 'curso' },
-          { label: 'Proyecto', value: 'proyecto' },
+    <ImageBackground
+      source={require("../../../../assets/background.png")}
+      style={backgroundStyle.background}
+    >
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 15, flex: 1, justifyContent: "space-between" },
         ]}
-      />
-      
-      <Button title="Publicar" onPress={handlePostSubmit} />
-    </View>
+      >
+        <View style={{ gap: 15 }}>
+          <Text style={fontStyle.h2}>Crear publicación</Text>
+          <Text style={fontStyle.h3}>Tipo de publicación</Text>
 
+          <RNPickerSelect
+            onValueChange={setType}
+            placeholder={{
+              label: "(Experiencia, Beca, Curso, Proyecto)",
+              value: null,
+            }}
+            style={{
+              inputIOS: {
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                borderRadius: 10,
+              },
+              inputAndroid: {
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                borderRadius: 10,
+
+              },
+              placeholder: {
+                fontSize: 17,
+                color: "gray",
+              },
+            }}
+            value={type}
+            items={[
+              { label: "Experiencia", value: "experiencia" },
+              { label: "Beca", value: "beca" },
+              { label: "Curso", value: "curso" },
+              { label: "Proyecto", value: "proyecto" },
+            ]}
+          />
+
+          <Text style={fontStyle.h3}>Título</Text>
+
+          <TextInput
+            placeholder="Título"
+            style={uiStyle.input}
+            value={title}
+            onChangeText={setTitle}
+          />
+          <Text style={fontStyle.h3}>Descripción</Text>
+          <TextInput
+            placeholder="Descripción"
+            style={[styles.input, { height: 220 }]}
+            value={description}
+            onChangeText={setDescription}
+            multiline
+          />
+        </View>
+
+        <Button1 onPress={handlePostSubmit}>Publicar</Button1>
+      </View>
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    ...uiStyle.input,
+    textAlignVertical: "top",
+  },
+});
 
 export default Oportunidades;
