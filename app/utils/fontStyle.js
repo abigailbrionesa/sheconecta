@@ -21,7 +21,7 @@ export const fontStyle = StyleSheet.create({
       fontFamily: "AbhayaLibre-Bold",
     },
     p: {
-      fontSize: 10,
+      fontSize: 16,
       color: "white",
       textAlign: "justify",
       fontFamily: "AbhayaLibre-Medium",
