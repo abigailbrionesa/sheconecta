@@ -8,7 +8,7 @@ export const fontStyle = StyleSheet.create({
       fontFamily: "AbhayaLibre-ExtraBold",
     },
     h2: {
-      fontSize: 30,
+      fontSize: 35,
       color: "white",
       textAlign: "center",
       fontFamily: "AbhayaLibre-ExtraBold",
@@ -18,7 +18,6 @@ export const fontStyle = StyleSheet.create({
       textTransform: "uppercase",
       color: "white",
       letterSpacing:2,
-      textAlign: "center",
       fontFamily: "AbhayaLibre-Bold",
     },
     p: {
@@ -26,6 +25,11 @@ export const fontStyle = StyleSheet.create({
       color: "white",
       textAlign: "justify",
       fontFamily: "AbhayaLibre-Medium",
+    },
+    button: {
+      fontSize: 12,
+      textTransform: "uppercase",
+      fontFamily: "AbhayaLibre-ExtraBold",
     },
 });
   
