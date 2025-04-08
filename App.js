@@ -7,10 +7,12 @@ import { FIREBASE_AUTH } from "./FirebaseConfig";
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useFonts } from "expo-font";
+import Login from "./app/features/welcome/screens/Login";
+import SignUp from "./app/features/welcome/screens/SignUp";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   const [fontsLoaded] = useFonts({
     "AbhayaLibre-Bold": require("./assets/fonts/AbhayaLibre-Bold.ttf"),
     "AbhayaLibre-ExtraBold": require("./assets/fonts/AbhayaLibre-ExtraBold.ttf"),
@@ -19,66 +21,40 @@ export default function App() {
     "AbhayaLibre-SemiBold": require("./assets/fonts/AbhayaLibre-SemiBold.ttf"),
   });
 
-  if (!fontsLoaded) {
-    return null; 
-  }
-  
   const [user, setUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (currentUser) => {
-      console.log("Current User:", currentUser); 
       setUser(currentUser);
+      if (initializing) setInitializing(false);
     });
-    return () => unsubscribe(); 
+    return unsubscribe;
   }, []);
 
-  if (user === null) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen
-            name="Welcome"
-            component={Welcome}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-        <StatusBar style="auto" />
-      </NavigationContainer>
-    );
+  // ⛔️ Don't skip hooks with conditional returns
+  if (!fontsLoaded || initializing) {
+    return null; // Loading state
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={(props) => (
-            <HomeScreen {...props} user={user} />
-          )}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+      {user ? (
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={(props) => <HomeScreen {...props} user={user} />}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      )}
       <StatusBar style="auto" />
     </NavigationContainer>
   );
 }
-
-function HomeScreen({ user }) {
-  return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Text>Email: {user.email}</Text>
-      <Text>UID: {user.uid}</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
