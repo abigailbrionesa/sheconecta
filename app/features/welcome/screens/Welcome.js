@@ -2,15 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Button, ImageBackground } from "react-native";
 import LoginHeader from "../components/LoginHeader";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-
 const Welcome = () => {
   const navigation = useNavigation();
-
   return (
     <ImageBackground
-      source={require("../../../../assets/background.png")}
-      style={backgroundStyle.background}
-    >
+    source={require("../../../../assets/background.png")}
+    style={backgroundStyle.background}
+  >   
       <View style={{ padding: 20, marginTop: 100 }}>
         <LoginHeader />
 
@@ -23,7 +21,7 @@ const Welcome = () => {
           onPress={() => navigation.navigate("Login")}
         />
       </View>
-    </ImageBackground>
+      </ImageBackground>
   );
 };
 
