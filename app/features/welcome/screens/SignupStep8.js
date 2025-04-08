@@ -61,7 +61,6 @@ const SignupStep8 = ({ navigation }) => {
         carnetPictureUrl: null,
         score: 0,
         savedContacts: [],
-        posts: [],
       };
 
       await setDoc(doc(db, "users", user.uid), userData);
