@@ -1,41 +1,45 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, ActivityIndicator } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import React, { useState } from "react";
+import { View, TextInput, Button, ActivityIndicator } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { Text } from 'react-native';
-import { uiStyle } from '../../../utils/uiStyle';
-
+import { Text } from "react-native";
+import { uiStyle } from "../../../utils/uiStyle";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
 const SignupStep8 = ({ navigation }) => {
   const route = useRoute();
 
   const [loading, setLoading] = useState(false);
 
-  const { 
-    email, 
-    password, 
-    firstName, 
-    lastName, 
-    birthDate, 
-    role, 
-    city, 
-    university, 
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    birthDate,
+    role,
+    city,
+    university,
     career,
-    experience, 
+    experience,
     instagram,
     linkedin,
     image,
-    selectedAreas, 
+    selectedAreas,
   } = route.params || {};
-  
+
   const signUp = async () => {
     setLoading(true);
     const auth = FIREBASE_AUTH;
     const db = getFirestore();
 
     try {
-      const response = await createUserWithEmailAndPassword(auth, email, password);
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = response.user;
 
       const userData = {
@@ -45,8 +49,8 @@ const SignupStep8 = ({ navigation }) => {
         lastName,
         birthDate,
         city,
-        career, 
-        university, 
+        career,
+        university,
         interestAreas: selectedAreas,
         yearsExperience: experience,
         socialLinks: {
@@ -54,12 +58,11 @@ const SignupStep8 = ({ navigation }) => {
           linkedin: linkedin || null,
         },
         profilePictureUrl: image,
-        carnetPictureUrl: null, 
-        score: 0, 
-        savedContacts: [], 
-        posts: [] 
+        carnetPictureUrl: null,
+        score: 0,
+        savedContacts: [],
+        posts: [],
       };
-  
 
       await setDoc(doc(db, "users", user.uid), userData);
       console.log("Signup successful");
@@ -71,15 +74,20 @@ const SignupStep8 = ({ navigation }) => {
   };
 
   return (
-    <View style={uiStyle.container}>
-      <Text>Ready! Create your account</Text>
+    <ImageBackground
+      source={require("../../../../assets/background.png")}
+      style={backgroundStyle.background}
+    >
+      <View style={uiStyle.container}>
+        <Text>Ready! Create your account</Text>
 
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <Button title="Create Account" onPress={signUp} />
-      )}
-    </View>
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <Button title="Create Account" onPress={signUp} />
+        )}
+      </View>
+    </ImageBackground>
   );
 };
 

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { View, Button, Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
-
+import { backgroundStyle } from "../../../utils/backgroundStyle";
 const SignupStep7 = ({ navigation }) => {
   const route = useRoute();
   const areas = ["Ciencia", "Tecnología", "Ingeniería", "Matemáticas"];
-  
+
   const [selectedAreas, setSelectedAreas] = useState([]);
 
   const {
@@ -55,24 +55,36 @@ const SignupStep7 = ({ navigation }) => {
       instagram: instagram || "",
       linkedin: linkedin || "",
       image,
-      selectedAreas, 
+      selectedAreas,
     });
   };
 
   return (
-    <View style={uiStyle.container}>
-      <Text>Step 7: Select your favorite areas (Science, Technology, Engineering, Math)</Text>
-      
-      {areas.map((area) => (
-        <Button
-          key={area}
-          title={selectedAreas.includes(area) ? `Selected: ${area}` : `Select ${area}`}
-          onPress={() => handleAreaSelect(area)}
-        />
-      ))}
+    <ImageBackground
+      source={require("../../../../assets/background.png")}
+      style={backgroundStyle.background}
+    >
+      <View style={uiStyle.container}>
+        <Text>
+          Step 7: Select your favorite areas (Science, Technology, Engineering,
+          Math)
+        </Text>
 
-      <Button title="Continue" onPress={handleContinue} />
-    </View>
+        {areas.map((area) => (
+          <Button
+            key={area}
+            title={
+              selectedAreas.includes(area)
+                ? `Selected: ${area}`
+                : `Select ${area}`
+            }
+            onPress={() => handleAreaSelect(area)}
+          />
+        ))}
+
+        <Button title="Continue" onPress={handleContinue} />
+      </View>
+    </ImageBackground>
   );
 };
 
