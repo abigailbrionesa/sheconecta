@@ -39,7 +39,8 @@ const SignupStep8 = ({ navigation }) => {
       const user = response.user;
 
       const userData = {
-        type: role, 
+        type: role,
+        email,
         firstName,
         lastName,
         birthDate,
@@ -47,8 +48,7 @@ const SignupStep8 = ({ navigation }) => {
         career, 
         university, 
         interestAreas: selectedAreas,
-        interestCategories: [], 
-        experienceLevel: experience,
+        yearsExperience: experience,
         socialLinks: {
           instagram: instagram || null,
           linkedin: linkedin || null,
@@ -57,7 +57,7 @@ const SignupStep8 = ({ navigation }) => {
         carnetPictureUrl: null, 
         score: 0, 
         savedContacts: [], 
-        publications: [] 
+        posts: [] 
       };
   
 
