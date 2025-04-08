@@ -114,73 +114,103 @@ const FeedOfPosts = () => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={{ padding: 20, gap: 15 }}>
-        <Button1 onPress={() => navigation.navigate("CreatePost")}>
-          Crear Publicación
-        </Button1>
+      <ScrollView contentContainerStyle={{ }}>
+        <View style={{ padding: 20, gap: 15 }}>
 
-        <View>
-          <Text style={fontStyle.h3}>Filtrar por tema</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              marginVertical: 8,
-              justifyContent: "space-between",
-            }}
-          >
-            {tagOptions.map((tag) => (
-              <TouchableOpacity
-                key={tag.name}
-                onPress={() => toggleTag(tag.name)}
-                style={[
-                  {
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: 80,
-                    height: 80,
-                    borderRadius: 40,
-                    margin: 5,
-                  },
-                  selectedTags.includes(tag.name) && { opacity: 0.6 },
-                ]}
-              >
-                <Image
-                  source={{ uri: tag.imageUrl }}
-                  style={{ width: 60, height: 60, borderRadius: 30 }}
-                />
-                <Text style={fontStyle.p}>{tag.name}</Text>
-              </TouchableOpacity>
-            ))}
+
+          <View>
+            <Text style={[fontStyle.h3, fontStyle.light]}>
+              Filtrar por tema
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                marginTop: 10,
+                justifyContent: "space-between",
+              }}
+            >
+              {tagOptions.map((tag) => (
+                <TouchableOpacity
+                  key={tag.name}
+                  onPress={() => toggleTag(tag.name)}
+                  style={[
+                    {
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: 80,
+                      height: 80,
+                      borderRadius: 40,
+                      margin: 5,
+                    },
+                    selectedTags.includes(tag.name) && { opacity: 0.6 },
+                  ]}
+                >
+                  <Image
+                    source={{ uri: tag.imageUrl }}
+                    style={{ width: 60, height: 60, borderRadius: 30 }}
+                  />
+                  <Text style={fontStyle.p}>{tag.name}</Text>
+                </TouchableOpacity>
+
+                
+              ))}
+            </View>
           </View>
         </View>
-        
-        <View style={{backgroundColor: "#faf5f3"}}>
 
-        {typeOptions.map(
-          (type) =>
-            groupedByType[type].length > 0 && (
-              <View key={type} style={{backgroundColor: "#faf5f3"}}>
-                <Text style={fontStyle.h3}>{type}</Text>
-                {groupedByType[type].map((item) => (
-                  <View key={item.publicationId}>
-                    <Text style={fontStyle.p}>{item.title}</Text>
-                    <Text style={fontStyle.p}>{item.description}</Text>
-                    <Text style={fontStyle.p}>{item.type}</Text>
-                    <Text style={fontStyle.p}>
-                      {new Date(
-                        item.createdAt.seconds * 1000
-                      ).toLocaleDateString()}
-                    </Text>
-                    <Text style={fontStyle.p}>Autor: {item.author}</Text>
-                  </View>
-                ))}
-              </View>
-            )
-        )}
+        <View style={{ backgroundColor: "#faf5f3", flex:1 }}>
+          {typeOptions.map(
+            (type) =>
+              groupedByType[type].length > 0 && (
+                <View
+                  key={type}
+                  style={{ backgroundColor: "#faf5f3", flex:1, padding: 20, gap: 15 }}
+                >
+                  <Text style={[fontStyle.h3, fontStyle.pink]}>{type}</Text>
 
-</View>
+                  {groupedByType[type].map((item) => (
+                    <View
+                      key={item.publicationId}
+                      style={{
+                        backgroundColor: "#e6dafd",
+                        padding: 10,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={fontStyle.h4}>{item.title}</Text>
+                      <Text style={fontStyle.p}>Autor: {item.author}</Text>
+                      <View
+                        style={{
+                          backgroundColor: "gray",
+                          width: "100%",
+                          height: 1,
+                        }}
+                      />
+                      <Text style={fontStyle.p}>{item.description}</Text>
+                      <Text style={[fontStyle.p, fontStyle.gray]}>
+                        {new Date(
+                          item.createdAt.seconds * 1000
+                        ).toLocaleDateString()}
+                      </Text>
+                    </View>
+                  ))}
+
+
+
+                </View>
+              )
+          )}
+        </View>
       </ScrollView>
+
+          <View style={{margin:20}}>
+          <Button1 onPress={() => navigation.navigate("CreatePost")}>
+            Crear Publicación
+      </Button1>
+          </View>
+
+
     </ImageBackground>
   );
 };
