@@ -32,9 +32,8 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // ⛔️ Don't skip hooks with conditional returns
   if (!fontsLoaded || initializing) {
-    return null; // Loading state
+    return null;
   }
 
   return (
