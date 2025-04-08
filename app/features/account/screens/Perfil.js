@@ -16,7 +16,7 @@ export default function Perfil() {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setNombre(data.nombre || '');
+        setNombre(data.name || '');
         setDescripcion(data.descripcion || '');
       }
     };
