@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../../../FirebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { ImageBackground } from 'react-native';
+import { backgroundStyle } from '../../../utils/backgroundStyle';
+import { fontStyle } from '../../../utils/fontStyle';
+import { uiStyle } from '../../../utils/uiStyle';
 
 export default function Perfil() {
   const user = FIREBASE_AUTH.currentUser;
@@ -11,7 +15,7 @@ export default function Perfil() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userDoc = doc(FIREBASE_DB, 'usuarios', user.uid);
+      const userDoc = doc(FIREBASE_DB, 'users', user.uid);
       const docSnap = await getDoc(userDoc);
 
       if (docSnap.exists()) {
@@ -35,20 +39,30 @@ export default function Perfil() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Correo:</Text>
+
+    <ImageBackground
+    source={require("../../../../assets/background.png")}
+    style={backgroundStyle.background}
+  >
+
+
+    <View style={uiStyle.container}>
+    <Text style={fontStyle.h2}>{user.firstName} {user.lastName}</Text>
+
+
+      <Text style={fontStyle.h3}>Correo:</Text>
       <Text>{user.email}</Text>
 
-      <Text style={styles.label}>Nombre:</Text>
+      <Text style={fontStyle.h3}>Nombre:</Text>
       {editando ? (
-        <TextInput value={nombre} onChangeText={setNombre} style={styles.input} />
+        <TextInput value={nombre} onChangeText={setNombre} style={fontStyle.h3} />
       ) : (
         <Text>{nombre}</Text>
       )}
 
-      <Text style={styles.label}>Descripción:</Text>
+      <Text style={fontStyle.h3}>Descripción:</Text>
       {editando ? (
-        <TextInput value={descripcion} onChangeText={setDescripcion} style={styles.input} multiline />
+        <TextInput value={descripcion} onChangeText={setDescripcion} style={fontStyle.h3} multiline />
       ) : (
         <Text>{descripcion}</Text>
       )}
@@ -58,22 +72,7 @@ export default function Perfil() {
         onPress={editando ? handleGuardar : () => setEditando(true)}
       />
     </View>
+
+    </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    gap: 10
-  },
-  label: {
-    fontWeight: 'bold',
-    marginTop: 10
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
-    padding: 8
-  }
-});
