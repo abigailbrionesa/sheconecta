@@ -7,6 +7,12 @@ export const fontStyle = StyleSheet.create({
       textAlign: "center",
       fontFamily: "AbhayaLibre-ExtraBold",
     },
+    h2: {
+      fontSize: 30,
+      color: "white",
+      textAlign: "center",
+      fontFamily: "AbhayaLibre-ExtraBold",
+    },
     h3: {
       fontSize: 20,
       textTransform: "uppercase",
