@@ -8,8 +8,8 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useFonts } from "expo-font";
 import Login from "./app/features/welcome/screens/Login";
-import SignUp from "./app/features/welcome/screens/SignUp";
 import HomeScreen from "./app/features/welcome/screens/HomeScreen";
+import SignupNavigator from "./app/infraestructure/navigation/SignupNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -51,7 +51,7 @@ export default function App() {
         <Stack.Navigator initialRouteName="Welcome">
           <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-          <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+          <Stack.Screen name="SignUp" component={SignupNavigator} options={{ headerShown: false }} />
         </Stack.Navigator>
       )}
       <StatusBar style="auto" />
