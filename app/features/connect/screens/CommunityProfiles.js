@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ImageBackground,
-  Alert,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ImageBackground, Alert } from "react-native";
 import {
   collection,
   getDocs,
@@ -17,9 +11,9 @@ import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import GoBackButton from "../../welcome/components/GoBackButton";
 import NextButton from "../../welcome/components/NextButton";
-import UserProfile from "../components/UserProfile";
-import HeartButton from "../components/HeartButton";
 import Button1 from "../../welcome/components/Button1";
+import { Ionicons } from "@expo/vector-icons";
+import UserProfileCard from "../components/UserProfileCard";
 
 export default function CommunityProfiles({ navigation }) {
   const [users, setUsers] = useState([]);
@@ -33,33 +27,47 @@ export default function CommunityProfiles({ navigation }) {
         ...doc.data(),
         id: doc.id,
       }));
-      setUsers(list);
+      const filteredUsers = list.filter((user) => user.id !== currentUserId);
+      setUsers(filteredUsers);
     };
 
     fetchUsers();
   }, []);
 
   const currentUser = users[currentUserIndex];
-  const alreadyLiked = currentUser?.likes?.includes(currentUserId);
+  const alreadySaved = currentUser?.savedContacts?.includes(currentUser.id);
 
   const handleHeart = async (userId) => {
     try {
-      const userDoc = doc(FIREBASE_DB, "users", userId);
-      const user = users[currentUserIndex];
-
-      const updatedLikes = alreadyLiked
-        ? user.likes.filter((id) => id !== currentUserId)
-        : [...(user.likes || []), currentUserId];
-
-      await updateDoc(userDoc, { likes: updatedLikes });
-
+      if (typeof userId !== 'string' || typeof currentUserId !== 'string') {
+        throw new Error('Invalid userId or currentUserId');
+      }
+  
+      const currentUserDoc = doc(FIREBASE_DB, "users", currentUserId);
+      const currentUser = users[currentUserIndex];
+  
+      const alreadySaved = currentUser?.savedContacts?.includes(userId);
+  
+      const updatedSavedContacts = Array.isArray(currentUser.savedContacts)
+        ? alreadySaved
+          ? currentUser.savedContacts.filter((id) => id !== userId) 
+          : [...currentUser.savedContacts, userId] 
+        : alreadySaved
+        ? [] 
+        : [userId];
+  
+      await updateDoc(currentUserDoc, { savedContacts: updatedSavedContacts });
+  
       const updatedUsers = [...users];
-      updatedUsers[currentUserIndex].likes = updatedLikes;
+      updatedUsers[currentUserIndex].savedContacts = updatedSavedContacts;
       setUsers(updatedUsers);
+  
     } catch (error) {
-      console.error("Error toggling like:", error);
+      console.error("Error updating saved contacts:", error);
+      Alert.alert("Error", "An error occurred while updating. Please try again.");
     }
   };
+  
 
   const startChat = async (otherUserId) => {
     try {
@@ -94,28 +102,41 @@ export default function CommunityProfiles({ navigation }) {
     }
   };
 
+  const previousUser = () => {
+    if (currentUserIndex > 0) {
+      setCurrentUserIndex(currentUserIndex - 1);
+    } else {
+      Alert.alert("You are on the first user!");
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
+      <Button1
+        onPress={() => navigation.navigate("FavoriteProfiles")}
+        icon={<Ionicons name="bookmark-outline" size={20} color="white" />}
+      >
+        Aliadas STEM Guardadas
+      </Button1>
       <View
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
+          alignContent: "center",
           marginTop: 80,
         }}
       >
         {currentUser ? (
-          <>
-            <UserProfile user={currentUser} />
-            <HeartButton
-              liked={alreadyLiked}
-              onPress={() => handleHeart(currentUser.id)}
-            />
-            <Button1 onPress={() => startChat(currentUser.id)}>Message</Button1>
-          </>
+          <UserProfileCard
+          user={currentUser}
+          alreadyLiked={alreadySaved}
+          onHeartPress={handleHeart}
+          onMessagePress={startChat}
+        />
         ) : (
           <Text>Loading...</Text>
         )}
@@ -130,10 +151,9 @@ export default function CommunityProfiles({ navigation }) {
           width: "100%",
         }}
       >
-        <GoBackButton onPress={() => navigation.goBack()} />
+        <GoBackButton onPress={previousUser} />
         <NextButton onPress={nextUser} />
       </View>
-      
     </ImageBackground>
   );
 }
