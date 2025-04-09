@@ -7,7 +7,6 @@ import SignupStep5 from '../../features/welcome/screens/SignupStep5';
 import SignupStep6 from '../../features/welcome/screens/SignupStep6';
 import SignupStep7 from '../../features/welcome/screens/SignupStep7';
 import SignupStep8 from '../../features/welcome/screens/SignupStep8';
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
