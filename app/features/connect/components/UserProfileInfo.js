@@ -32,7 +32,7 @@ export default function UserProfileInfo({ user }) {
         <Text style={[fontStyle.h2, fontStyle.pink]}>
           {user.firstName} {user.lastName}
         </Text>
-        <Text style={[fontStyle.p, fontStyle.darker]}>Estudiante de {user.career}</Text>
+        <Text style={[fontStyle.p, fontStyle.darker]}>{user.career}</Text>
         <Text style={[fontStyle.p, fontStyle.darker]}>{user.university}</Text>
         <Text style={[fontStyle.p, fontStyle.darker]}>Experiencia: {user.yearsExperience} años</Text>
         <Text style={[fontStyle.p, fontStyle.darker]}>{user.location.provincia}, {user.location.departamento}</Text>
