@@ -5,7 +5,6 @@ import {
   TextInput,
   View,
   Text,
-  ImageBackground,
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
@@ -37,10 +36,7 @@ const Login = () => {
   };
 
   return (
-    <ImageBackground
-      source={require("../../../../assets/background.png")}
-      style={backgroundStyle.background}
-    >
+
       <View style={{ padding: 20, marginTop: 100 }}>
         <Text style={fontStyle.h1}>Iniciar Sesión</Text>
 
@@ -72,7 +68,6 @@ const Login = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
   );
 };
 

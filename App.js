@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,6 +23,10 @@ import Experience from "./app/features/welcome/screens/Experience";
 import { ProfileProvider } from "./app/features/welcome/screens/ProfileContext";
 
 const Stack = createNativeStackNavigator();
+=======
+import Navigation from "./app/infraestructure/Navigation";
+import { useFonts } from "expo-font";
+>>>>>>> main
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -32,6 +37,7 @@ export default function App() {
     "AbhayaLibre-SemiBold": require("./assets/fonts/AbhayaLibre-SemiBold.ttf"),
   });
 
+<<<<<<< HEAD
   const [user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
   const [isNewUser, setIsNewUser] = useState(false);
@@ -55,10 +61,14 @@ export default function App() {
   }, [user]);
 
   if (!fontsLoaded || initializing) {
+=======
+  if (!fontsLoaded) {
+>>>>>>> main
     return null;
   }
 
   return (
+<<<<<<< HEAD
     <NavigationContainer>
       <ProfileProvider>
         <Stack.Navigator initialRouteName={user ? (isNewUser ? "ProfileInfo" : "HomeScreen") : "Welcome"}>
@@ -88,5 +98,10 @@ export default function App() {
         <StatusBar style="auto" />
       </ProfileProvider>
     </NavigationContainer>
+=======
+    <>
+      <Navigation />
+    </>
+>>>>>>> main
   );
 }

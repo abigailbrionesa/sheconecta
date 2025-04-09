@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
+import { uiStyle } from "../../../utils/uiStyle";
+
 
 const HomeScreen = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -17,10 +19,15 @@ const HomeScreen = () => {
   };
 
   return (
+<<<<<<< HEAD
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
         Bienvenido a SheConecta! {userEmail ? `(${userEmail})` : ''}
       </Text>
+=======
+    <View style={uiStyle.container}>
+      <Text>Bienvenido a gregegeSheConecta! {user.email} </Text>
+>>>>>>> main
 
       <View style={styles.buttonContainer}>
         <Button title="Cerrar sesión" onPress={handleLogout} />
