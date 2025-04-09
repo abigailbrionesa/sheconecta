@@ -1,54 +1,22 @@
-import React, { useState, useEffect } from "react";
-import {
-  TextInput,
-  Button,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import Button1 from "../../welcome/components/Button1";
+import React, { useState } from "react";
+import { View, ImageBackground } from "react-native";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
-import {
-  doc,
-  getDoc,
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { uiStyle } from "../../../utils/uiStyle";
-import { fontStyle } from "../../../utils/fontStyle";
+import useUserData from "../components/useUserData";
+import PostForm from "../components/PostForm";
+import Button1 from "../../welcome/components/Button1";
 
 const CreatePost = () => {
   const user = FIREBASE_AUTH.currentUser;
+  const { firstName, lastName } = useUserData();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const allTags = ["Ingeniería", "Matemática", "Ciencia", "Tecnología"];
-
-  useEffect(() => {
-    if (user) {
-      const fetchUserData = async () => {
-        const userDoc = doc(FIREBASE_DB, "users", user.uid);
-        const docSnap = await getDoc(userDoc);
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          setFirstName(userData.firstName);
-          setLastName(userData.lastName);
-        } else {
-          console.log("No such document!");
-        }
-      };
-      fetchUserData();
-    }
-  }, [user]);
 
   const toggleTag = (tag) => {
     setSelectedTags((prev) =>
@@ -63,17 +31,17 @@ const CreatePost = () => {
     }
 
     try {
-      const newPublication = {
+      const newPost = {
         type,
         title,
         description,
-        createdAt: serverTimestamp(),
         tags: selectedTags,
+        createdAt: serverTimestamp(),
       };
 
       await addDoc(
         collection(FIREBASE_DB, "users", user.uid, "publications"),
-        newPublication
+        newPost
       );
 
       setTitle("");
@@ -82,9 +50,9 @@ const CreatePost = () => {
       setSelectedTags([]);
 
       alert("¡Publicación creada con éxito!");
-    } catch (error) {
-      console.error("Error al crear la publicación:", error);
-      alert("Hubo un problema al crear la publicación");
+    } catch (err) {
+      console.error(err);
+      alert("Error al crear la publicación");
     }
   };
 
@@ -93,115 +61,24 @@ const CreatePost = () => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View
-        style={[
-          uiStyle.container,
-          { gap: 15, flex: 1, justifyContent: "space-between" },
-        ]}
-      >
-        <View style={{ gap: 15 }}>
-          <Text style={fontStyle.h2}>Crear publicación</Text>
-          <Text style={fontStyle.h3}>Tipo de publicación</Text>
-
-          <RNPickerSelect
-            onValueChange={setType}
-            placeholder={{
-              label: "(Experiencia, Beca, Curso, Proyecto)",
-              value: null,
-            }}
-            style={{
-              inputIOS: {
-                backgroundColor: "rgba(255, 255, 255, 0.7)",
-                borderRadius: 10,
-              },
-              inputAndroid: {
-                backgroundColor: "rgba(255, 255, 255, 0.7)",
-                borderRadius: 10,
-              },
-              placeholder: {
-                fontSize: 17,
-                color: "gray",
-              },
-            }}
-            value={type}
-            items={[
-              { label: "Experiencia", value: "experiencia" },
-              { label: "Beca", value: "beca" },
-              { label: "Curso", value: "curso" },
-              { label: "Proyecto", value: "proyecto" },
-            ]}
-          />
-
-          <Text style={fontStyle.h3}>Título</Text>
-          <TextInput
-            placeholder="Título"
-            style={uiStyle.input}
-            value={title}
-            onChangeText={setTitle}
-          />
-
-          <Text style={fontStyle.h3}>Descripción</Text>
-          <TextInput
-            placeholder="Descripción"
-            style={[styles.input, { height: 120 }]}
-            value={description}
-            onChangeText={setDescription}
-            multiline
-          />
-
-          <Text style={fontStyle.h3}>Etiquetas</Text>
-          <View style={styles.tagsContainer}>
-            {allTags.map((tag) => (
-              <TouchableOpacity
-                key={tag}
-                style={[
-                  styles.tag,
-                  selectedTags.includes(tag) && styles.tagSelected,
-                ]}
-                onPress={() => toggleTag(tag)}
-              >
-                <Text
-                  style={{
-                    color: selectedTags.includes(tag) ? "white" : "#333",
-                  }}
-                >
-                  {tag}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          <Text style={[fontStyle.p, { textAlign: "right" }]}>
-            De: {firstName} {lastName}
-          </Text>
-        </View>
-
+      <View style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}>
+        <PostForm
+          title={title}
+          setTitle={setTitle}
+          description={description}
+          setDescription={setDescription}
+          type={type}
+          setType={setType}
+          selectedTags={selectedTags}
+          toggleTag={toggleTag}
+          allTags={allTags}
+          firstName={firstName}
+          lastName={lastName}
+        />
         <Button1 onPress={handlePostSubmit}>Publicar</Button1>
       </View>
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    ...uiStyle.input,
-    textAlignVertical: "top",
-  },
-  tagsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    marginBottom: 10,
-  },
-  tag: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: "#eee",
-  },
-  tagSelected: {
-    backgroundColor: "#6200ee",
-  },
-});
 
 export default CreatePost;
