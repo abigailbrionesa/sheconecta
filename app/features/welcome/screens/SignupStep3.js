@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { uiStyle } from "../../../utils/uiStyle";
-import { fontStyle } from "../../../utils/fontStyle";
-import { backgroundStyle } from "../../../utils/backgroundStyle";
 import GoBackButton from "../components/GoBackButton";
 
 const SignupStep3 = ({ navigation }) => {
@@ -12,118 +15,109 @@ const SignupStep3 = ({ navigation }) => {
 
   const { email, password, firstName, lastName, birthDate } = route.params;
 
-  const validateRole = () => {
-    if (!role) {
-      Alert.alert("Error", "Please select a role.");
-      return false;
-    }
-    return true;
+  const goToStep4 = (role) => {
+    navigation.navigate("SignupStep4", {
+      email,
+      password,
+      firstName,
+      lastName,
+      birthDate,
+      role,
+    });
   };
 
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
-      style={backgroundStyle.background}
+      style={{
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 20,
+        paddingTop: 60,
+      }}
     >
-      <View style={styles.container}>
-        <Image 
-          source={require("../../../../assets/orchid.png")} 
-          style={styles.orchidImage} 
+      <View style={{ width: "100%", alignItems: "center" }}>
+        <Image
+          source={require("../../../../assets/orchid.png")}
+          style={{
+            width: 80,
+            height: 80,
+            resizeMode: "contain",
+            marginBottom: 20,
+          }}
         />
-        
-        <Text style={[fontStyle.h1, styles.headerText]}>¿Cómo quieres participar?</Text>
-        
-        <TouchableOpacity 
-          style={[styles.button, role === 'estudiante' && styles.selectedButton]}
+
+        <Text
+          style={{
+            fontSize: 28,
+            fontWeight: "300",
+            textAlign: "center",
+            color: "white",
+            marginBottom: 40,
+          }}
+        >
+          ¿Cómo quieres participar?
+        </Text>
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: role === "estudiante" ? "rgba(255, 255, 255, 0.8)" : "white",
+            borderRadius: 30,
+            paddingVertical: 15,
+            paddingHorizontal: 20,
+            width: "100%",
+            alignItems: "center",
+            marginBottom: 20,
+            borderWidth: role === "estudiante" ? 3 : 0,
+            borderColor: "#007AFF",
+          }}
           onPress={() => {
             setRole("estudiante");
-            navigation.navigate("SignupStep4", {
-              email,
-              password,
-              firstName,
-              lastName,
-              birthDate,
-              role: "estudiante",
-            });
+            goToStep4("estudiante");
           }}
         >
-          <Text style={styles.buttonTitle}>Soy estudiante</Text>
-          <Text style={styles.buttonSubtitle}>Quiero aprender</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={[styles.button, role === 'mentor' && styles.selectedButton]}
-          onPress={() => {
-            setRole("mentor");
-            navigation.navigate("SignupStep4", {
-              email,
-              password,
-              firstName,
-              lastName,
-              birthDate,
-              role: "mentor",
-            });
-          }}
-        >
-          <Text style={styles.buttonTitle}>Soy mentor</Text>
-          <Text style={styles.buttonSubtitle}>Quiero guiar</Text>
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>Soy estudiante</Text>
+          <Text style={{ fontSize: 14 }}>Quiero aprender</Text>
         </TouchableOpacity>
 
-        <View style={styles.navigationContainer}>
-            <GoBackButton onPress={() => navigation.goBack()} />
+        <TouchableOpacity
+          style={{
+            backgroundColor: role === "mentor" ? "rgba(255, 255, 255, 0.8)" : "white",
+            borderRadius: 30,
+            paddingVertical: 15,
+            paddingHorizontal: 20,
+            width: "100%",
+            alignItems: "center",
+            marginBottom: 20,
+            borderWidth: role === "mentor" ? 3 : 0,
+            borderColor: "#007AFF",
+          }}
+          onPress={() => {
+            setRole("mentor");
+            goToStep4("mentor");
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>Soy mentor</Text>
+          <Text style={{ fontSize: 14 }}>Quiero guiar</Text>
+        </TouchableOpacity>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "100%",
+            position: "absolute",
+            bottom: 30,
+            paddingHorizontal: 20,
+          }}
+        >
+          <GoBackButton onPress={() => navigation.goBack()} />
         </View>
       </View>
     </ImageBackground>
   );
 };
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  orchidImage: {
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
-    marginBottom: 20,
-  },
-  headerText: {
-    textAlign: 'center',
-    marginBottom: 40,
-    color: 'white',
-  },
-  button: {
-    backgroundColor: 'white',
-    borderRadius: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  selectedButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderWidth: 3,
-    borderColor: "#007AFF",
-  },
-  buttonTitle: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  buttonSubtitle: {
-    fontSize: 14,
-  },
-  navigationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    position: 'absolute',
-    bottom: 30,
-    paddingHorizontal: 20,
-  },
-});
 
 export default SignupStep3;
