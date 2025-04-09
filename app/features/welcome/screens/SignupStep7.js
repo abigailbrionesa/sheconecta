@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, Animated } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
@@ -7,15 +7,13 @@ import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
-//import React from "react";
-//import { styles } from "./SignupStep3";
 
 const SignupStep7 = ({ navigation }) => {
   const route = useRoute();
   const areas = ["Ciencia", "Tecnología", "Ingeniería", "Matemática"];
-
   const [selectedAreas, setSelectedAreas] = useState([]);
-
+  const fadeAnim = new Animated.Value(0);
+  
   const {
     email,
     password,
@@ -31,6 +29,14 @@ const SignupStep7 = ({ navigation }) => {
     linkedin,
     image,
   } = route.params;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const handleAreaSelect = (area) => {
     setSelectedAreas((prevAreas) => {
@@ -71,13 +77,14 @@ const SignupStep7 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <Image 
+      <View style={styles.container}>
+        <Image 
           source={require("../../../../assets/orchid.png")} 
           style={styles.orchidImage} 
         />
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={[fontStyle.h2, fontStyle.light]}>¿Cuál es el área de tu interés?</Text>
+        
+        <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
+          <Text style={[fontStyle.h2, fontStyle.light , {marginTop:-50}] }>¿Cuál es el área de tu interés?</Text>
 
           <View style={styles.areasContainer}>
             {areas.map((area) => (
@@ -89,18 +96,23 @@ const SignupStep7 = ({ navigation }) => {
                 ]}
                 onPress={() => handleAreaSelect(area)}
               >
-                <Text style={styles.areaButtonText}>{area}</Text>
+                <Text 
+                  style={[
+                    styles.areaButtonText,
+                    selectedAreas.includes(area) && styles.selectedAreaButtonText
+                  ]}
+                >
+                  {area}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
-        </View>
+        </Animated.View>
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={styles.navigationContainer}>
           <GoBackButton onPress={() => navigation.goBack()} />
           <NextButton onPress={handleContinue} />
         </View>
-
-
       </View>
     </ImageBackground>
   );
@@ -109,7 +121,6 @@ const SignupStep7 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //alignItems: 'center',
     justifyContent: "space-between",
     padding: 20,
   },
@@ -117,7 +128,8 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     resizeMode: 'contain',
-    marginBottom: 20,
+    alignSelf: 'center', 
+    marginTop: 120,      
   },
   content: {
     flex: 1,
@@ -134,7 +146,7 @@ const styles = StyleSheet.create({
   areasContainer: {
     flexDirection: 'row',
     flexWrap: "wrap",
-    justifyContent: 'space-center',
+    justifyContent: 'center',
     width: '100%',
     position: 'absolute',
     alignItems: "center",
@@ -149,29 +161,33 @@ const styles = StyleSheet.create({
     margin: 8,
     minWidth: 120,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   selectedAreaButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderWidth: 3,
-    borderColor: "#007AFF",
+    backgroundColor: "#6F9CEB",
+    borderWidth: 0,
   },
   areaButtonText: {
     color: "#4A4A4A",
     fontSize: 16,
     fontWeight: "500",
   },
+  selectedAreaButtonText: {
+    color: "white",
+    fontWeight: "600",
+  },
   navigationContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 20,
-  },
-  backButton: {
-    width: 120,
-  },
-  nextButton: {
-    width: 120,
-    backgroundColor: "#6F9CEB",
-    borderRadius: 20,
+    alignItems: "center",
+    marginBottom: 10,
   },
 });
 

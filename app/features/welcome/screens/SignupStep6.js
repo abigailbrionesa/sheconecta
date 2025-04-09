@@ -69,7 +69,7 @@ const SignupStep6 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={uiStyle.container}>
+      <View style={[uiStyle.container, { gap: 45, marginTop: 120 }]}>
         <Text style={[fontStyle.h2, fontStyle.light]}>Añade una foto de perfil (opcional)</Text>
 
         {profilePicture ? (

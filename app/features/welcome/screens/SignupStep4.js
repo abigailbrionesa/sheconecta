@@ -57,10 +57,10 @@ const SignupStep4 = ({ navigation }) => {
       <View
         style={[
           uiStyle.container,
-          { gap: 15, flex: 1, justifyContent: "space-between" },
+          { gap: 40, flex: 1, justifyContent: "space-between" },
         ]}
       >
-        <View style={{ gap: 15 }}>
+        <View style={{ gap: 15,marginTop: 140 }}>
           <Text style={[fontStyle.h2, fontStyle.light]}>Cuentanos un poco más sobre ti</Text>
           
           <Text style={[fontStyle.h3, fontStyle.light]}>Ciudad</Text>
@@ -91,7 +91,7 @@ const SignupStep4 = ({ navigation }) => {
           <TextInput
             style={uiStyle.input}
             value={experience}
-            placeholder="Enter years of experience"
+            placeholder="Años de experiencia"
             keyboardType="numeric"
             onChangeText={setExperience}
           />
