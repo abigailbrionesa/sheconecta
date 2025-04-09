@@ -17,6 +17,7 @@ const SignupStep9 = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
+
     email,
     password,
     firstName,
@@ -28,6 +29,7 @@ const SignupStep9 = ({ navigation }) => {
     university,
     career,
     experience,
+    languages,
     instagram,
     linkedin,
     image,
@@ -52,6 +54,7 @@ const SignupStep9 = ({ navigation }) => {
           departamento,
           provincia,
         },
+        languages: languages,
         career,
         university,
         interestAreas: selectedAreas,

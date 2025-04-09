@@ -48,6 +48,9 @@ const SignupStep6 = ({ navigation }) => {
       role,
       departamento,
       provincia,
+      university,
+      career,
+      experience,
       languages: selectedLanguages,
     });
   };

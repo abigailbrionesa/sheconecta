@@ -16,19 +16,20 @@ const SignupStep9 = ({ navigation }) => {
 
   const {
     email,
-    password,
-    firstName,
-    lastName,
-    age,
-    role,
-    departamento,
-    provincia,
-    university,
-    career,
-    experience,
-    instagram,
-    linkedin,
-    image,
+      password,
+      firstName,
+      lastName,
+      age,
+      role,
+      departamento,
+      provincia,
+      university,
+      career,
+      experience,
+      languages,
+      instagram,
+      linkedin,
+      image,
   } = route.params;
 
   const handleAreaSelect = (area) => {
@@ -48,6 +49,7 @@ const SignupStep9 = ({ navigation }) => {
     }
   
     navigation.navigate("SignupStep10", {
+
       email,
       password,
       firstName,
@@ -59,6 +61,7 @@ const SignupStep9 = ({ navigation }) => {
       university,
       career,
       experience,
+      languages,
       instagram: instagram || "",
       linkedin: linkedin || "",
       image,

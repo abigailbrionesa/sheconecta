@@ -27,6 +27,8 @@ const SignupStep7 = ({ navigation }) => {
     university,
     career,
     experience,
+    languages: selectedLanguages,
+
   } = route.params;
 
   const handleContinue = () => {
@@ -42,6 +44,7 @@ const SignupStep7 = ({ navigation }) => {
       university,
       career,
       experience,
+      languages: selectedLanguages,
       instagram: instagram || "",
       linkedin: linkedin || "",
     });

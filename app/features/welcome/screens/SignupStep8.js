@@ -26,6 +26,7 @@ const SignupStep8 = ({ navigation }) => {
     university,
     career,
     experience,
+    languages,
     instagram,
     linkedin,
   } = route.params || {};
@@ -45,6 +46,7 @@ const SignupStep8 = ({ navigation }) => {
       university,
       career,
       experience,
+      languages: selectedLanguages,
       instagram: instagram || "",
       linkedin: linkedin || "",
       image,
