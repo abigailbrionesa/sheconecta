@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
   },
   orchidPlaceholder: {
     // Este espacio es para la orquídea que se ve en la imagen
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
   },
   headerText: {
     textAlign: 'center',
