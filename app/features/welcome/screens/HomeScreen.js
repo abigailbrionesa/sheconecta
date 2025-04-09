@@ -19,16 +19,12 @@ const HomeScreen = () => {
   };
 
   return (
-<<<<<<< HEAD
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
         Bienvenido a SheConecta! {userEmail ? `(${userEmail})` : ''}
       </Text>
-=======
-    <View style={uiStyle.container}>
-      <Text>Bienvenido a gregegeSheConecta! {user.email} </Text>
->>>>>>> main
-
+    {/* <View style={uiStyle.container}>
+      <Text>Bienvenido a gregegeSheConecta! {user.email} </Text> */}
       <View style={styles.buttonContainer}>
         <Button title="Cerrar sesión" onPress={handleLogout} />
       </View>
