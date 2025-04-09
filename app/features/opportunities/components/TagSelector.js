@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { fontStyle } from "../../../utils/fontStyle";
 
 const TagSelector = ({ tags, selectedTags, toggleTag }) => (
   <View style={styles.tagsContainer}>
@@ -9,7 +10,7 @@ const TagSelector = ({ tags, selectedTags, toggleTag }) => (
         style={[styles.tag, selectedTags.includes(tag) && styles.tagSelected]}
         onPress={() => toggleTag(tag)}
       >
-        <Text style={{ color: selectedTags.includes(tag) ? "white" : "#333" }}>
+        <Text style={[ fontStyle.p, { color: selectedTags.includes(tag) ? "#faf5f3" : "#746ba8" }]}>
           {tag}
         </Text>
       </TouchableOpacity>
@@ -28,10 +29,10 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 20,
-    backgroundColor: "#eee",
+    backgroundColor: "#faf5f3",
   },
   tagSelected: {
-    backgroundColor: "#6200ee",
+    backgroundColor: "#746ba8",
   },
 });
 
