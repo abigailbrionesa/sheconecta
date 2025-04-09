@@ -150,7 +150,7 @@ const FeedOfPosts = () => {
                     source={{ uri: tag.imageUrl }}
                     style={{ width: 60, height: 60, borderRadius: 30 }}
                   />
-                  <Text style={fontStyle.p}>{tag.name}</Text>
+                  <Text style={[fontStyle.p, fontStyle.light]}>{tag.name}</Text>
                 </TouchableOpacity>
 
                 
