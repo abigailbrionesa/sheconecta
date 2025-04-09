@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Alert, Text, StyleSheet } from "react-native";
+import { View, TextInput, Alert, Text, StyleSheet, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
@@ -7,15 +7,21 @@ import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
-import { ScrollView } from "react-native";
+import { formatName } from "../../../utils/formatName";
+import { validateBirthDate } from "../../../utils/validateBirthDate";
 
 const SignupStep2 = ({ navigation }) => {
   const route = useRoute();
+  const { email, password } = route.params;
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [birthDate, setBirthDate] = useState(null);
 
-  const { email, password } = route.params;
+  const [dateFeedback, setDateFeedback] = useState("");
 
   const validatePersonalInfo = () => {
     if (!firstName || !lastName || !birthDate) {
@@ -27,62 +33,86 @@ const SignupStep2 = ({ navigation }) => {
 
   const goToStep3 = () => {
     if (validatePersonalInfo()) {
-      navigation.navigate("SignupStep3", {
-        email,
-        password,
-        firstName,
-        lastName,
-        birthDate,
-      });
+      navigation.navigate("SignupStep3", { email, password, firstName, lastName, birthDate });
+    }
+  };
+
+  const handleDateChange = () => {
+    const validBirthDate = validateBirthDate(day, month, year);
+    if (validBirthDate) {
+      setBirthDate(validBirthDate);
+      setDateFeedback(""); 
+    } else {
+      setDateFeedback("Fecha inválida.");
     }
   };
 
   return (
-    <ImageBackground
-      source={require("../../../../assets/background.png")}
-      style={backgroundStyle.background}
-    >
+    <ImageBackground source={require("../../../../assets/background.png")} style={backgroundStyle.background}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View
-        style={[
-          uiStyle.container,
-          { gap: 15, flex: 1, justifyContent: "space-between" },
-        ]}
-      >
-        <View style={{ gap: 15 }}>
-          <Text style={[fontStyle.h2, fontStyle.light]}>Completa tu perfil</Text>
-          
-          <Text style={[fontStyle.h3, fontStyle.light]}>Nombre</Text>
-          <TextInput
-            style={uiStyle.input}
-            value={firstName}
-            placeholder="Escribe aquí..."
-            onChangeText={setFirstName}
-          />
+        <View style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}>
+          <View style={{ gap: 15 }}>
+            <Text style={[fontStyle.h2, fontStyle.light]}>Completa tu perfil</Text>
 
-          <Text style={[fontStyle.h3, fontStyle.light]}>Apellido</Text>
-          <TextInput
-            style={uiStyle.input}
-            value={lastName}
-            placeholder="Escribe aquí..."
-            onChangeText={setLastName}
-          />
-          
-          <Text style={[fontStyle.h3, fontStyle.light]}>Edad</Text>
-          <TextInput
-            style={uiStyle.input}
-            value={birthDate}
-            placeholder="Escribe aquí..."
-            keyboardType="number-pad"
-            onChangeText={setBirthDate}
-          />
+            <Text style={[fontStyle.h3, fontStyle.light]}>Nombre</Text>
+            <TextInput
+              style={uiStyle.input}
+              value={firstName}
+              placeholder="Escribe aquí..."
+              onChangeText={(text) => setFirstName(formatName(text))}
+            />
+
+            <Text style={[fontStyle.h3, fontStyle.light]}>Apellido</Text>
+            <TextInput
+              style={uiStyle.input}
+              value={lastName}
+              placeholder="Escribe aquí..."
+              onChangeText={(text) => setLastName(formatName(text))}
+            />
+
+            <Text style={[fontStyle.h3, fontStyle.light]}>Fecha de nacimiento</Text>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems:"center", width: "100%" }}>
+              
+              <TextInput
+                style={[uiStyle.input, { width: "30%" }]}
+                value={day}
+                placeholder="Día"
+                keyboardType="number-pad"
+                maxLength={2}
+                onChangeText={setDay}
+                onBlur={handleDateChange}
+              />
+              <Text style={[fontStyle.light, fontStyle.h3]}>/</Text>
+              <TextInput
+                style={[uiStyle.input, { width: "30%" }]}
+                value={month}
+                placeholder="Mes"
+                keyboardType="number-pad"
+                maxLength={2}
+                onChangeText={setMonth}
+                onBlur={handleDateChange}
+              />
+                <Text style={[fontStyle.light, fontStyle.h3]}>/</Text>
+
+              <TextInput
+                style={[uiStyle.input, { width: "30%" }]}
+                value={year}
+                placeholder="Año"
+                keyboardType="number-pad"
+                maxLength={4}
+                onChangeText={setYear}
+                onBlur={handleDateChange}
+              />
+            </View>
+
+            <Text style={[fontStyle.p, fontStyle.light]}>{dateFeedback}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <GoBackButton onPress={() => navigation.goBack()} />
+            <NextButton onPress={goToStep3} />
+          </View>
         </View>
-        
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <GoBackButton onPress={() => navigation.goBack()} />
-          <NextButton onPress={goToStep3} />
-        </View>
-      </View>
       </ScrollView>
     </ImageBackground>
   );
