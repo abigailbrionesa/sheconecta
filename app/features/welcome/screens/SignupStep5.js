@@ -23,7 +23,7 @@ const SignupStep5 = ({ navigation }) => {
 
   const validateCityUniversityCareer = () => {
     if (!city || !university || !career) {
-      Alert.alert("Error", "Please complete the city, university, and career fields.");
+      Alert.alert("Error", "Please complete the university, and career fields.");
       return false;
     }
     return true;
