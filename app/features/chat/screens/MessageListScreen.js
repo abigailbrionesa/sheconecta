@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
-
+import { fontStyle } from "../../../utils/fontStyle";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
 export default function MessagesListScreen({ navigation }) {
   const [chats, setChats] = useState([]);
   const currentUserId = FIREBASE_AUTH.currentUser.uid;
@@ -52,35 +54,45 @@ export default function MessagesListScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
-      <Text style={{ fontSize: 24, marginBottom: 20 }}>Messfages</Text>
-      <FlatList
-        data={chats}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => openChat(item)}
-            style={{
-              flexDirection: "row",
-              marginVertical: 10,
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={{ uri: item.recipientPhoto }}
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 25,
-                marginRight: 10,
-              }}
-            />
-            <Text style={{ fontSize: 18 }}>{item.recipientName}</Text>
-            <Text style={{ fontSize: 18 }}>{item.recipientId}</Text>
-
-          </TouchableOpacity>
+    <ImageBackground
+      source={require("../../../../assets/background.png")}
+      style={backgroundStyle.background}
+    >
+      <View style={{ flex: 1, padding: 20, marginTop:80 }}>
+        <Text style={[fontStyle.h1, fontStyle.light]}>Inbox</Text>
+  
+        {chats.length === 0 ? (
+          <Text style={[fontStyle.h3, fontStyle.light]}>
+            No messages yet
+          </Text>
+        ) : (
+          <FlatList
+            data={chats}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => openChat(item)}
+                style={{
+                  flexDirection: "row",
+                  marginVertical: 10,
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={{ uri: item.recipientPhoto }}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 25,
+                    marginRight: 10,
+                  }}
+                />
+                <Text style={{ fontSize: 18 }}>{item.recipientName}</Text>
+              </TouchableOpacity>
+            )}
+          />
         )}
-      />
-    </View>
+      </View>
+    </ImageBackground>
   );
 }
