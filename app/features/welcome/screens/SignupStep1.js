@@ -95,9 +95,7 @@ const SignupStep1 = ({ navigation }) => {
 
           {passwordFeedback ? (
             <Text
-              style={{
-                color: passwordFeedback.includes("✅") ? "green" : "red",
-              }}
+              style={[ fontStyle.p, fontStyle.light]}
             >
               {passwordFeedback}
             </Text>
