@@ -35,7 +35,9 @@ export default function CommunityProfiles({ navigation }) {
   }, []);
 
   const currentUser = users[currentUserIndex];
+
   const alreadySaved = currentUser?.savedContacts?.includes(currentUser.id);
+
 
   const handleHeart = async (userId) => {
     try {
@@ -95,6 +97,8 @@ export default function CommunityProfiles({ navigation }) {
   };
 
   const nextUser = () => {
+    console.log(alreadySaved, "alreadys aveD?")
+
     if (currentUserIndex < users.length - 1) {
       setCurrentUserIndex(currentUserIndex + 1);
     } else {
