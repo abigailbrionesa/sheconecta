@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from "react-native";
+import { View, Button, Image, Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
-import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
+import { fontStyle } from "../../../utils/fontStyle";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
 
 const SignupStep8 = ({ navigation }) => {
   const route = useRoute();
-  const areas = ["Ciencia", "Tecnología", "Ingeniería", "Matemática"];
-
-  const [selectedAreas, setSelectedAreas] = useState([]);
+  const [profilePicture, setProfilePicture] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
 
   const {
     email,
@@ -28,25 +28,11 @@ const SignupStep8 = ({ navigation }) => {
     experience,
     instagram,
     linkedin,
-    image,
-  } = route.params;
-
-  const handleAreaSelect = (area) => {
-    setSelectedAreas((prevAreas) => {
-      if (prevAreas.includes(area)) {
-        return prevAreas.filter((item) => item !== area);
-      } else {
-        return [...prevAreas, area];
-      }
-    });
-  };
+  } = route.params || {};
 
   const handleContinue = () => {
-    if (!selectedAreas || selectedAreas.length === 0) {
-      Alert.alert("Por favor selecciona al menos un área.");
-      return;
-    }
-  
+    const image =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
     navigation.navigate("SignupStep9", {
       email,
       password,
@@ -62,112 +48,33 @@ const SignupStep8 = ({ navigation }) => {
       instagram: instagram || "",
       linkedin: linkedin || "",
       image,
-      selectedAreas,
     });
   };
-  
 
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <Image 
-          source={require("../../../../assets/orchid.png")} 
-          style={styles.orchidImage} 
-      />
+      <View style={uiStyle.container}>
+        <Text style={[fontStyle.h2, fontStyle.light]}>Añade una foto de perfil (opcional)</Text>
 
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={[fontStyle.h2, fontStyle.light]}>¿Cuál es el área de tu interés?</Text>
-
-          <View>
-            {areas.map((area) => (
-              <TouchableOpacity
-                key={area}
-                style={[
-                  styles.areaButton,
-                  selectedAreas.includes(area) && styles.selectedAreaButton,
-                ]}
-                onPress={() => handleAreaSelect(area)}
-              >
-                <Text style={fontStyle.h4}>{area}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-        </View>
+        {profilePicture ? (
+          <Image
+            source={{ uri: profilePicture }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
+        ) : (
+          <Text>No Profile Picture</Text>
+        )}
 
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <GoBackButton onPress={() => navigation.goBack()} />
           <NextButton onPress={handleContinue} />
         </View>
-
-
       </View>
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    padding: 20,
-  },
-  orchidImage: {
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
-    marginBottom: 20,
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  areasContainer: {
-    flexDirection: 'row',
-    flexWrap: "wrap",
-    justifyContent: 'space-center',
-    width: '100%',
-    position: 'absolute',
-    alignItems: "center",
-    bottom: 30,
-    paddingHorizontal: 20,
-  },
-  areaButton: {
-    backgroundColor: "white",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 30,
-    margin: 8,
-    minWidth: 120,
-    alignItems: "center",
-  },
-  selectedAreaButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderWidth: 3,
-    borderColor: "purple",
-  },
-  areaButtonText: {
-    color: "#4A4A4A",
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  navigationContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 20,
-  },
-  backButton: {
-    width: 120,
-  },
-  nextButton: {
-    width: 120,
-    backgroundColor: "#6F9CEB",
-    borderRadius: 20,
-  },
-});
 
 export default SignupStep8;

@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, ActivityIndicator, Text } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { ImageBackground } from "react-native";
 import { uiStyle } from "../../../utils/uiStyle";
-import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { fontStyle } from "../../../utils/fontStyle";
-import Button1 from "../components/Button1";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+import NextButton from "../components/NextButton";
+import GoBackButton from "../components/GoBackButton";
 
 const SignupStep9 = ({ navigation }) => {
   const route = useRoute();
+  const areas = ["Ciencia", "Tecnología", "Ingeniería", "Matemática"];
 
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [selectedAreas, setSelectedAreas] = useState([]);
 
   const {
     email,
@@ -31,72 +29,145 @@ const SignupStep9 = ({ navigation }) => {
     instagram,
     linkedin,
     image,
-    selectedAreas,
-  } = route.params || {};
+  } = route.params;
 
-  const signUp = async () => {
-    setLoading(true);
-    const auth = FIREBASE_AUTH;
-    const db = getFirestore();
-
-    try {
-      const response = await createUserWithEmailAndPassword(auth, email, password);
-      const user = response.user;
-      const userData = {
-        type: role,
-        email,
-        firstName,
-        lastName,
-        age,
-        location: {
-          departamento,
-          provincia,
-        },
-        career,
-        university,
-        interestAreas: selectedAreas,
-        yearsExperience: experience,
-        socialLinks: {
-          instagram: instagram || "",
-          linkedin: linkedin || "",
-        },
-        profilePictureUrl: image,
-        carnetPictureUrl: "",
-        score: 0,
-        savedContacts: [],
-      };
-      console.log(userData)
-      
-      await setDoc(doc(db, "users", user.uid), userData);
-      console.log("Signup successful");
-    } catch (error) {
-      console.error("Signup error:", error.message);
-      setErrorMessage(error.message); 
-    } finally {
-      setLoading(false);
-    }
+  const handleAreaSelect = (area) => {
+    setSelectedAreas((prevAreas) => {
+      if (prevAreas.includes(area)) {
+        return prevAreas.filter((item) => item !== area);
+      } else {
+        return [...prevAreas, area];
+      }
+    });
   };
+
+  const handleContinue = () => {
+    if (!selectedAreas || selectedAreas.length === 0) {
+      Alert.alert("Por favor selecciona al menos un área.");
+      return;
+    }
+  
+    navigation.navigate("SignupStep10", {
+      email,
+      password,
+      firstName,
+      lastName,
+      age,
+      role,
+      departamento,
+      provincia,
+      university,
+      career,
+      experience,
+      instagram: instagram || "",
+      linkedin: linkedin || "",
+      image,
+      selectedAreas,
+    });
+  };
+  
 
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={uiStyle.container}>
-        <Text style={[fontStyle.h2, fontStyle.light]}>Listo! Registra tu Cuenta</Text>
+      <Image 
+          source={require("../../../../assets/orchid.png")} 
+          style={styles.orchidImage} 
+      />
 
-        {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <Button1 onPress={signUp}>Crear Cuenta</Button1>
-        )}
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Text style={[fontStyle.h2, fontStyle.light]}>¿Cuál es el área de tu interés?</Text>
 
-        {errorMessage ? (
-          <Text style={[fontStyle.p]}>{errorMessage}</Text>
-        ) : null}
+          <View>
+            {areas.map((area) => (
+              <TouchableOpacity
+                key={area}
+                style={[
+                  styles.areaButton,
+                  selectedAreas.includes(area) && styles.selectedAreaButton,
+                ]}
+                onPress={() => handleAreaSelect(area)}
+              >
+                <Text style={fontStyle.h4}>{area}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+        </View>
+
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={handleContinue} />
+        </View>
+
+
       </View>
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+    padding: 20,
+  },
+  orchidImage: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+    marginBottom: 20,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  areasContainer: {
+    flexDirection: 'row',
+    flexWrap: "wrap",
+    justifyContent: 'space-center',
+    width: '100%',
+    position: 'absolute',
+    alignItems: "center",
+    bottom: 30,
+    paddingHorizontal: 20,
+  },
+  areaButton: {
+    backgroundColor: "white",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 30,
+    margin: 8,
+    minWidth: 120,
+    alignItems: "center",
+  },
+  selectedAreaButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderWidth: 3,
+    borderColor: "purple",
+  },
+  areaButtonText: {
+    color: "#4A4A4A",
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  navigationContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 20,
+  },
+  backButton: {
+    width: 120,
+  },
+  nextButton: {
+    width: 120,
+    backgroundColor: "#6F9CEB",
+    borderRadius: 20,
+  },
+});
 
 export default SignupStep9;
