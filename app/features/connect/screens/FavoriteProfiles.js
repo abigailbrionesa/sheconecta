@@ -14,7 +14,7 @@ import { backgroundStyle } from "../../../utils/backgroundStyle";
 import SavedProfileCard from "../components/SavedProfileCard";
 import { updateDoc } from "firebase/firestore";
 import { arrayRemove } from "firebase/firestore";
-
+import Loading from "../../welcome/components/Loading";
 export default function FavoriteProfiles({ navigation }) {
   const [favoriteUsers, setFavoriteUsers] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -76,10 +76,7 @@ export default function FavoriteProfiles({ navigation }) {
       style={backgroundStyle.background}
     >
       {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#fff" />
-          <Text style={styles.loadingText}>Cargando perfiles...</Text>
-        </View>
+        <Loading/>
       ) : favoriteUsers.length > 0 ? (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {favoriteUsers.map((user) => (
