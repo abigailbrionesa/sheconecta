@@ -56,11 +56,11 @@ const SignupStep8 = ({ navigation }) => {
         interestAreas: selectedAreas,
         yearsExperience: experience,
         socialLinks: {
-          instagram: instagram || null,
-          linkedin: linkedin || null,
+          instagram: instagram || "",
+          linkedin: linkedin || "",
         },
         profilePictureUrl: image,
-        carnetPictureUrl: null,
+        carnetPictureUrl: "",
         score: 0,
         savedContacts: [],
       };
