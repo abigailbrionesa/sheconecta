@@ -6,17 +6,18 @@ import {
   ScrollView,
   Alert,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-import UserProfileCard from "../components/UserProfileCard";
 import SavedProfileCard from "../components/SavedProfileCard";
 import { updateDoc } from "firebase/firestore";
 import { arrayRemove } from "firebase/firestore";
 
 export default function FavoriteProfiles({ navigation }) {
   const [favoriteUsers, setFavoriteUsers] = useState([]);
+  const [loading, setLoading] = useState(true); 
   const currentUser = FIREBASE_AUTH.currentUser;
 
   useEffect(() => {
@@ -43,6 +44,8 @@ export default function FavoriteProfiles({ navigation }) {
       } catch (error) {
         console.error("Error fetching favorite profiles:", error);
         Alert.alert("Error", "No se pudieron cargar los perfiles favoritos.");
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -58,7 +61,6 @@ export default function FavoriteProfiles({ navigation }) {
         savedContacts: arrayRemove(userIdToRemove),
       });
 
-      // Update local state
       setFavoriteUsers((prev) =>
         prev.filter((user) => user.id !== userIdToRemove)
       );
@@ -73,11 +75,15 @@ export default function FavoriteProfiles({ navigation }) {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-
-        {favoriteUsers.length > 0 ? (
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
-            {favoriteUsers.map((user) => (
-               <SavedProfileCard
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#fff" />
+          <Text style={styles.loadingText}>Cargando perfiles...</Text>
+        </View>
+      ) : favoriteUsers.length > 0 ? (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          {favoriteUsers.map((user) => (
+            <SavedProfileCard
               key={user.id}
               user={user}
               onRemove={() => handleRemoveFavorite(user.id)}
@@ -85,12 +91,11 @@ export default function FavoriteProfiles({ navigation }) {
                 Alert.alert("Chat", `Iniciar chat con ${user.firstName}`);
               }}
             />
-            ))}
-          </ScrollView>
-        ) : (
-          <Text style={styles.noFavorites}>Aún no tienes perfiles guardados.</Text>
-        )}
-
+          ))}
+        </ScrollView>
+      ) : (
+        <Text style={styles.noFavorites}>Aún no tienes perfiles guardados.</Text>
+      )}
     </ImageBackground>
   );
 }
@@ -110,12 +115,22 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     padding: 20,
-    gap:15,
+    gap: 15,
   },
   noFavorites: {
     fontSize: 16,
     color: "#fff",
     marginTop: 20,
     textAlign: "center",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "#fff",
   },
 });
