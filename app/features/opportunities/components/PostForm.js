@@ -12,9 +12,12 @@ const PostForm = ({
   setDescription,
   type,
   setType,
-  selectedTags,
-  toggleTag,
-  allTags,
+  selectedTopicTags,
+  toggleTopicTag,
+  allTopicTags,
+  selectedLanguageTags,
+  toggleLanguageTag,
+  allLanguageTags,
   firstName,
   lastName,
 }) => {
@@ -22,6 +25,7 @@ const PostForm = ({
     <View style={{ gap: 15 }}>
       <Text style={fontStyle.h2}>Crear publicación</Text>
       <Text style={fontStyle.h3}>Tipo de publicación</Text>
+      
       <PostTypePicker type={type} setType={setType} />
 
       <Text style={fontStyle.h3}>Título</Text>
@@ -43,9 +47,16 @@ const PostForm = ({
 
       <Text style={fontStyle.h3}>Etiquetas</Text>
       <TagSelector
-        tags={allTags}
-        selectedTags={selectedTags}
-        toggleTag={toggleTag}
+        tags={allTopicTags}
+        selectedTags={selectedTopicTags}
+        toggleTag={toggleTopicTag}
+      />
+
+      <Text style={fontStyle.h3}>Languages</Text>
+      <TagSelector
+        tags={allLanguageTags}
+        selectedTags={selectedLanguageTags}
+        toggleTag={toggleLanguageTag}
       />
 
       <Text style={[fontStyle.p, { textAlign: "right" }]}>
