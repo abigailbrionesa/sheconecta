@@ -14,12 +14,31 @@ const CreatePost = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState(null);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const allTags = ["Ingeniería", "Matemática", "Ciencia", "Tecnología"];
+  const [type, setType] = useState("Experiencia");
+  const [selectedTopicTags, setSelectedTopicTags] = useState([]);
+  const [selectedLanguageTags, setSelectedLanguageTags] = useState([]);
 
-  const toggleTag = (tag) => {
-    setSelectedTags((prev) =>
+  const allTopicTags = ["Ingeniería", "Matemática", "Ciencia", "Tecnología"];
+
+  const allLanguageTags = [
+    "Español", 
+    "Quechua", 
+    "Aymara", 
+    "Awajún", 
+    "Shipibo", 
+    "Ashaninka", 
+    "Matsigenka", 
+    "Kandozi-Chapra"
+  ];
+
+  const toggleTopicTag = (tag) => {
+    setSelectedTopicTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const toggleLanguageTag = (tag) => {
+    setSelectedLanguageTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
@@ -35,7 +54,7 @@ const CreatePost = () => {
         type,
         title,
         description,
-        tags: selectedTags,
+        tags: selectedTopicTags.concat(selectedLanguageTags),
         createdAt: serverTimestamp(),
       };
 
@@ -47,7 +66,8 @@ const CreatePost = () => {
       setTitle("");
       setDescription("");
       setType(null);
-      setSelectedTags([]);
+      setSelectedTopicTags([]);
+      setSelectedLanguageTags([]);
 
       alert("¡Publicación creada con éxito!");
     } catch (err) {
@@ -69,9 +89,12 @@ const CreatePost = () => {
           setDescription={setDescription}
           type={type}
           setType={setType}
-          selectedTags={selectedTags}
-          toggleTag={toggleTag}
-          allTags={allTags}
+          selectedTopicTags={selectedTopicTags}
+          toggleTopicTag={toggleTopicTag}
+          allTopicTags={allTopicTags}
+          selectedLanguageTags={selectedLanguageTags}
+          toggleLanguageTag={toggleLanguageTag}
+          allLanguageTags={allLanguageTags}
           firstName={firstName}
           lastName={lastName}
         />
@@ -82,3 +105,4 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
