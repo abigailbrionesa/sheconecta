@@ -25,7 +25,7 @@ export default function PersonalChat() {
       <HeaderChat
         recipientName={recipientName}
         recipientPhoto={recipientPhoto}
-        onBackPress={() => navigation.navigate("MessagesListScreen")}
+        onBackPress={() => navigation.navigate("ChatScreen")}
       />
       <MessageList messages={messages} />
       <MessageInput text={text} setText={setText} onSend={sendMessage} />
