@@ -37,6 +37,9 @@ export const fontStyle = StyleSheet.create({
     dark: {
       color: "#6391d0"
     },
+    darker: {
+      color: "#3d5980"
+    },
     gray: {
       color: "#888888"
     },
