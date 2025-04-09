@@ -21,7 +21,7 @@ const SignupStep9 = ({ navigation }) => {
     password,
     firstName,
     lastName,
-    birthDate,
+    age,
     role,
     departamento,
     provincia,
@@ -47,7 +47,7 @@ const SignupStep9 = ({ navigation }) => {
         email,
         firstName,
         lastName,
-        birthDate,
+        age,
         location: {
           departamento,
           provincia,

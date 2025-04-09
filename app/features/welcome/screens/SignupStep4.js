@@ -17,7 +17,7 @@ const SignupStep4 = ({ navigation }) => {
   const [openDepartment, setOpenDepartment] = useState(false);
   const [openProvince, setOpenProvince] = useState(false);
 
-  const { email, password, firstName, lastName, birthDate, role } =
+  const { email, password, firstName, lastName, age, role } =
     route.params;
 
   const goToStep5 = () => {
@@ -27,7 +27,7 @@ const SignupStep4 = ({ navigation }) => {
       password,
       firstName,
       lastName,
-      birthDate,
+      age,
       role,
       departamento,
       provincia,

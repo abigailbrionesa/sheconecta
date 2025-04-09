@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Alert, ScrollView, Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Alert,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-import { ImageBackground } from "react-native";
 import { fontStyle } from "../../../utils/fontStyle";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
@@ -13,7 +19,8 @@ import {
   private_universities,
 } from "../../../utils/universitiesList";
 import { careers } from "../../../utils/careersList";
-import Button1 from "../components/Button1";
+import TagSelector from "../../opportunities/components/TagSelector";
+
 const SignupStep5 = ({ navigation }) => {
   const route = useRoute();
   const [universityType, setUniversityType] = useState(null);
@@ -24,12 +31,16 @@ const SignupStep5 = ({ navigation }) => {
   const [uniOpen, setUniOpen] = useState(false);
   const [careerOpen, setCareerOpen] = useState(false);
 
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const universityTypeOptions = ["Privada", "Pública"];
+
   const {
     email,
     password,
     firstName,
     lastName,
-    birthDate,
+    age,
     role,
     departamento,
     provincia,
@@ -53,7 +64,7 @@ const SignupStep5 = ({ navigation }) => {
         password,
         firstName,
         lastName,
-        birthDate,
+        age,
         role,
         departamento,
         provincia,
@@ -61,6 +72,21 @@ const SignupStep5 = ({ navigation }) => {
         career,
         experience,
       });
+    }
+  };
+
+  const toggleTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags([]);
+      setUniversityType(null);
+      setUniversity(null);
+      setCareer(null);
+    } else {
+      setSelectedTags([tag]);
+      const type = tag.toLowerCase();
+      setUniversityType(type);
+      setUniversity(null);
+      setCareer(null);
     }
   };
 
@@ -79,7 +105,7 @@ const SignupStep5 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View
           style={[
             uiStyle.container,
@@ -90,28 +116,13 @@ const SignupStep5 = ({ navigation }) => {
             <Text style={[fontStyle.h2, fontStyle.light]}>
               Cuéntanos un poco más sobre ti
             </Text>
-            <Text style={[fontStyle.h3, fontStyle.light]}>Universidad:</Text>
 
-            <View style={{ flexDirection: "row", gap: 15 }}>
-              <Button1
-                onPress={() => {
-                  setUniversityType("privada");
-                  setUniversity(null);
-                  setCareer(null);
-                }}
-              >
-                Privada
-              </Button1>
-              <Button1
-                onPress={() => {
-                  setUniversityType("publica");
-                  setUniversity(null);
-                  setCareer(null);
-                }}
-              >
-                Pública
-              </Button1>
-            </View>
+            <Text style={[fontStyle.h3, fontStyle.light]}>Universidad:</Text>
+            <TagSelector
+              tags={universityTypeOptions}
+              selectedTags={selectedTags}
+              toggleTag={toggleTag}
+            />
 
             {universityType && (
               <>
@@ -158,15 +169,15 @@ const SignupStep5 = ({ navigation }) => {
                   placeholder="Años de experiencia"
                   keyboardType="numeric"
                   onChangeText={setExperience}
-                />{" "}
+                />
               </>
             )}
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <GoBackButton onPress={() => navigation.goBack()} />
-              <NextButton onPress={goToStep6} />
-            </View>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <GoBackButton onPress={() => navigation.goBack()} />
+            <NextButton onPress={goToStep6} />
           </View>
         </View>
       </ScrollView>

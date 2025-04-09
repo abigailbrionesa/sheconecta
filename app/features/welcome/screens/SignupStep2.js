@@ -20,12 +20,24 @@ const SignupStep2 = ({ navigation }) => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [birthDate, setBirthDate] = useState(null);
-
   const [dateFeedback, setDateFeedback] = useState("");
+
+  const calculateAge = (birthDate) => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+
+    return age;
+  };
 
   const validatePersonalInfo = () => {
     if (!firstName || !lastName || !birthDate) {
-      Alert.alert("Error", "Please enter all personal information.");
+      Alert.alert("Error", "Por favor, completa todos los campos.");
       return false;
     }
     return true;
@@ -33,7 +45,16 @@ const SignupStep2 = ({ navigation }) => {
 
   const goToStep3 = () => {
     if (validatePersonalInfo()) {
-      navigation.navigate("SignupStep3", { email, password, firstName, lastName, birthDate });
+      
+      const age = calculateAge(birthDate);
+      console.log("Edad calculada:", age); 
+      navigation.navigate("SignupStep3", {
+        email,
+        password,
+        firstName,
+        lastName,
+        age
+      });
     }
   };
 
@@ -41,14 +62,17 @@ const SignupStep2 = ({ navigation }) => {
     const validBirthDate = validateBirthDate(day, month, year);
     if (validBirthDate) {
       setBirthDate(validBirthDate);
-      setDateFeedback(""); 
+      setDateFeedback("");
     } else {
       setDateFeedback("Fecha inválida.");
     }
   };
 
   return (
-    <ImageBackground source={require("../../../../assets/background.png")} style={backgroundStyle.background}>
+    <ImageBackground
+      source={require("../../../../assets/background.png")}
+      style={backgroundStyle.background}
+    >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}>
           <View style={{ gap: 15 }}>
@@ -71,8 +95,14 @@ const SignupStep2 = ({ navigation }) => {
             />
 
             <Text style={[fontStyle.h3, fontStyle.light]}>Fecha de nacimiento</Text>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems:"center", width: "100%" }}>
-              
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <TextInput
                 style={[uiStyle.input, { width: "30%" }]}
                 value={day}
@@ -92,8 +122,7 @@ const SignupStep2 = ({ navigation }) => {
                 onChangeText={setMonth}
                 onBlur={handleDateChange}
               />
-                <Text style={[fontStyle.light, fontStyle.h3]}>/</Text>
-
+              <Text style={[fontStyle.light, fontStyle.h3]}>/</Text>
               <TextInput
                 style={[uiStyle.input, { width: "30%" }]}
                 value={year}

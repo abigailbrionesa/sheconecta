@@ -15,7 +15,7 @@ import { backgroundStyle } from "../../../utils/backgroundStyle";
 const SignupStep3 = ({ navigation }) => {
   const route = useRoute();
   const [role, setRole] = useState("");
-  const { email, password, firstName, lastName, birthDate } = route.params;
+  const { email, password, firstName, lastName, age } = route.params;
 
   const goToStep4 = (role) => {
     navigation.navigate("SignupStep4", {
@@ -23,7 +23,7 @@ const SignupStep3 = ({ navigation }) => {
       password,
       firstName,
       lastName,
-      birthDate,
+      age,
       role,
     });
   };
