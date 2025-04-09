@@ -43,11 +43,11 @@ const SignupStep7 = ({ navigation }) => {
   };
 
   const handleContinue = () => {
-    if (selectedAreas.length === 0) {
+    if (!selectedAreas || selectedAreas.length === 0) {
       Alert.alert("Por favor selecciona al menos un área.");
       return;
     }
-
+  
     navigation.navigate("SignupStep6", {
       email,
       password,
@@ -65,6 +65,7 @@ const SignupStep7 = ({ navigation }) => {
       selectedAreas,
     });
   };
+  
 
   return (
     <ImageBackground
