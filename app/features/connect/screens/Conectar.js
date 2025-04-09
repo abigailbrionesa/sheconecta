@@ -15,6 +15,8 @@ import { ImageBackground } from "react-native";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import GoBackButton from "../../welcome/components/GoBackButton";
 import NextButton from "../../welcome/components/NextButton";
+import Button1 from "../../welcome/components/Button1";
+import { setDoc } from "firebase/firestore";
 
 export default function Conectar({ navigation }) {
   const [users, setUsers] = useState([]);
@@ -62,6 +64,35 @@ export default function Conectar({ navigation }) {
     }
   };
 
+  const startChat = async (otherUserId) => {
+    try {
+      const currentUserId = FIREBASE_AUTH.currentUser.uid;
+  
+      const chatId =
+        currentUserId < otherUserId
+          ? `${currentUserId}_${otherUserId}`
+          : `${otherUserId}_${currentUserId}`;
+  
+      const chatRef = doc(FIREBASE_DB, "chats", chatId);
+      await setDoc(chatRef, {
+        participants: [currentUserId, otherUserId],
+        createdAt: new Date(),
+      });
+  
+      const otherUser = users.find((u) => u.id === otherUserId);
+  
+      navigation.navigate("Chat", {
+        chatId,
+        recipientId: otherUserId,
+        recipientName: `${otherUser.firstName} ${otherUser.lastName}`,
+        recipientPhoto: otherUser.profilePictureUrl,
+      });
+    } catch (error) {
+      console.error("Error starting chat:", error);
+    }
+  };
+  
+
   const nextUser = () => {
     if (currentUserIndex < users.length - 1) {
       setCurrentUserIndex(currentUserIndex + 1);
@@ -72,6 +103,7 @@ export default function Conectar({ navigation }) {
 
   const currentUser = users[currentUserIndex];
   const currentUserId = FIREBASE_AUTH.currentUser?.uid;
+  console.log(currentUserId, "id")
   const alreadyLiked = currentUser?.likes?.includes(currentUserId);
 
   return (
@@ -130,6 +162,9 @@ export default function Conectar({ navigation }) {
                 />
               </TouchableOpacity>
             </View>
+
+            <Button1 onPress={() => startChat(currentUser.id)}>Message</Button1>
+          
           </View>
         ) : (
           <Text>Loading...</Text>
