@@ -5,16 +5,13 @@ import {
   TextInput,
   View,
   Text,
-<<<<<<< HEAD
   ImageBackground,
-=======
   TouchableOpacity,
->>>>>>> main
 } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { TouchableOpacity } from "react-native";
+//import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
@@ -22,13 +19,11 @@ import { backgroundStyle } from "../../../utils/backgroundStyle";
 
 const SignUp = ({ route }) => {
   const navigation = useNavigation();
-  const { userType, experienceLevel } = route.params || { userType: 'Estudiante', experienceLevel: 'beginner' };
+  //const { userType, experienceLevel } = route.params || { userType: 'Estudiante', experienceLevel: 'beginner' };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-<<<<<<< HEAD
   const [confirmPassword, setConfirmPassword] = useState("");
-=======
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -44,7 +39,6 @@ const SignUp = ({ route }) => {
   const [carnetPictureUrl, setCarnetPictureUrl] = useState("");
   const [type, setType] = useState("");
   const [mentorId, setMentorId] = useState("");
->>>>>>> main
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -62,22 +56,21 @@ const SignUp = ({ route }) => {
     }
     
     try {
-<<<<<<< HEAD
-      const response = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("Signup successful:", response);
+      // const response = await createUserWithEmailAndPassword(auth, email, password);
+      // console.log("Signup successful:", response);
       
-      await setDoc(doc(db, "users", response.user.uid), {
-        email: email,
-        userType: userType,
-        experienceLevel: experienceLevel,
-        createdAt: new Date(),
-        //isProfileComplete: false,
-      });
+      // await setDoc(doc(db, "users", response.user.uid), {
+      //   email: email,
+      //   userType: userType,
+      //   experienceLevel: experienceLevel,
+      //   createdAt: new Date(),
+      //   //isProfileComplete: false,
+      // });
       
-      const [isProfileComplete, setIsProfileComplete] = useState(null);
+      // const [isProfileComplete, setIsProfileComplete] = useState(null);
 
-      //navigation.navigate('Profileopc');
-=======
+      // //navigation.navigate('Profileopc');
+
       const response = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -114,7 +107,8 @@ const SignUp = ({ route }) => {
 
       await setDoc(doc(db, "users", user.uid), userData);
       console.log("Signup and Firestore write successful");
->>>>>>> main
+
+
     } catch (error) {
       console.error("Signup error:", error.message);
       
@@ -133,54 +127,55 @@ const SignUp = ({ route }) => {
   };
 
   return (
-<<<<<<< HEAD
-    <ImageBackground
-      source={require("../../../../assets/background.png")}
-      style={backgroundStyle.background}
-    >
-      <View style={{ padding: 20, marginTop: 100 }}>
-        <Text style={fontStyle.h1}>Crear Cuenta</Text>
+
+    // <ImageBackground
+    //   source={require("../../../../assets/background.png")}
+    //   style={backgroundStyle.background}
+    // >
+    //   <View style={{ padding: 20, marginTop: 100 }}>
+    //     <Text style={fontStyle.h1}>Crear Cuenta</Text>
         
-        {error ? <Text style={{ color: 'red', marginBottom: 10 }}>{error}</Text> : null}
+    //     {error ? <Text style={{ color: 'red', marginBottom: 10 }}>{error}</Text> : null}
 
-        <TextInput
-          style={uiStyle.input}
-          value={email}
-          placeholder="Email"
-          autoCapitalize="none"
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={uiStyle.input}
-          secureTextEntry
-          value={password}
-          placeholder="Contraseña"
-          autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
-        />
-        <TextInput
-          style={uiStyle.input}
-          secureTextEntry
-          value={confirmPassword}
-          placeholder="Confirmar contraseña"
-          autoCapitalize="none"
-          onChangeText={(text) => setConfirmPassword(text)}
-        />
+    //     <TextInput
+    //       style={uiStyle.input}
+    //       value={email}
+    //       placeholder="Email"
+    //       autoCapitalize="none"
+    //       onChangeText={(text) => setEmail(text)}
+    //     />
+    //     <TextInput
+    //       style={uiStyle.input}
+    //       secureTextEntry
+    //       value={password}
+    //       placeholder="Contraseña"
+    //       autoCapitalize="none"
+    //       onChangeText={(text) => setPassword(text)}
+    //     />
+    //     <TextInput
+    //       style={uiStyle.input}
+    //       secureTextEntry
+    //       value={confirmPassword}
+    //       placeholder="Confirmar contraseña"
+    //       autoCapitalize="none"
+    //       onChangeText={(text) => setConfirmPassword(text)}
+    //     />
 
-        {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <Button title="Crear Cuenta" onPress={signUp} />
-        )}
+    //     {loading ? (
+    //       <ActivityIndicator size="large" color="#0000ff" />
+    //     ) : (
+    //       <Button title="Crear Cuenta" onPress={signUp} />
+    //     )}
 
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text>
-            ¿Ya tienes cuenta? <Text>Inicia sesión</Text>
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-=======
+    //     <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+    //       <Text>
+    //         ¿Ya tienes cuenta? <Text>Inicia sesión</Text>
+    //       </Text>
+    //     </TouchableOpacity>
+    //   </View>
+    // </ImageBackground>
+
+
     <View style={uiStyle.container}>
       <Text style={fontStyle.h1}>Registrarse en SheConecta</Text>
 
@@ -334,7 +329,8 @@ const SignUp = ({ route }) => {
         <Text>¿Ya tienes cuenta? Inicia Sesión</Text>
       </TouchableOpacity>
     </View>
->>>>>>> main
+
+
   );
 };
 
