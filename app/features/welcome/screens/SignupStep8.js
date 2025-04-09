@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Button, Image, Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
+import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
 import { fontStyle } from "../../../utils/fontStyle";
@@ -78,5 +79,85 @@ const SignupStep8 = ({ navigation }) => {
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+    padding: 20,
+  },
+  orchidImage: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 120,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 30,
+    color: "white",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "rgba(255, 255, 255, 0.8)",
+    textAlign: "center",
+    marginBottom: 50,
+  },
+  createButton: {
+    backgroundColor: 'white',
+    borderRadius: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    width: '48%',
+    alignItems: 'center',
+    marginBottom: 20,
+    shadowOffset: {
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
+      borderWidth: 3,
+      borderColor: "#007AFF",
+        },
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  buttonTitle: {
+    fontSize: 14,
+  },
+
+  loadingContainer: {
+    alignItems: "center",
+  },
+  loadingText: {
+    color: "white",
+    marginTop: 15,
+    fontSize: 16,
+  },
+  successContainer: {
+    alignItems: "center",
+  },
+  checkIcon: {
+    width: 80,
+    height: 80,
+    resizeMode: "contain",
+    marginBottom: 20,
+  },
+  successText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  navigationContainer: {
+    marginBottom: 20,
+  },
+});
 
 export default SignupStep8;

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
+import { View, Button, Image, Text, Alert, ImageBackground } from "react-native";
+=======
 import {
   View,
   Text,
   ScrollView,
   ImageBackground,
 } from "react-native";
+>>>>>>> main
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
@@ -34,16 +38,40 @@ const SignupStep6 = ({ navigation }) => {
     lastName,
     age,
     role,
+<<<<<<< HEAD
+    city,
+    university,
+    career,
+    experience,
+    selectedAreas,
+  } = route.params;
+
+  const handleContinue = () => {
+    const image = profilePicture;
+
+    navigation.navigate("SignupStep5", {
+=======
     departamento,
     provincia,
   } = route.params;
 
   const goToStep7 = () => {
     navigation.navigate("SignupStep7", {
+>>>>>>> main
       email,
       password,
       firstName,
       lastName,
+<<<<<<< HEAD
+      birthDate,
+      role,
+      city,
+      university,
+      career,
+      experience,
+      selectedAreas,
+      image, 
+=======
       age,
       role,
       departamento,
@@ -52,6 +80,7 @@ const SignupStep6 = ({ navigation }) => {
       career,
       experience,
       languages: selectedLanguages,
+>>>>>>> main
     });
   };
 
@@ -60,12 +89,17 @@ const SignupStep6 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
+<<<<<<< HEAD
+      <View style={[uiStyle.container, { gap: 45, marginTop: 120 }]}>
+        <Text style={[fontStyle.h2, fontStyle.light]}>Añade una foto de perfil (opcional)</Text>
+=======
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View
           style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}
         >
           <View>
             <Text style={fontStyle.h3}>¿Qué idiomas hablas?</Text>
+>>>>>>> main
 
             <TagSelector
               tags={languagesoptions}

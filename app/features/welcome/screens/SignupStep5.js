@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
+import { View, TextInput, StyleSheet, Image, ScrollView, ImageBackground, Text } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import { uiStyle } from "../../../utils/uiStyle";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
+import NextButton from "../components/NextButton";
+import GoBackButton from "../components/GoBackButton";
+import { fontStyle } from "../../../utils/fontStyle";
+=======
 import {
   View,
   Text,
@@ -20,6 +29,7 @@ import {
 } from "../../../utils/universitiesList";
 import { careers } from "../../../utils/careersList";
 import TagSelector from "../../opportunities/components/TagSelector";
+>>>>>>> main
 
 const SignupStep5 = ({ navigation }) => {
   const route = useRoute();
@@ -42,6 +52,33 @@ const SignupStep5 = ({ navigation }) => {
     lastName,
     age,
     role,
+<<<<<<< HEAD
+    city,
+    university,
+    career,
+    experience,
+    selectedAreas,
+    image,
+  } = route.params;
+
+  const handleContinue = () => {
+    navigation.navigate("SignupStep8", {
+      email,
+      password,
+      firstName,
+      lastName,
+      birthDate,
+      role,
+      city,
+      university,
+      career,
+      experience,
+      selectedAreas,
+      instagram: instagram || "",
+      linkedin: linkedin || "",
+      image,
+    });
+=======
     departamento,
     provincia,
   } = route.params;
@@ -55,6 +92,7 @@ const SignupStep5 = ({ navigation }) => {
       return false;
     }
     return true;
+>>>>>>> main
   };
 
   const goToStep6 = () => {
@@ -105,6 +143,29 @@ const SignupStep5 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
+<<<<<<< HEAD
+      <Image 
+          source={require("../../../../assets/orchid.png")} 
+          style={styles.orchidImage} 
+        />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 15, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View style={{ gap: 15, marginTop: -10 }}>
+          <Text style={[fontStyle.h2, fontStyle.light]}>Añade tus redes sociales (opcional)</Text>
+          
+          <Text style={[fontStyle.h3, fontStyle.light]}>Instagram</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={instagram}
+            placeholder="Escribe aquí..."
+            onChangeText={setInstagram}
+          />
+=======
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View
           style={[
@@ -116,6 +177,7 @@ const SignupStep5 = ({ navigation }) => {
             <Text style={[fontStyle.h2, fontStyle.light]}>
               Cuéntanos un poco más sobre ti
             </Text>
+>>>>>>> main
 
             <Text style={[fontStyle.h3, fontStyle.light]}>Universidad:</Text>
             <TagSelector
@@ -184,5 +246,15 @@ const SignupStep5 = ({ navigation }) => {
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  orchidImage: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+    alignSelf: 'center', 
+    marginTop: 120,
+  },
+});
 
 export default SignupStep5;
