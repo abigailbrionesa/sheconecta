@@ -3,6 +3,8 @@ import { View, Button, Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+
 const SignupStep3 = ({ navigation }) => {
   const route = useRoute();
   const [role, setRole] = useState("");
@@ -17,19 +19,6 @@ const SignupStep3 = ({ navigation }) => {
     return true;
   };
 
-  const handleContinue = () => {
-    if (validateRole()) {
-      navigation.navigate("SignupStep4", {
-        email,
-        password,
-        firstName,
-        lastName,
-        birthDate,
-        role,
-      });
-    }
-  };
-
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
@@ -37,9 +26,35 @@ const SignupStep3 = ({ navigation }) => {
     >
       <View style={uiStyle.container}>
         <Text>Step 3: Role (Estudiante/Mentor)</Text>
-        <Button title="Estudiante" onPress={() => setRole("estudiante")} />
-        <Button title="Mentor" onPress={() => setRole("mentor")} />
-        <Button title="Continue" onPress={handleContinue} />
+        <Button
+          title="Estudiante"
+          onPress={() => {
+            setRole("estudiante");
+            navigation.navigate("SignupStep4", {
+              email,
+              password,
+              firstName,
+              lastName,
+              birthDate,
+              role: "estudiante",
+            });
+          }}
+        />
+
+        <Button
+          title="Mentor"
+          onPress={() => {
+            setRole("mentor");
+            navigation.navigate("SignupStep4", {
+              email,
+              password,
+              firstName,
+              lastName,
+              birthDate,
+              role: "mentor",
+            });
+          }}
+        />
       </View>
     </ImageBackground>
   );

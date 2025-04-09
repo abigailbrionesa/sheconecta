@@ -3,6 +3,8 @@ import { View, Button, Image, Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+
 const SignupStep6 = ({ navigation }) => {
   const route = useRoute();
   const [profilePicture, setProfilePicture] = useState(

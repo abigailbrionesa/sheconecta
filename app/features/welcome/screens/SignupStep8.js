@@ -7,6 +7,8 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { Text } from "react-native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+
 const SignupStep8 = ({ navigation }) => {
   const route = useRoute();
 

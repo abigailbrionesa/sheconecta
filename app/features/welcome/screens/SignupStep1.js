@@ -46,10 +46,10 @@ const SignupStep1 = ({ navigation }) => {
     if (!input) {
       setPasswordFeedback("");
     } else if (length && upper && lower && number && special) {
-      setPasswordFeedback("✅ Strong password!");
+      setPasswordFeedback("✅ Contraseña segura!");
     } else {
       setPasswordFeedback(
-        "❌ Use 8+ chars, mix upper/lowercase, numbers & special chars."
+        "❌ Usa 8 o más caracteres, combinando mayúsculas, minúsculas, números y caracteres especiales."
       );
     }
   };
@@ -72,8 +72,8 @@ const SignupStep1 = ({ navigation }) => {
         ]}
       >
         <View style={{ gap: 15 }}>
-          <Text style={fontStyle.h2}>Completa tu perfil</Text>
-          <Text style={fontStyle.h3}>Correo electrónico</Text>
+          <Text style={[fontStyle.h2, fontStyle.light]}>Completa tu perfil</Text>
+          <Text style={[fontStyle.h3, fontStyle.light]}>Correo electrónico</Text>
           <TextInput
             style={uiStyle.input}
             value={email}
@@ -82,7 +82,7 @@ const SignupStep1 = ({ navigation }) => {
             keyboardType="email-address"
             autoCapitalize="none"
           />
-          <Text style={fontStyle.h3}>Contraseña segura</Text>
+          <Text style={[fontStyle.h3, fontStyle.light]}>Contraseña segura</Text>
 
           <TextInput
             style={uiStyle.input}

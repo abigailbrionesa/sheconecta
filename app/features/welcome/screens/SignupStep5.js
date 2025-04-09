@@ -4,6 +4,8 @@ import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { Text } from "react-native";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+
 const SignupStep5 = ({ navigation }) => {
   const route = useRoute();
   const [instagram, setInstagram] = useState("");
