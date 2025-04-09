@@ -21,6 +21,7 @@ const SignupStep4 = ({ navigation }) => {
     route.params;
 
   const goToStep5 = () => {
+    console.log("go to step 5")
     navigation.navigate("SignupStep5", {
       email,
       password,
