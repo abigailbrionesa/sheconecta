@@ -51,7 +51,6 @@ const SignupStep7 = ({ navigation }) => {
       return;
     }
 
-    // Navigate to Step6 in your new flow
     navigation.navigate("SignupStep6", {
       email,
       password,
@@ -63,8 +62,7 @@ const SignupStep7 = ({ navigation }) => {
       university,
       career,
       experience,
-      selectedAreas, // Pass the selected areas
-      // No instagram, linkedin or image yet since they come later in the flow
+      selectedAreas,
     });
   };
 
@@ -142,48 +140,37 @@ const styles = StyleSheet.create({
   areasContainer: {
     flexDirection: 'row',
     flexWrap: "wrap",
-    justifyContent: 'center',
+    gap: 10,
+    justifyContent: 'space-between',
     width: '100%',
-    position: 'absolute',
-    alignItems: "center",
-    bottom: 30,
-    paddingHorizontal: 20,
-  },
-  areaButton: {
-    backgroundColor: "white",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 30,
-    margin: 8,
-    minWidth: 120,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  selectedAreaButton: {
-    backgroundColor: "#6F9CEB",
-    borderWidth: 0,
-  },
-  areaButtonText: {
-    color: "#4A4A4A",
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  selectedAreaButtonText: {
-    color: "white",
-    fontWeight: "600",
   },
   navigationContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
+  },
+
+  areaButton: {
+    backgroundColor: 'white',
+    borderRadius: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    width: '48%',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  selectedAreaButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderWidth: 3,
+    borderColor: "#007AFF",
+  },
+  areaButtonText: {
+    fontSize: 20,
+    fontWeight: '500',
+  },
+  buttonSubtitle: {
+    fontSize: 14,
   },
 });
 

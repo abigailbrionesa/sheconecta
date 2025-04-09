@@ -16,6 +16,46 @@ const SignupStep4 = ({ navigation }) => {
 
   const { email, password, firstName, lastName, birthDate, role } = route.params;
 
+  // const validateExperience = (exp) => {
+  //   const numExp = Number(exp);
+  //   return /^\d+$/.test(exp) && numExp >= 1 && numExp <= 60;
+  // };
+  
+
+  // const validateTextFields = () => {
+  //   if (firstName.length < 2 || lastName.length < 2) {
+  //     Alert.alert("Datos incompletos", "Los nombres y apellidos deben tener al menos 2 caracteres.");
+  //     return false;
+  //   }
+    
+  //   if (university && university.length < 3) {
+  //     Alert.alert("Datos incompletos", "El nombre de la universidad debe tener al menos 3 caracteres.");
+  //     return false;
+  //   }
+    
+  //   if (career && career.length < 3) {
+  //     Alert.alert("Datos incompletos", "El nombre de la carrera debe tener al menos 3 caracteres.");
+  //     return false;
+  //   }
+    
+  //   return true;
+  // };
+  const validateTextFields = () => {
+        const numExp = parseInt(experience);
+      
+        if (city.length < 3 || university.length < 3 || career.length < 3 ) {
+          Alert.alert("Datos incompletos", "Los datos deben tener al menos 3 caracteres.");
+          return false;
+        }
+      
+        if (!/^\d+$/.test(experience) || isNaN(numExp) || numExp < 10 || numExp > 60) {
+          Alert.alert("No válida", "Por favor, ingresa experiencia entre 10 y 60 años.");
+          return false;
+        }
+      
+        return true;
+      };
+
   const validateCityUniversityCareer = () => {
     if (!city || !university || !career) {
       Alert.alert(
@@ -28,8 +68,7 @@ const SignupStep4 = ({ navigation }) => {
   };
 
   const goToStep7 = () => {
-    if (validateCityUniversityCareer()) {
-      // Navigate to Step7 according to your new flow
+    if (validateCityUniversityCareer() && validateTextFields() ) {
       navigation.navigate("SignupStep7", {
         email,
         password,
@@ -90,7 +129,11 @@ const SignupStep4 = ({ navigation }) => {
               value={experience}
               placeholder="Años de experiencia"
               keyboardType="numeric"
-              onChangeText={setExperience}
+              onChangeText={(text) => {
+                const numericText = text.replace(/[^0-9]/g, '');
+                setExperience(numericText);
+              }}
+              
             />
           </View>
           

@@ -30,7 +30,6 @@ const SignupStep6 = ({ navigation }) => {
   const handleContinue = () => {
     const image = profilePicture;
 
-    // Navigate to Step5 in your new flow
     navigation.navigate("SignupStep5", {
       email,
       password,
@@ -42,8 +41,8 @@ const SignupStep6 = ({ navigation }) => {
       university,
       career,
       experience,
-      selectedAreas, // Make sure to pass the selectedAreas
-      image, // Pass the profile picture
+      selectedAreas,
+      image, 
     });
   };
 

@@ -42,7 +42,6 @@ const SignupStep8 = ({ navigation }) => {
     selectedAreas,
   } = route.params;
 
-  // Log all received parameters for debugging
   useEffect(() => {
     console.log("Final signup data:", JSON.stringify({
       email,
@@ -77,7 +76,6 @@ const SignupStep8 = ({ navigation }) => {
   }, []);
 
   const signUp = async () => {
-    // Validate that we have all required fields before proceeding
     if (!email || !password || !firstName || !lastName || !role || !city || !university || !career || !selectedAreas) {
       alert("Error: Missing required information. Please go back and complete all required fields.");
       return;
@@ -226,31 +224,27 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   createButton: {
-    backgroundColor: "#6F9CEB",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
+    backgroundColor: 'white',
     borderRadius: 30,
-    minWidth: 200,
-    alignItems: "center",
-    shadowColor: "#000",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    width: '48%',
+    alignItems: 'center',
+    marginBottom: 20,
     shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
+      borderWidth: 3,
+      borderColor: "#007AFF",
+        },
   },
   buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: '500',
   },
   buttonTitle: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 14,
   },
+
   loadingContainer: {
     alignItems: "center",
   },

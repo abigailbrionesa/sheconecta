@@ -28,7 +28,6 @@ const SignupStep5 = ({ navigation }) => {
   } = route.params;
 
   const handleContinue = () => {
-    // Navigate to Step8 in your new flow (final step)
     navigation.navigate("SignupStep8", {
       email,
       password,
@@ -40,7 +39,7 @@ const SignupStep5 = ({ navigation }) => {
       university,
       career,
       experience,
-      selectedAreas, // Make sure to pass the selectedAreas
+      selectedAreas,
       instagram: instagram || "",
       linkedin: linkedin || "",
       image,
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     resizeMode: 'contain',
-    alignSelf: 'center', // Centrar horizontalmente
+    alignSelf: 'center', 
     marginTop: 120,
   },
 });

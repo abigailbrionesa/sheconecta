@@ -17,6 +17,23 @@ const SignupStep2 = ({ navigation }) => {
 
   const { email, password } = route.params;
 
+    const validateTextFields = () => {
+      const numAge = parseInt(birthDate);
+    
+      if (firstName.length < 2 || lastName.length < 2) {
+        Alert.alert("Datos incompletos", "Los nombres y apellidos deben tener al menos 2 caracteres.");
+        return false;
+      }
+    
+      if (!/^\d+$/.test(birthDate) || isNaN(numAge) || numAge < 10 || numAge > 90) {
+        Alert.alert("Edad no válida", "Por favor, ingresa una edad entre 10 y 90 años.");
+        return false;
+      }
+    
+      return true;
+    };
+    
+
   const validatePersonalInfo = () => {
     if (!firstName || !lastName || !birthDate) {
       Alert.alert("Error", "Please enter all personal information.");
@@ -26,7 +43,7 @@ const SignupStep2 = ({ navigation }) => {
   };
 
   const goToStep3 = () => {
-    if (validatePersonalInfo()) {
+    if (validatePersonalInfo() && validateTextFields()) {
       navigation.navigate("SignupStep3", {
         email,
         password,
@@ -79,7 +96,10 @@ const SignupStep2 = ({ navigation }) => {
             value={birthDate}
             placeholder="Escribe aquí..."
             keyboardType="number-pad"
-            onChangeText={setBirthDate}
+            onChangeText={(text) => {
+              const numericText = text.replace(/[^0-9]/g, '');
+              setBirthDate(numericText);
+            }}
           />
         </View>
         
@@ -97,7 +117,7 @@ export const styles = StyleSheet.create({
     width: 80,
     height: 80,
     resizeMode: 'contain',
-    alignSelf: 'center', // Centrar horizontalmente
+    alignSelf: 'center', 
     marginTop: 120,
   },
 });
