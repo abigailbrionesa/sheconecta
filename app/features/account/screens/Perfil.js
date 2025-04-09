@@ -18,6 +18,7 @@ import NextButton from "../../welcome/components/NextButton";
 import { uiStyle } from "../../../utils/uiStyle";
 import { getDoc } from "firebase/firestore";
 import { setDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 
 export default function Perfil() {
   const user = FIREBASE_AUTH.currentUser;
@@ -66,6 +67,14 @@ export default function Perfil() {
     fetchUserData();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(FIREBASE_AUTH);
+    } catch (error) {
+      console.log("Error logging out:", error);
+    }
+  };
+
   const handleGuardar = async () => {
     const userDoc = doc(FIREBASE_DB, "usuarios", user.uid);
     await setDoc(
@@ -90,6 +99,7 @@ export default function Perfil() {
           source={{ uri: userData.profilePictureUrl }}
           style={{ width: 100, height: 100, borderRadius: 50 }}
         />
+<Button title="Cerrar sesión" onPress={handleLogout} color="red" />
 
         <View
           style={{
