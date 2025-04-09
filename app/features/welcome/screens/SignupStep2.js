@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert, Text } from "react-native";
+import { View, TextInput, Alert, Text, StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
+import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
+import NextButton from "../components/NextButton";
+import GoBackButton from "../components/GoBackButton";
+import { ScrollView } from "react-native";
 
 const SignupStep2 = ({ navigation }) => {
   const route = useRoute();
@@ -21,7 +25,7 @@ const SignupStep2 = ({ navigation }) => {
     return true;
   };
 
-  const handleContinue = () => {
+  const goToStep3 = () => {
     if (validatePersonalInfo()) {
       navigation.navigate("SignupStep3", {
         email,
@@ -38,28 +42,48 @@ const SignupStep2 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={uiStyle.container}>
-        <Text>Step 2: First Name, Last Name, Birthdate</Text>
-        <Text>First Name:</Text>
-        <TextInput
-          value={firstName}
-          placeholder="First Name"
-          onChangeText={setFirstName}
-        />
-        <Text>Last Name:</Text>
-        <TextInput
-          value={lastName}
-          placeholder="Last Name"
-          onChangeText={setLastName}
-        />
-        <Text>Birth Date:</Text>
-        <TextInput
-          value={birthDate}
-          placeholder="Birth Date (YYYY-MM-DD)"
-          onChangeText={setBirthDate}
-        />
-        <Button title="Continue" onPress={handleContinue} />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 15, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View style={{ gap: 15 }}>
+          <Text style={[fontStyle.h2, fontStyle.light]}>Completa tu perfil</Text>
+          
+          <Text style={[fontStyle.h3, fontStyle.light]}>Nombre</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={firstName}
+            placeholder="Escribe aquí..."
+            onChangeText={setFirstName}
+          />
+
+          <Text style={[fontStyle.h3, fontStyle.light]}>Apellido</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={lastName}
+            placeholder="Escribe aquí..."
+            onChangeText={setLastName}
+          />
+          
+          <Text style={[fontStyle.h3, fontStyle.light]}>Edad</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={birthDate}
+            placeholder="Escribe aquí..."
+            keyboardType="number-pad"
+            onChangeText={setBirthDate}
+          />
+        </View>
+        
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={goToStep3} />
+        </View>
       </View>
+      </ScrollView>
     </ImageBackground>
   );
 };

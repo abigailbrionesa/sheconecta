@@ -82,7 +82,7 @@ const SignupStep1 = ({ navigation }) => {
             keyboardType="email-address"
             autoCapitalize="none"
           />
-          <Text style={[fontStyle.h3, fontStyle.light]}>Contraseña segura</Text>
+          <Text style={[fontStyle.h3, fontStyle.light]}>Contraseña</Text>
 
           <TextInput
             style={uiStyle.input}

@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
 const Login = () => {
   const navigation = useNavigation();
 
@@ -27,7 +28,6 @@ const Login = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log("Login successful:", response);
-      navigation.navigate("HomeScreen");
     } catch (error) {
       console.error("Login error:", error.message);
     } finally {
@@ -36,7 +36,10 @@ const Login = () => {
   };
 
   return (
-
+    <ImageBackground
+          source={require("../../../../assets/background.png")}
+          style={backgroundStyle.background}
+        >
       <View style={{ padding: 20, marginTop: 100 }}>
         <Text style={fontStyle.h1}>Iniciar Sesión</Text>
 
@@ -68,6 +71,7 @@ const Login = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      </ImageBackground>
   );
 };
 

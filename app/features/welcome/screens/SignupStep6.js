@@ -4,6 +4,9 @@ import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
+import { fontStyle } from "../../../utils/fontStyle";
+import NextButton from "../components/NextButton";
+import GoBackButton from "../components/GoBackButton";
 
 const SignupStep6 = ({ navigation }) => {
   const route = useRoute();
@@ -44,7 +47,7 @@ const SignupStep6 = ({ navigation }) => {
       linkedin,
       "lol"
     );
-    navigation.navigate("SignupStep7", {
+    navigation.navigate("SignupStep5", {
       email,
       password,
       firstName,
@@ -67,7 +70,7 @@ const SignupStep6 = ({ navigation }) => {
       style={backgroundStyle.background}
     >
       <View style={uiStyle.container}>
-        <Text>Step 6: Profile Picture (Optional)</Text>
+        <Text style={[fontStyle.h2, fontStyle.light]}>Añade una foto de perfil (opcional)</Text>
 
         {profilePicture ? (
           <Image
@@ -78,7 +81,10 @@ const SignupStep6 = ({ navigation }) => {
           <Text>No Profile Picture</Text>
         )}
 
-        <Button title="Continue" onPress={handleContinue} />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={handleContinue} />
+        </View>
       </View>
     </ImageBackground>
   );

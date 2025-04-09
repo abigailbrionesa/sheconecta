@@ -4,6 +4,10 @@ import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
+import { fontStyle } from "../../../utils/fontStyle";
+import NextButton from "../components/NextButton";
+import GoBackButton from "../components/GoBackButton";
+import { ScrollView } from "react-native";
 
 const SignupStep4 = ({ navigation }) => {
   const route = useRoute();
@@ -26,9 +30,9 @@ const SignupStep4 = ({ navigation }) => {
     return true;
   };
 
-  const handleContinue = () => {
+  const goToStep5 = () => {
     if (validateCityUniversityCareer()) {
-      navigation.navigate("SignupStep5", {
+      navigation.navigate("SignupStep7", {
         email,
         password,
         firstName,
@@ -48,44 +52,58 @@ const SignupStep4 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={uiStyle.container}>
-        <Text>Step 4: City, University, Career, and Experience</Text>
+      
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 15, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View style={{ gap: 15 }}>
+          <Text style={[fontStyle.h2, fontStyle.light]}>Cuentanos un poco más sobre ti</Text>
+          
+          <Text style={[fontStyle.h3, fontStyle.light]}>Ciudad</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={city}
+            placeholder="Escribe aquí..."
+            onChangeText={setCity}
+          />
 
-        <Text>City:</Text>
-        <TextInput
-          value={city}
-          onChangeText={setCity}
-          placeholder="Enter city"
-          style={uiStyle.input}
-        />
+          <Text style={[fontStyle.h3, fontStyle.light]}>Universidad</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={university}
+            placeholder="Escribe aquí..."
+            onChangeText={setUniversity}
+          />
+          
+          <Text style={[fontStyle.h3, fontStyle.light]}>Carrera</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={career}
+            placeholder="Escribe aquí..."
+            onChangeText={setCareer}
+          />
 
-        <Text>University:</Text>
-        <TextInput
-          value={university}
-          onChangeText={setUniversity}
-          placeholder="Enter university"
-          style={uiStyle.input}
-        />
+          <Text style={[fontStyle.h3, fontStyle.light]}>Años de experiencia</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={experience}
+            placeholder="Enter years of experience"
+            keyboardType="numeric"
+            onChangeText={setExperience}
+          />
 
-        <Text>Career:</Text>
-        <TextInput
-          value={career}
-          onChangeText={setCareer}
-          placeholder="Enter career"
-          style={uiStyle.input}
-        />
-
-        <Text>Experience (in years):</Text>
-        <TextInput
-          value={experience}
-          onChangeText={setExperience}
-          placeholder="Enter years of experience"
-          keyboardType="numeric"
-          style={uiStyle.input}
-        />
-
-        <Button title="Continue" onPress={handleContinue} />
+        </View>
+        
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={goToStep5} />
+        </View>
       </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
