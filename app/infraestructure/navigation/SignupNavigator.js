@@ -3,12 +3,13 @@ import SignupStep1 from '../../features/welcome/screens/SignupStep1';
 import SignupStep2 from '../../features/welcome/screens/SignupStep2';
 import SignupStep3 from '../../features/welcome/screens/SignupStep3';
 import SignupStep4 from '../../features/welcome/screens/SignupStep4';
-import SignupStep5 from '../../features/welcome/screens/SignupStep5';
-import SignupStep6 from '../../features/welcome/screens/SignupStep6';
-import SignupStep7 from '../../features/welcome/screens/SignupStep7';
-import SignupStep8 from '../../features/welcome/screens/SignupStep8';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SignupStep5 from '../../features/welcome/screens/SignupStep6';
+import SignupStep6 from '../../features/welcome/screens/SignupStep7';
+import SignupStep7 from '../../features/welcome/screens/SignupStep8';
+import SignupStep8 from '../../features/welcome/screens/SignupStep9';
+import SignupStep9 from '../../features/welcome/screens/SignupStep9';
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
 const SignupNavigator = () => {
@@ -22,6 +23,7 @@ const SignupNavigator = () => {
       <Stack.Screen name="SignupStep6" component={SignupStep6} options={{ headerShown: false }} />
       <Stack.Screen name="SignupStep7" component={SignupStep7} options={{ headerShown: false }} />
       <Stack.Screen name="SignupStep8" component={SignupStep8} options={{ headerShown: false }} />
+      <Stack.Screen name="SignupStep9" component={SignupStep9} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
