@@ -46,7 +46,7 @@ const SignupStep8 = ({ navigation }) => {
       university,
       career,
       experience,
-      languages: selectedLanguages,
+      languages,
       instagram: instagram || "",
       linkedin: linkedin || "",
       image,
