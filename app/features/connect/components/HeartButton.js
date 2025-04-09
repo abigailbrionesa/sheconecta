@@ -1,24 +1,16 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Button1 from "../../welcome/components/Button1";
 
-export default function HeartButton({ liked, onPress }) {
+export const HeartButton = ({ liked, onPress }) => {
   return (
-    <TouchableOpacity
+    <Button1
       onPress={onPress}
-      style={{
-        backgroundColor: "white",
-        marginTop: 20,
-        padding: 10,
-        borderRadius: 50,
-        elevation: 3,
-      }}
+      color="white"
+      textColor="#3f60a0"
+      icon={<Ionicons name={liked ? "heart" : "heart-outline"} size={30} color="#3f60a0" />}
     >
-      <Ionicons
-        name={liked ? "heart" : "heart-outline"}
-        size={30}
-        color={liked ? "#3f60a0" : "black"}
-      />
-    </TouchableOpacity>
+      Guardar Aliada STEM
+    </Button1>
   );
-}
+};
