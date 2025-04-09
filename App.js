@@ -1,13 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FIREBASE_AUTH } from "./FirebaseConfig";
-import React, { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import React from "react";
 import { useFonts } from "expo-font";
-
-const Stack = createNativeStackNavigator();
 import Navigation from "./app/infraestructure/Navigation";
 
 export default function App() {
