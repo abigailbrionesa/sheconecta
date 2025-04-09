@@ -3,8 +3,8 @@ import { View, Text, ImageBackground, Alert } from "react-native";
 import {
   collection,
   getDocs,
-  updateDoc,
   doc,
+  getDoc,
   setDoc,
 } from "firebase/firestore";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
@@ -18,7 +18,10 @@ import UserProfileCard from "../components/UserProfileCard";
 export default function CommunityProfiles({ navigation }) {
   const [users, setUsers] = useState([]);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
-  const currentUserId = FIREBASE_AUTH.currentUser?.uid;
+  const [savedContacts, setSavedContacts] = useState([]);
+
+  const currentAuthenticatedUser = FIREBASE_AUTH.currentUser;
+  const currentAuthenticatedUserId = currentAuthenticatedUser?.uid;
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -27,46 +30,52 @@ export default function CommunityProfiles({ navigation }) {
         ...doc.data(),
         id: doc.id,
       }));
-      const filteredUsers = list.filter((user) => user.id !== currentUserId);
+      const filteredUsers = list.filter((user) => user.id !== currentAuthenticatedUserId);
       setUsers(filteredUsers);
     };
-
     fetchUsers();
-  }, []);
+  }, [currentAuthenticatedUserId]);
 
-  const currentUser = users[currentUserIndex];
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userDoc = doc(FIREBASE_DB, "users", currentAuthenticatedUserId);
+      const docSnap = await getDoc(userDoc);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setSavedContacts(data.savedContacts || []);
+      }
+    };
+    if (currentAuthenticatedUserId) {
+      fetchUserData();
+    }
+  }, [currentAuthenticatedUserId]);
 
-  const alreadySaved = currentUser?.savedContacts?.includes(currentUser.id);
-
+  const userBeingDisplayed = users[currentUserIndex];
 
   const handleHeart = async (userId) => {
     try {
-      if (typeof userId !== 'string' || typeof currentUserId !== 'string') {
-        throw new Error('Invalid userId or currentUserId');
+      if (!savedContacts.includes(userId)) {
+        const updatedContacts = [...savedContacts, userId];
+        await setDoc(
+          doc(FIREBASE_DB, "users", currentAuthenticatedUserId),
+          { savedContacts: updatedContacts },
+          { merge: true }
+        );
+        setSavedContacts(updatedContacts);
+        Alert.alert("Guardado", "Contacto añadido a tus aliadas STEM.");
+      } else {
+        const updatedContacts = savedContacts.filter((id) => id !== userId);
+        await setDoc(
+          doc(FIREBASE_DB, "users", currentAuthenticatedUserId),
+          { savedContacts: updatedContacts },
+          { merge: true }
+        );
+        setSavedContacts(updatedContacts);
+        Alert.alert("Eliminado", "Contacto eliminado de tus aliadas STEM.");
       }
-  
-      const currentUserDoc = doc(FIREBASE_DB, "users", currentUserId);
-      const currentUser = users[currentUserIndex];
-  
-      const alreadySaved = currentUser?.savedContacts?.includes(userId);
-  
-      const updatedSavedContacts = Array.isArray(currentUser.savedContacts)
-        ? alreadySaved
-          ? currentUser.savedContacts.filter((id) => id !== userId) 
-          : [...currentUser.savedContacts, userId] 
-        : alreadySaved
-        ? [] 
-        : [userId];
-  
-      await updateDoc(currentUserDoc, { savedContacts: updatedSavedContacts });
-  
-      const updatedUsers = [...users];
-      updatedUsers[currentUserIndex].savedContacts = updatedSavedContacts;
-      setUsers(updatedUsers);
-  
     } catch (error) {
       console.error("Error updating saved contacts:", error);
-      Alert.alert("Error", "An error occurred while updating. Please try again.");
+      Alert.alert("Error", "Ocurrió un error. Inténtalo de nuevo.");
     }
   };
   
@@ -74,12 +83,12 @@ export default function CommunityProfiles({ navigation }) {
   const startChat = async (otherUserId) => {
     try {
       const chatId =
-        currentUserId < otherUserId
-          ? `${currentUserId}_${otherUserId}`
-          : `${otherUserId}_${currentUserId}`;
+        currentAuthenticatedUserId < otherUserId
+          ? `${currentAuthenticatedUserId}_${otherUserId}`
+          : `${otherUserId}_${currentAuthenticatedUserId}`;
 
       await setDoc(doc(FIREBASE_DB, "chats", chatId), {
-        participants: [currentUserId, otherUserId],
+        participants: [currentAuthenticatedUserId, otherUserId],
         createdAt: new Date(),
       });
 
@@ -97,12 +106,10 @@ export default function CommunityProfiles({ navigation }) {
   };
 
   const nextUser = () => {
-    console.log(alreadySaved, "alreadys aveD?")
-
     if (currentUserIndex < users.length - 1) {
       setCurrentUserIndex(currentUserIndex + 1);
     } else {
-      Alert.alert("No more users!");
+      Alert.alert("No más usuarios");
     }
   };
 
@@ -110,9 +117,11 @@ export default function CommunityProfiles({ navigation }) {
     if (currentUserIndex > 0) {
       setCurrentUserIndex(currentUserIndex - 1);
     } else {
-      Alert.alert("You are on the first user!");
+      Alert.alert("Estás en el primer usuario");
     }
   };
+
+  const alreadySaved = userBeingDisplayed && savedContacts.includes(userBeingDisplayed.id);
 
   return (
     <ImageBackground
@@ -125,6 +134,7 @@ export default function CommunityProfiles({ navigation }) {
       >
         Aliadas STEM Guardadas
       </Button1>
+
       <View
         style={{
           flex: 1,
@@ -134,13 +144,13 @@ export default function CommunityProfiles({ navigation }) {
           marginTop: 80,
         }}
       >
-        {currentUser ? (
+        {userBeingDisplayed ? (
           <UserProfileCard
-          user={currentUser}
-          alreadyLiked={alreadySaved}
-          onHeartPress={handleHeart}
-          onMessagePress={startChat}
-        />
+            user={userBeingDisplayed}
+            alreadyLiked={alreadySaved}
+            onHeartPress={() => handleHeart(userBeingDisplayed.id)}
+            onMessagePress={() => startChat(userBeingDisplayed.id)}
+          />
         ) : (
           <Text>Loading...</Text>
         )}
