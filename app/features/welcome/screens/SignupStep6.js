@@ -1,19 +1,31 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
-import { Text } from "react-native";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-import { ImageBackground } from "react-native";
+import { fontStyle } from "../../../utils/fontStyle";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
-import { fontStyle } from "../../../utils/fontStyle";
-import { ScrollView } from "react-native";
+import TagSelector from "../../opportunities/components/TagSelector";
 
 const SignupStep6 = ({ navigation }) => {
   const route = useRoute();
-  const [instagram, setInstagram] = useState("");
-  const [linkedin, setLinkedin] = useState("");
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+
+  const languagesoptions = ["Español", "Quechua", "Aymara", "Inglés", "Francés"];
+
+  const toggleLanguage = (language) => {
+    if (selectedLanguages.includes(language)) {
+      setSelectedLanguages(selectedLanguages.filter((l) => l !== language));
+    } else {
+      setSelectedLanguages([...selectedLanguages, language]);
+    }
+  };
 
   const {
     email,
@@ -24,12 +36,9 @@ const SignupStep6 = ({ navigation }) => {
     role,
     departamento,
     provincia,
-    university,
-    career,
-    experience,
   } = route.params;
 
-  const handleContinue = () => {
+  const goToStep7 = () => {
     navigation.navigate("SignupStep7", {
       email,
       password,
@@ -39,11 +48,7 @@ const SignupStep6 = ({ navigation }) => {
       role,
       departamento,
       provincia,
-      university,
-      career,
-      experience,
-      instagram: instagram || "",
-      linkedin: linkedin || "",
+      languages: selectedLanguages,
     });
   };
 
@@ -52,41 +57,26 @@ const SignupStep6 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View
-        style={[
-          uiStyle.container,
-          { gap: 15, flex: 1, justifyContent: "space-between" },
-        ]}
-      >
-        <View style={{ gap: 15 }}>
-          <Text style={[fontStyle.h2, fontStyle.light]}>Añade tus redes sociales (opcional)</Text>
-          
-          <Text style={[fontStyle.h3, fontStyle.light]}>Instagram</Text>
-          <TextInput
-            style={uiStyle.input}
-            value={instagram}
-            placeholder="Escribe aquí..."
-            onChangeText={setInstagram}
-          />
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <View
+          style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}
+        >
+          <View>
+            <Text style={fontStyle.h3}>¿Qué idiomas hablas?</Text>
 
-          <Text style={[fontStyle.h3, fontStyle.light]}>LinkedIn</Text>
-          <TextInput
-            style={uiStyle.input}
-            value={linkedin}
-            placeholder="Escribe aquí..."
-            onChangeText={setLinkedin}
-          />
+            <TagSelector
+              tags={languagesoptions}
+              selectedTags={selectedLanguages}
+              toggleTag={toggleLanguage}
+            />
+          </View>
+
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <GoBackButton onPress={() => navigation.goBack()} />
+            <NextButton onPress={goToStep7} />
+          </View>
         </View>
-        
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <GoBackButton onPress={() => navigation.goBack()} />
-          <NextButton onPress={handleContinue} />
-        </View>
-      </View>
       </ScrollView>
-
-
     </ImageBackground>
   );
 };
