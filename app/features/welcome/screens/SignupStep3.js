@@ -8,11 +8,13 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import GoBackButton from "../components/GoBackButton";
+import { fontStyle } from "../../../utils/fontStyle";
+import { uiStyle } from "../../../utils/uiStyle";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
 
 const SignupStep3 = ({ navigation }) => {
   const route = useRoute();
   const [role, setRole] = useState("");
-
   const { email, password, firstName, lastName, birthDate } = route.params;
 
   const goToStep4 = (role) => {
@@ -26,19 +28,33 @@ const SignupStep3 = ({ navigation }) => {
     });
   };
 
+  const RoleButton = ({ roleName, label, description }) => {
+    const isSelected = role === roleName;
+    return (
+      <TouchableOpacity
+        style={{
+          backgroundColor: isSelected ? "rgba(255, 255, 255, 0.8)" : "white",
+          borderRadius: 30,
+          alignItems: "center",
+          padding:15,
+        }}
+        onPress={() => {
+          setRole(roleName);
+          goToStep4(roleName);
+        }}
+      >
+        <Text style={[fontStyle.h3, fontStyle.dark]}>{label}</Text>
+        <Text style={[fontStyle.p, fontStyle.gray]}>{description}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
-      style={{
-        flex: 1,
-        resizeMode: "cover",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 20,
-        paddingTop: 60,
-      }}
+      style={[backgroundStyle.background]}
     >
-      <View style={{ width: "100%", alignItems: "center" }}>
+      <View style={[uiStyle.container, { gap: 15, flex:1, justifyContent: "space-between" }]}>
         <Image
           source={require("../../../../assets/orchid.png")}
           style={{
@@ -48,69 +64,27 @@ const SignupStep3 = ({ navigation }) => {
             marginBottom: 20,
           }}
         />
-
-        <Text
-          style={{
-            fontSize: 28,
-            fontWeight: "300",
-            textAlign: "center",
-            color: "white",
-            marginBottom: 40,
-          }}
-        >
+        <Text style={[fontStyle.h1, fontStyle.light]}>
           ¿Cómo quieres participar?
         </Text>
+        
+        <RoleButton
+          roleName="estudiante"
+          label="Soy estudiante"
+          description="Quiero aprender"
+        />
 
-        <TouchableOpacity
-          style={{
-            backgroundColor: role === "estudiante" ? "rgba(255, 255, 255, 0.8)" : "white",
-            borderRadius: 30,
-            paddingVertical: 15,
-            paddingHorizontal: 20,
-            width: "100%",
-            alignItems: "center",
-            marginBottom: 20,
-            borderWidth: role === "estudiante" ? 3 : 0,
-            borderColor: "#007AFF",
-          }}
-          onPress={() => {
-            setRole("estudiante");
-            goToStep4("estudiante");
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "500" }}>Soy estudiante</Text>
-          <Text style={{ fontSize: 14 }}>Quiero aprender</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            backgroundColor: role === "mentor" ? "rgba(255, 255, 255, 0.8)" : "white",
-            borderRadius: 30,
-            paddingVertical: 15,
-            paddingHorizontal: 20,
-            width: "100%",
-            alignItems: "center",
-            marginBottom: 20,
-            borderWidth: role === "mentor" ? 3 : 0,
-            borderColor: "#007AFF",
-          }}
-          onPress={() => {
-            setRole("mentor");
-            goToStep4("mentor");
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "500" }}>Soy mentor</Text>
-          <Text style={{ fontSize: 14 }}>Quiero guiar</Text>
-        </TouchableOpacity>
+        <RoleButton
+          roleName="mentor"
+          label="Soy mentor"
+          description="Quiero guiar"
+        />
 
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            width: "100%",
-            position: "absolute",
-            bottom: 30,
-            paddingHorizontal: 20,
+            alignContent: "flex-end",
           }}
         >
           <GoBackButton onPress={() => navigation.goBack()} />
