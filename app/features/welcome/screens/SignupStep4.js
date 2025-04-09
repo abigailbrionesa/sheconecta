@@ -91,7 +91,7 @@ const SignupStep4 = ({ navigation }) => {
           <TextInput
             style={uiStyle.input}
             value={experience}
-            placeholder="Enter years of experience"
+            placeholder="Años de experiencia"
             keyboardType="numeric"
             onChangeText={setExperience}
           />
