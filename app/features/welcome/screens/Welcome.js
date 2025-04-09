@@ -16,7 +16,9 @@ const Welcome = () => {
 
         <Button
           title="CREAR CUENTA"
-          onPress={() => navigation.navigate("SignUp")}
+          onPress={() => 
+            navigation.navigate("SignUp")
+          }
         />
         <Button
           title="INICIAR SESIÓN"

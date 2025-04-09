@@ -1,21 +1,50 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, StyleSheet } from "react-native";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
 
-const HomeScreen = ({ user }) => {
+const HomeScreen = () => {
+  const [userEmail, setUserEmail] = useState('');
+  
+  useEffect(() => {
+    const currentUser = FIREBASE_AUTH.currentUser;
+    if (currentUser) {
+      setUserEmail(currentUser.email);
+    }
+  }, []);
+
   const handleLogout = () => {
     FIREBASE_AUTH.signOut();
   };
 
   return (
-    <View>
-      <Text>Bienvenido a SheConecta! {user.email} </Text>
+    <View style={styles.container}>
+      <Text style={styles.welcomeText}>
+        Bienvenido a SheConecta! {userEmail ? `(${userEmail})` : ''}
+      </Text>
 
-      <View>
+      <View style={styles.buttonContainer}>
         <Button title="Cerrar sesión" onPress={handleLogout} />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  welcomeText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    width: '80%',
+    marginTop: 20,
+  }
+});
 
 export default HomeScreen;

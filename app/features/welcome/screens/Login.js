@@ -28,6 +28,7 @@ const Login = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log("Login successful:", response);
+      navigation.navigate("HomeScreen");
     } catch (error) {
       console.error("Login error:", error.message);
     } finally {
