@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { 
   View, 
-  Button, 
   ActivityIndicator, 
   Text, 
   StyleSheet, 
   Image, 
   TouchableOpacity,
-  Animated
+  Animated,
+  ImageBackground
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -16,7 +16,6 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-import { ImageBackground } from "react-native";
 import GoBackButton from "../components/GoBackButton";
 
 const SignupStep8 = ({ navigation }) => {
@@ -41,7 +40,25 @@ const SignupStep8 = ({ navigation }) => {
     linkedin,
     image,
     selectedAreas,
-  } = route.params || {};
+  } = route.params;
+
+  // Log all received parameters for debugging
+  useEffect(() => {
+    console.log("Final signup data:", JSON.stringify({
+      email,
+      firstName,
+      lastName,
+      birthDate,
+      role,
+      city,
+      university,
+      career,
+      experience,
+      instagram,
+      linkedin, 
+      selectedAreas,
+    }, null, 2));
+  }, []);
 
   useEffect(() => {
     Animated.parallel([
@@ -60,6 +77,12 @@ const SignupStep8 = ({ navigation }) => {
   }, []);
 
   const signUp = async () => {
+    // Validate that we have all required fields before proceeding
+    if (!email || !password || !firstName || !lastName || !role || !city || !university || !career || !selectedAreas) {
+      alert("Error: Missing required information. Please go back and complete all required fields.");
+      return;
+    }
+    
     setLoading(true);
     const auth = FIREBASE_AUTH;
     const db = getFirestore();
@@ -81,7 +104,7 @@ const SignupStep8 = ({ navigation }) => {
         city,
         career,
         university,
-        interestAreas: selectedAreas,
+        interestAreas: selectedAreas || [],
         yearsExperience: experience,
         socialLinks: {
           instagram: instagram || null,
@@ -98,7 +121,7 @@ const SignupStep8 = ({ navigation }) => {
       setSuccess(true);
       
       setTimeout(() => {
-        navigation.navigate("Home"); //////////
+        navigation.navigate("Home");
       }, 1500);
       
     } catch (error) {
@@ -143,7 +166,7 @@ const SignupStep8 = ({ navigation }) => {
                 source={require("../../../../assets/check.png")} 
                 style={styles.checkIcon} 
               />
-              <Text style={uiStyle.input}>¡Cuenta creada con éxito!</Text>
+              <Text style={styles.buttonTitle}>¡Cuenta creada con éxito!</Text>
             </View>
           ) : loading ? (
             <View style={styles.loadingContainer}>
@@ -156,7 +179,7 @@ const SignupStep8 = ({ navigation }) => {
               onPress={signUp}
               activeOpacity={0.8}
             >
-              <Text style={styles.buttonTitle}>Crear Cuenta</Text>
+              <Text style={styles.buttonText}>Crear Cuenta</Text>
             </TouchableOpacity>
           )}
         </Animated.View>
@@ -219,6 +242,11 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  buttonTitle: {
     color: "white",
     fontSize: 18,
     fontWeight: "600",

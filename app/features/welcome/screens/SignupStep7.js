@@ -21,13 +21,10 @@ const SignupStep7 = ({ navigation }) => {
     lastName,
     birthDate,
     role,
-    experience,
     city,
     university,
     career,
-    instagram,
-    linkedin,
-    image,
+    experience,
   } = route.params;
 
   useEffect(() => {
@@ -54,6 +51,7 @@ const SignupStep7 = ({ navigation }) => {
       return;
     }
 
+    // Navigate to Step6 in your new flow
     navigation.navigate("SignupStep6", {
       email,
       password,
@@ -65,10 +63,8 @@ const SignupStep7 = ({ navigation }) => {
       university,
       career,
       experience,
-      instagram: instagram || "",
-      linkedin: linkedin || "",
-      image,
-      selectedAreas,
+      selectedAreas, // Pass the selected areas
+      // No instagram, linkedin or image yet since they come later in the flow
     });
   };
 
@@ -84,7 +80,7 @@ const SignupStep7 = ({ navigation }) => {
         />
         
         <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
-          <Text style={[fontStyle.h2, fontStyle.light , {marginTop:-50}] }>¿Cuál es el área de tu interés?</Text>
+          <Text style={[fontStyle.h2, fontStyle.light, {marginTop:-50}]}>¿Cuál es el área de tu interés?</Text>
 
           <View style={styles.areasContainer}>
             {areas.map((area) => (

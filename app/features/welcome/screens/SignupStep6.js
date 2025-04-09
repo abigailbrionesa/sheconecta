@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { View, Button, Image, Text, Alert } from "react-native";
+import { View, Button, Image, Text, Alert, ImageBackground } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-import { ImageBackground } from "react-native";
 import { fontStyle } from "../../../utils/fontStyle";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
@@ -21,32 +20,17 @@ const SignupStep6 = ({ navigation }) => {
     lastName,
     birthDate,
     role,
-    experience,
     city,
     university,
     career,
-    instagram,
-    linkedin,
-  } = route.params || {};
+    experience,
+    selectedAreas,
+  } = route.params;
 
   const handleContinue = () => {
-    const image =
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-    console.log(
-      email,
-      password,
-      firstName,
-      lastName,
-      birthDate,
-      role,
-      experience,
-      city,
-      university,
-      career,
-      instagram,
-      linkedin,
-      "lol"
-    );
+    const image = profilePicture;
+
+    // Navigate to Step5 in your new flow
     navigation.navigate("SignupStep5", {
       email,
       password,
@@ -58,9 +42,8 @@ const SignupStep6 = ({ navigation }) => {
       university,
       career,
       experience,
-      instagram: instagram || "",
-      linkedin: linkedin || "",
-      image,
+      selectedAreas, // Make sure to pass the selectedAreas
+      image, // Pass the profile picture
     });
   };
 

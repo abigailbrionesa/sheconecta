@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert,StyleSheet,Image } from "react-native";
+import { View, TextInput, StyleSheet, Image, ScrollView, ImageBackground, Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
-import { Text } from "react-native";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
-import { ImageBackground } from "react-native";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
 import { fontStyle } from "../../../utils/fontStyle";
-import { ScrollView } from "react-native";
 
 const SignupStep5 = ({ navigation }) => {
   const route = useRoute();
@@ -22,13 +19,16 @@ const SignupStep5 = ({ navigation }) => {
     lastName,
     birthDate,
     role,
-    experience,
     city,
     university,
     career,
+    experience,
+    selectedAreas,
+    image,
   } = route.params;
 
   const handleContinue = () => {
+    // Navigate to Step8 in your new flow (final step)
     navigation.navigate("SignupStep8", {
       email,
       password,
@@ -40,8 +40,10 @@ const SignupStep5 = ({ navigation }) => {
       university,
       career,
       experience,
+      selectedAreas, // Make sure to pass the selectedAreas
       instagram: instagram || "",
       linkedin: linkedin || "",
+      image,
     });
   };
 
@@ -61,7 +63,7 @@ const SignupStep5 = ({ navigation }) => {
           { gap: 15, flex: 1, justifyContent: "space-between" },
         ]}
       >
-        <View style={{ gap: 15,marginTop: -10 }}>
+        <View style={{ gap: 15, marginTop: -10 }}>
           <Text style={[fontStyle.h2, fontStyle.light]}>Añade tus redes sociales (opcional)</Text>
           
           <Text style={[fontStyle.h3, fontStyle.light]}>Instagram</Text>
@@ -87,11 +89,10 @@ const SignupStep5 = ({ navigation }) => {
         </View>
       </View>
       </ScrollView>
-
-
     </ImageBackground>
   );
 };
+
 const styles = StyleSheet.create({
   orchidImage: {
     width: 80,

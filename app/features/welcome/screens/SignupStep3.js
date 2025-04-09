@@ -12,12 +12,15 @@ const SignupStep3 = ({ navigation }) => {
 
   const { email, password, firstName, lastName, birthDate } = route.params;
 
-  const validateRole = () => {
-    if (!role) {
-      Alert.alert("Error", "Please select a role.");
-      return false;
-    }
-    return true;
+  const handleRoleSelection = (selectedRole) => {
+    navigation.navigate("SignupStep4", {
+      email,
+      password,
+      firstName,
+      lastName,
+      birthDate,
+      role: selectedRole,
+    });
   };
 
   return (
@@ -37,14 +40,7 @@ const SignupStep3 = ({ navigation }) => {
           style={[styles.button, role === 'estudiante' && styles.selectedButton]}
           onPress={() => {
             setRole("estudiante");
-            navigation.navigate("SignupStep4", {
-              email,
-              password,
-              firstName,
-              lastName,
-              birthDate,
-              role: "estudiante",
-            });
+            handleRoleSelection("estudiante");
           }}
         >
           <Text style={styles.buttonTitle}>Soy estudiante</Text>
@@ -55,14 +51,7 @@ const SignupStep3 = ({ navigation }) => {
           style={[styles.button, role === 'mentor' && styles.selectedButton]}
           onPress={() => {
             setRole("mentor");
-            navigation.navigate("SignupStep4", {
-              email,
-              password,
-              firstName,
-              lastName,
-              birthDate,
-              role: "mentor",
-            });
+            handleRoleSelection("mentor");
           }}
         >
           <Text style={styles.buttonTitle}>Soy mentor</Text>
