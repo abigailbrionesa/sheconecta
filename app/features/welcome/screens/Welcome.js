@@ -13,19 +13,6 @@ const Welcome = () => {
     >
       <View style={{ padding: 20, marginTop: 100 }}>
         <LoginHeader />
-<<<<<<< HEAD
-
-        <Button
-          title="CREAR CUENTA"
-          onPress={() => 
-            navigation.navigate("SignUp")
-          }
-        />
-        <Button
-          title="INICIAR SESIÓN"
-          onPress={() => navigation.navigate("Login")}
-        />
-=======
         <View style={{ gap: 15 }}>
           <Button1 onPress={() => navigation.navigate("SignUp")}>
             Crear Cuenta
@@ -34,7 +21,6 @@ const Welcome = () => {
             Iniciar Sesión
           </Button1>
         </View>
->>>>>>> main
       </View>
     </ImageBackground>
   );
