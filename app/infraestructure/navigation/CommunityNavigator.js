@@ -17,6 +17,10 @@ export const CommunityNavigator = () => {
       <Stack.Screen 
         name="FavoriteProfiles" 
         component={FavoriteProfiles} 
+        options={{ 
+          headerShown: true, 
+          title: 'Aliadas STEM Guardadas'
+        }}
       />
     </Stack.Navigator>
   );
