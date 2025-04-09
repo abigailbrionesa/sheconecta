@@ -17,7 +17,16 @@ const SignupStep6 = ({ navigation }) => {
   const route = useRoute();
   const [selectedLanguages, setSelectedLanguages] = useState([]);
 
-  const languagesoptions = ["Español", "Quechua", "Aymara", "Inglés", "Francés"];
+  const languagesoptions = [
+    "Español", 
+    "Quechua", 
+    "Aymara", 
+    "Awajún", 
+    "Shipibo", 
+    "Ashaninka", 
+    "Matsigenka", 
+    "Kandozi-Chapra"
+  ];
 
   const toggleLanguage = (language) => {
     if (selectedLanguages.includes(language)) {
@@ -36,6 +45,9 @@ const SignupStep6 = ({ navigation }) => {
     role,
     departamento,
     provincia,
+    university,
+    career,
+    experience,
   } = route.params;
 
   const goToStep7 = () => {
