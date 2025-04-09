@@ -7,7 +7,7 @@ const PostTypePicker = ({ type, setType }) => {
       onValueChange={setType}
       placeholder={{
         label: "(Experiencia, Beca, Curso, Proyecto)",
-        value: null,
+        value: "Experiencia",
       }}
       style={{
         inputIOS: {
