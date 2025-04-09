@@ -28,25 +28,15 @@ const SignupStep3 = ({ navigation }) => {
     });
   };
 
-  const RoleButton = ({ roleName, label, description }) => {
-    const isSelected = role === roleName;
-    return (
-      <TouchableOpacity
-        style={{
-          backgroundColor: isSelected ? "rgba(255, 255, 255, 0.8)" : "white",
-          borderRadius: 30,
-          alignItems: "center",
-          padding:15,
-        }}
-        onPress={() => {
-          setRole(roleName);
-          goToStep4(roleName);
-        }}
-      >
-        <Text style={[fontStyle.h3, fontStyle.dark]}>{label}</Text>
-        <Text style={[fontStyle.p, fontStyle.gray]}>{description}</Text>
-      </TouchableOpacity>
-    );
+  const handleRoleSelection = (selectedRole) => {
+    navigation.navigate("SignupStep4", {
+      email,
+      password,
+      firstName,
+      lastName,
+      birthDate,
+      role: selectedRole,
+    });
   };
 
   return (
@@ -68,11 +58,29 @@ const SignupStep3 = ({ navigation }) => {
           ¿Cómo quieres participar?
         </Text>
         
-        <RoleButton
-          roleName="estudiante"
-          label="Soy estudiante"
-          description="Quiero aprender"
-        />
+        <Text style={[fontStyle.h1, styles.headerText]}>¿Cómo quieres participar?</Text>
+        
+        <TouchableOpacity 
+          style={[styles.button, role === 'estudiante' && styles.selectedButton]}
+          onPress={() => {
+            setRole("estudiante");
+            handleRoleSelection("estudiante");
+          }}
+        >
+          <Text style={styles.buttonTitle}>Soy estudiante</Text>
+          <Text style={styles.buttonSubtitle}>Quiero aprender</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.button, role === 'mentor' && styles.selectedButton]}
+          onPress={() => {
+            setRole("mentor");
+            handleRoleSelection("mentor");
+          }}
+        >
+          <Text style={styles.buttonTitle}>Soy mentor</Text>
+          <Text style={styles.buttonSubtitle}>Quiero guiar</Text>
+        </TouchableOpacity>
 
         <RoleButton
           roleName="mentor"

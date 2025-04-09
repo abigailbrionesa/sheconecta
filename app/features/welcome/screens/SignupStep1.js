@@ -71,7 +71,7 @@ const SignupStep1 = ({ navigation }) => {
           { gap: 15, flex: 1, justifyContent: "space-between" },
         ]}
       >
-        <View style={{ gap: 15 }}>
+        <View style={{ gap: 15,marginTop: 180 }}>
           <Text style={[fontStyle.h2, fontStyle.light]}>Completa tu perfil</Text>
           <Text style={[fontStyle.h3, fontStyle.light]}>Correo electrónico</Text>
           <TextInput
