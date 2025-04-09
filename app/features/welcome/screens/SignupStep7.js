@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image, Animated } from "react-native";
+=======
+import React, { useState } from "react";
+import { View, TextInput, Button, Alert } from "react-native";
+>>>>>>> main
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
-import { fontStyle } from "../../../utils/fontStyle";
+import { Text } from "react-native";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
+<<<<<<< HEAD
 
 const SignupStep7 = ({ navigation }) => {
   const route = useRoute();
@@ -14,13 +20,24 @@ const SignupStep7 = ({ navigation }) => {
   const [selectedAreas, setSelectedAreas] = useState([]);
   const fadeAnim = new Animated.Value(0);
   
+=======
+import { fontStyle } from "../../../utils/fontStyle";
+import { ScrollView } from "react-native";
+
+const SignupStep7 = ({ navigation }) => {
+  const route = useRoute();
+  const [instagram, setInstagram] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+
+>>>>>>> main
   const {
     email,
     password,
     firstName,
     lastName,
-    birthDate,
+    age,
     role,
+<<<<<<< HEAD
     city,
     university,
     career,
@@ -45,24 +62,37 @@ const SignupStep7 = ({ navigation }) => {
     });
   };
 
-  const handleContinue = () => {
-    if (selectedAreas.length === 0) {
-      Alert.alert("Por favor selecciona al menos un área.");
-      return;
-    }
+=======
+    departamento,
+    provincia,
+    university,
+    career,
+    experience,
+    languages: selectedLanguages,
 
-    navigation.navigate("SignupStep6", {
+  } = route.params;
+
+>>>>>>> main
+  const handleContinue = () => {
+    navigation.navigate("SignupStep8", {
       email,
       password,
       firstName,
       lastName,
-      birthDate,
+      age,
       role,
-      city,
+      departamento,
+      provincia,
       university,
       career,
       experience,
+<<<<<<< HEAD
       selectedAreas,
+=======
+      languages: selectedLanguages,
+      instagram: instagram || "",
+      linkedin: linkedin || "",
+>>>>>>> main
     });
   };
 
@@ -71,6 +101,7 @@ const SignupStep7 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
+<<<<<<< HEAD
       <View style={styles.container}>
         <Image 
           source={require("../../../../assets/orchid.png")} 
@@ -104,14 +135,48 @@ const SignupStep7 = ({ navigation }) => {
         </Animated.View>
 
         <View style={styles.navigationContainer}>
+=======
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 15, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View style={{ gap: 15 }}>
+          <Text style={[fontStyle.h2, fontStyle.light]}>Añade tus redes sociales (opcional)</Text>
+          
+          <Text style={[fontStyle.h3, fontStyle.light]}>Instagram</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={instagram}
+            placeholder="Escribe aquí..."
+            onChangeText={setInstagram}
+          />
+
+          <Text style={[fontStyle.h3, fontStyle.light]}>LinkedIn</Text>
+          <TextInput
+            style={uiStyle.input}
+            value={linkedin}
+            placeholder="Escribe aquí..."
+            onChangeText={setLinkedin}
+          />
+        </View>
+        
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+>>>>>>> main
           <GoBackButton onPress={() => navigation.goBack()} />
           <NextButton onPress={handleContinue} />
         </View>
       </View>
+      </ScrollView>
+
+
     </ImageBackground>
   );
 };
 
+<<<<<<< HEAD
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -175,3 +240,6 @@ const styles = StyleSheet.create({
 });
 
 export default SignupStep7;
+=======
+export default SignupStep7;
+>>>>>>> main

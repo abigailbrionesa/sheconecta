@@ -1,133 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { 
-  View, 
-  ActivityIndicator, 
-  Text, 
-  StyleSheet, 
-  Image, 
-  TouchableOpacity,
-  Animated,
-  ImageBackground
-} from "react-native";
+import React, { useState } from "react";
+import { View, Button, Image, Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { ImageBackground } from "react-native";
+import { fontStyle } from "../../../utils/fontStyle";
+import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
 
 const SignupStep8 = ({ navigation }) => {
   const route = useRoute();
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const fadeAnim = new Animated.Value(0);
-  const scaleAnim = new Animated.Value(0.9);
+  const [profilePicture, setProfilePicture] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
 
   const {
     email,
     password,
     firstName,
     lastName,
-    birthDate,
+    age,
     role,
-    city,
+    departamento,
+    provincia,
     university,
     career,
     experience,
+    languages,
     instagram,
     linkedin,
-    image,
-    selectedAreas,
-  } = route.params;
+  } = route.params || {};
 
-  useEffect(() => {
-    console.log("Final signup data:", JSON.stringify({
+  const handleContinue = () => {
+    const image =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+    navigation.navigate("SignupStep9", {
       email,
+      password,
       firstName,
       lastName,
-      birthDate,
+      age,
       role,
-      city,
+      departamento,
+      provincia,
       university,
       career,
       experience,
-      instagram,
-      linkedin, 
-      selectedAreas,
-    }, null, 2));
-  }, []);
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 800,
-        useNativeDriver: true,
-      }),
-      Animated.spring(scaleAnim, {
-        toValue: 1,
-        friction: 8,
-        tension: 40,
-        useNativeDriver: true,
-      })
-    ]).start();
-  }, []);
-
-  const signUp = async () => {
-    if (!email || !password || !firstName || !lastName || !role || !city || !university || !career || !selectedAreas) {
-      alert("Error: Missing required information. Please go back and complete all required fields.");
-      return;
-    }
-    
-    setLoading(true);
-    const auth = FIREBASE_AUTH;
-    const db = getFirestore();
-
-    try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = response.user;
-
-      const userData = {
-        type: role,
-        email,
-        firstName,
-        lastName,
-        birthDate,
-        city,
-        career,
-        university,
-        interestAreas: selectedAreas || [],
-        yearsExperience: experience,
-        socialLinks: {
-          instagram: instagram || null,
-          linkedin: linkedin || null,
-        },
-        profilePictureUrl: image,
-        carnetPictureUrl: null,
-        score: 0,
-        savedContacts: [],
-      };
-
-      await setDoc(doc(db, "users", user.uid), userData);
-      console.log("Signup successful");
-      setSuccess(true);
-      
-      setTimeout(() => {
-        navigation.navigate("Home");
-      }, 1500);
-      
-    } catch (error) {
-      console.error("Signup error:", error.message);
-      alert("Error al crear la cuenta: " + error.message);
-    } finally {
-      setLoading(false);
-    }
+      languages: selectedLanguages,
+      instagram: instagram || "",
+      linkedin: linkedin || "",
+      image,
+    });
   };
 
   return (
@@ -135,58 +59,22 @@ const SignupStep8 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={styles.container}>
-        <Image 
-          source={require("../../../../assets/orchid.png")} 
-          style={styles.orchidImage} 
-        />
-        
-        <Animated.View 
-          style={[
-            styles.content, 
-            {
-              opacity: fadeAnim,
-              transform: [{ scale: scaleAnim }]
-            }
-          ]}
-        >
-          <Text style={[fontStyle.h2, fontStyle.light, {marginTop:-60}]}>
-            ¡Todo listo para crear tu cuenta!
-          </Text>
-          
-          <Text style={[fontStyle.light, {marginBottom:55}]}>
-            Estás a un paso de unirte a nuestra comunidad
-          </Text>
+      <View style={uiStyle.container}>
+        <Text style={[fontStyle.h2, fontStyle.light]}>Añade una foto de perfil (opcional)</Text>
 
-          {success ? (
-            <View style={styles.successContainer}>
-              <Image 
-                source={require("../../../../assets/check.png")} 
-                style={styles.checkIcon} 
-              />
-              <Text style={styles.buttonTitle}>¡Cuenta creada con éxito!</Text>
-            </View>
-          ) : loading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#FFFFFF" />
-              <Text style={styles.loadingText}>Creando tu cuenta...</Text>
-            </View>
-          ) : (
-            <TouchableOpacity 
-              style={styles.createButton}
-              onPress={signUp}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.buttonText}>Crear Cuenta</Text>
-            </TouchableOpacity>
-          )}
-        </Animated.View>
-
-        {!loading && !success && (
-          <View style={styles.navigationContainer}>
-            <GoBackButton onPress={() => navigation.goBack()} />
-          </View>
+        {profilePicture ? (
+          <Image
+            source={{ uri: profilePicture }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
+        ) : (
+          <Text>No Profile Picture</Text>
         )}
+
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={handleContinue} />
+        </View>
       </View>
     </ImageBackground>
   );

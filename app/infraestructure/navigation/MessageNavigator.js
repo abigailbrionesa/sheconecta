@@ -1,22 +1,23 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ChatScreen from '../features/chat/screens/ChatScreen';
-import MessagesListScreen from '../features/chat/screens/MessageListScreen';
+import MessagesInbox from '../../features/chat/screens/MessagesInbox';
+import PersonalChat from '../../features/chat/screens/PersonalChat';
+
 
 const Stack = createNativeStackNavigator();
 
 export const MessageNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="MessagesListScreen" 
+    <Stack.Navigator initialRouteName="MessagesInbox" 
     screenOptions={{ headerShown: false }}>
         
       <Stack.Screen 
         name="ChatScreen" 
-        component={ChatScreen} 
+        component={PersonalChat} 
       />
       <Stack.Screen 
-        name="MessagesListScreen" 
-        component={MessagesListScreen} 
+        name="MessagesInbox" 
+        component={MessagesInbox} 
       />
     </Stack.Navigator>
   );

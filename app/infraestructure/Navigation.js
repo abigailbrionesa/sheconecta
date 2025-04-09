@@ -1,15 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import Login from "../features/welcome/screens/Login";
-import SignupNavigator from "../infraestructure/navigation/SignupNavigator";
-import MainTabNavigator from "./MainTabNavigator";
-import Welcome from "../features/welcome/screens/Welcome";
-import { FIREBASE_AUTH } from "../../FirebaseConfig";
-
-const Stack = createNativeStackNavigator();
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { StatusBar } from 'expo-status-bar';
+import { AuthStack } from './AuthStack';
+import { AppStack } from './AppStack';
 
 export default function Navigation() {
   const [user, setUser] = useState(null);
@@ -21,37 +16,13 @@ export default function Navigation() {
       if (initializing) setInitializing(false);
     });
     return unsubscribe;
-  }, []);
+  }, [initializing]);
+
+  if (initializing) return null;
 
   return (
     <NavigationContainer>
-      {user ? (
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={MainTabNavigator}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      ) : (
-        <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen
-            name="Welcome"
-            component={Welcome}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignupNavigator}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      )}
+      {user ? <AppStack /> : <AuthStack />}
       <StatusBar style="auto" />
     </NavigationContainer>
   );

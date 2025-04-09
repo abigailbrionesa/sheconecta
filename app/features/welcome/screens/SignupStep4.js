@@ -1,19 +1,30 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { View, Text, TextInput, Alert, ScrollView, ImageBackground } from "react-native";
+=======
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Alert, ScrollView } from "react-native";
+>>>>>>> main
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
+<<<<<<< HEAD
+=======
+import DropDownPicker from "react-native-dropdown-picker";
+import { departments } from "../../../utils/geographyPeru";
+>>>>>>> main
 
 const SignupStep4 = ({ navigation }) => {
   const route = useRoute();
-  const [city, setCity] = useState("");
-  const [university, setUniversity] = useState("");
-  const [career, setCareer] = useState("");
-  const [experience, setExperience] = useState("");
+  const [departamento, setDepartamento] = useState(null);
+  const [provincia, setProvincia] = useState(null);
+  const [openDepartment, setOpenDepartment] = useState(false);
+  const [openProvince, setOpenProvince] = useState(false);
 
+<<<<<<< HEAD
   const { email, password, firstName, lastName, birthDate, role } = route.params;
 
   // const validateExperience = (exp) => {
@@ -55,18 +66,26 @@ const SignupStep4 = ({ navigation }) => {
       
         return true;
       };
+=======
+  const { email, password, firstName, lastName, age, role } =
+    route.params;
+>>>>>>> main
 
-  const validateCityUniversityCareer = () => {
-    if (!city || !university || !career) {
-      Alert.alert(
-        "Error",
-        "Please complete the city, university, and career fields."
-      );
-      return false;
-    }
-    return true;
+  const goToStep5 = () => {
+    console.log("go to step 5")
+    navigation.navigate("SignupStep5", {
+      email,
+      password,
+      firstName,
+      lastName,
+      age,
+      role,
+      departamento,
+      provincia,
+    });
   };
 
+<<<<<<< HEAD
   const goToStep7 = () => {
     if (validateCityUniversityCareer() && validateTextFields() ) {
       navigation.navigate("SignupStep7", {
@@ -82,6 +101,15 @@ const SignupStep4 = ({ navigation }) => {
         experience,
       });
     }
+=======
+  const handleDepartamentoChange = (value) => {
+    setDepartamento(value);
+    setProvincia(null);
+  };
+
+  const getProvincias = () => {
+    return departamento ? departments[departamento] : [];
+>>>>>>> main
   };
 
   return (
@@ -93,6 +121,7 @@ const SignupStep4 = ({ navigation }) => {
         <View
           style={[
             uiStyle.container,
+<<<<<<< HEAD
             { gap: 40, flex: 1, justifyContent: "space-between" },
           ]}
         >
@@ -140,6 +169,58 @@ const SignupStep4 = ({ navigation }) => {
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <GoBackButton onPress={() => navigation.goBack()} />
             <NextButton onPress={goToStep7} />
+=======
+            { gap: 15, flex: 1, justifyContent: "space-between" },
+          ]}
+        >
+          <View style={{ gap: 15 }}>
+            <Text style={[fontStyle.h2, fontStyle.light]}>
+              Cuentanos un poco más sobre ti
+            </Text>
+
+            <Text style={[fontStyle.h3, fontStyle.light]}>Departamento</Text>
+
+            <DropDownPicker
+              open={openDepartment}
+              value={departamento}
+              items={Object.keys(departments).map((department) => ({
+                label: department,
+                value: department,
+              }))}
+              setOpen={setOpenDepartment}
+              setValue={handleDepartamentoChange}
+              style={uiStyle.input}
+              containerStyle={{ marginBottom: 10, zIndex: 10 }}
+              placeholder="Selecciona tu departamento"
+              dropDownContainerStyle={{ zIndex: 20, position: "absolute" }}
+            />
+
+            {departamento && (
+              <>
+                <Text style={[fontStyle.h3, fontStyle.light]}>Provincia</Text>
+                <DropDownPicker
+                  open={openProvince}
+                  value={provincia}
+                  items={getProvincias().map((province) => ({
+                    label: province,
+                    value: province,
+                  }))}
+                  setOpen={setOpenProvince}
+                  setValue={setProvincia}
+                  style={uiStyle.input}
+                  containerStyle={{ marginBottom: 10, zIndex: 10 }}
+                  placeholder="Selecciona tu provincia"
+                  disabled={!departamento}
+                  dropDownContainerStyle={{ zIndex: 20, position: "absolute" }}
+                />
+              </>
+            )}
+
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              <GoBackButton onPress={() => navigation.goBack()} />
+              <NextButton onPress={goToStep5} />
+            </View>
+>>>>>>> main
           </View>
         </View>
       </ScrollView>

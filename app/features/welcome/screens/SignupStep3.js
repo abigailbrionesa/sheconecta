@@ -1,16 +1,32 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { uiStyle } from "../../../utils/uiStyle";
-import { fontStyle } from "../../../utils/fontStyle";
-import { backgroundStyle } from "../../../utils/backgroundStyle";
 import GoBackButton from "../components/GoBackButton";
+import { fontStyle } from "../../../utils/fontStyle";
+import { uiStyle } from "../../../utils/uiStyle";
+import { backgroundStyle } from "../../../utils/backgroundStyle";
 
 const SignupStep3 = ({ navigation }) => {
   const route = useRoute();
   const [role, setRole] = useState("");
+  const { email, password, firstName, lastName, age } = route.params;
 
-  const { email, password, firstName, lastName, birthDate } = route.params;
+  const goToStep4 = (role) => {
+    navigation.navigate("SignupStep4", {
+      email,
+      password,
+      firstName,
+      lastName,
+      age,
+      role,
+    });
+  };
 
   const handleRoleSelection = (selectedRole) => {
     navigation.navigate("SignupStep4", {
@@ -26,13 +42,21 @@ const SignupStep3 = ({ navigation }) => {
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
-      style={backgroundStyle.background}
+      style={[backgroundStyle.background]}
     >
-      <View style={styles.container}>
-        <Image 
-          source={require("../../../../assets/orchid.png")} 
-          style={styles.orchidImage} 
+      <View style={[uiStyle.container, { gap: 15, flex:1, justifyContent: "space-between" }]}>
+        <Image
+          source={require("../../../../assets/orchid.png")}
+          style={{
+            width: 80,
+            height: 80,
+            resizeMode: "contain",
+            marginBottom: 20,
+          }}
         />
+        <Text style={[fontStyle.h1, fontStyle.light]}>
+          ¿Cómo quieres participar?
+        </Text>
         
         <Text style={[fontStyle.h1, styles.headerText]}>¿Cómo quieres participar?</Text>
         
@@ -58,61 +82,24 @@ const SignupStep3 = ({ navigation }) => {
           <Text style={styles.buttonSubtitle}>Quiero guiar</Text>
         </TouchableOpacity>
 
-        <View style={styles.navigationContainer}>
-            <GoBackButton onPress={() => navigation.goBack()} />
+        <RoleButton
+          roleName="mentor"
+          label="Soy mentor"
+          description="Quiero guiar"
+        />
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignContent: "flex-end",
+          }}
+        >
+          <GoBackButton onPress={() => navigation.goBack()} />
         </View>
       </View>
     </ImageBackground>
   );
 };
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  orchidImage: {
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
-    marginBottom: 20,
-  },
-  headerText: {
-    textAlign: 'center',
-    marginBottom: 40,
-    color: 'white',
-  },
-  button: {
-    backgroundColor: 'white',
-    borderRadius: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  selectedButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderWidth: 3,
-    borderColor: "#007AFF",
-  },
-  buttonTitle: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  buttonSubtitle: {
-    fontSize: 14,
-  },
-  navigationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    position: 'absolute',
-    bottom: 30,
-    paddingHorizontal: 20,
-  },
-});
 
 export default SignupStep3;

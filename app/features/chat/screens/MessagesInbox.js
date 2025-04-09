@@ -5,7 +5,8 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
-export default function MessagesListScreen({ navigation }) {
+
+export default function MessagesInbox({ navigation }) {
   const [chats, setChats] = useState([]);
   const currentUserId = FIREBASE_AUTH.currentUser.uid;
 
