@@ -11,6 +11,8 @@ import GoBackButton from "../components/GoBackButton";
 import { fontStyle } from "../../../utils/fontStyle";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
+import { StyleSheet } from "react-native";
+
 
 const SignupStep3 = ({ navigation }) => {
   const route = useRoute();
@@ -34,7 +36,7 @@ const SignupStep3 = ({ navigation }) => {
       password,
       firstName,
       lastName,
-      birthDate,
+      age,
       role: selectedRole,
     });
   };
@@ -82,11 +84,6 @@ const SignupStep3 = ({ navigation }) => {
           <Text style={styles.buttonSubtitle}>Quiero guiar</Text>
         </TouchableOpacity>
 
-        <RoleButton
-          roleName="mentor"
-          label="Soy mentor"
-          description="Quiero guiar"
-        />
 
         <View
           style={{
@@ -101,5 +98,41 @@ const SignupStep3 = ({ navigation }) => {
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  headerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+    marginTop: 10,
+  },
+  button: {
+    backgroundColor: "#4c82af",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+    alignItems: "center",
+    marginVertical: 10,
+    marginHorizontal: 20,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  selectedButton: {
+    backgroundColor: "#388E3C",
+  },
+  buttonTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#fff",
+  },
+  buttonSubtitle: {
+    fontSize: 14,
+    color: "#fff",
+  },
+});
+
 
 export default SignupStep3;
