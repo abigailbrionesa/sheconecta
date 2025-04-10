@@ -41,7 +41,7 @@ const Login = () => {
           style={backgroundStyle.background}
         >
       <View style={{ padding: 20, marginTop: 100 }}>
-        <Text style={fontStyle.h1}>Iniciar Sesión</Text>
+        <Text style={[fontStyle.h1, fontStyle.light]}>Iniciar Sesión</Text>
 
         <TextInput
           style={uiStyle.input}
