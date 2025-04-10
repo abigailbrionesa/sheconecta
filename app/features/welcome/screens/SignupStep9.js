@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     padding: 20,
+    alignItems: "center",
   },
   orchidImage: {
     width: 80,
