@@ -128,7 +128,7 @@ export default function CommunityProfiles({ navigation }) {
       style={backgroundStyle.background}
     >
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}> 
+      <View style={{ justifyContent: "space-between", alignItems: "center", padding:20, marginTop:10, gap:15 }}> 
       <Button1
         onPress={() => navigation.navigate("FavoriteProfiles")}
         icon={<Ionicons name="bookmark-outline" size={20} color="white" />}
@@ -150,7 +150,6 @@ export default function CommunityProfiles({ navigation }) {
           justifyContent: "center",
           alignItems: "center",
           alignContent: "center",
-          marginTop: 80,
         }}
       >
         {userBeingDisplayed ? (
