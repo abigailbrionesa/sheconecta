@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, Image, ActivityIndicator, ImageBackground } from "react-native";
+import { View, Text, FlatList, ImageBackground } from "react-native";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { fontStyle } from "../../../utils/fontStyle";
@@ -16,38 +16,43 @@ export default function MessagesInbox({ navigation }) {
   useEffect(() => {
     const fetchChats = async () => {
       setLoading(true);
-      const q = query(
-        collection(FIREBASE_DB, "chats"),
-        where("participants", "array-contains", currentUserId)
-      );
-      const querySnapshot = await getDocs(q);
+      try {
+        const q = query(
+          collection(FIREBASE_DB, "chats"),
+          where("participants", "array-contains", currentUserId)
+        );
+        const querySnapshot = await getDocs(q);
 
-      const chatData = [];
+        const chatData = [];
 
-      for (const docSnap of querySnapshot.docs) {
-        const chat = docSnap.data();
-        const otherUserId = chat.participants.find(id => id !== currentUserId);
+        for (const docSnap of querySnapshot.docs) {
+          const chat = docSnap.data();
+          const otherUserId = chat.participants.find(id => id !== currentUserId);
 
-        const userDoc = await getDocs(collection(FIREBASE_DB, "users"));
-        const otherUser = userDoc.docs.find((u) => u.id === otherUserId)?.data();
+          const userDocSnap = await getDocs(collection(FIREBASE_DB, "users"));
+          const otherUser = userDocSnap.docs.find(u => u.id === otherUserId)?.data();
 
-        chatData.push({
-          id: docSnap.id,
-          ...chat,
-          recipientId: otherUserId,
-          recipientName: `${otherUser?.firstName} ${otherUser?.lastName}`,
-          recipientPhoto: otherUser?.profilePictureUrl,
-          recipientType: otherUser?.type,
-          recipientCareer: otherUser?.career,
-        });
+          chatData.push({
+            id: docSnap.id,
+            ...chat,
+            recipientId: otherUserId,
+            recipientName: `${otherUser?.firstName} ${otherUser?.lastName}`,
+            recipientPhoto: otherUser?.profilePictureUrl,
+            recipientType: otherUser?.type,
+            recipientCareer: otherUser?.career,
+          });
+        }
+
+        setChats(chatData);
+      } catch (error) {
+        console.error("Error fetching chats:", error);
+      } finally {
+        setLoading(false);
       }
-
-      setChats(chatData);
-      setLoading(false);
     };
 
     fetchChats();
-  }, []);
+  }, [currentUserId]);
 
   const openChat = (chat) => {
     navigation.navigate("ChatScreen", {
@@ -73,14 +78,12 @@ export default function MessagesInbox({ navigation }) {
         ) : chats.length === 0 ? (
           <Text style={[fontStyle.h3, fontStyle.light]}>No messages yet</Text>
         ) : (
-
           <FlatList
             data={chats}
             keyExtractor={(item) => item.id}
-            style={{ flex: 1, gap:15 }}
+            style={{ flex: 1, gap: 15 }}
             renderItem={({ item }) => <ChatItem chat={item} openChat={openChat} />}
           />
-
         )}
       </View>
     </ImageBackground>
