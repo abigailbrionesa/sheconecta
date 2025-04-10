@@ -10,7 +10,7 @@ import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import Button1 from "../components/Button1";
 
-const SignupStep9 = ({ navigation }) => {
+const SignupStep10 = ({ navigation }) => {
   const route = useRoute();
 
   const [loading, setLoading] = useState(false);
@@ -107,4 +107,4 @@ const SignupStep9 = ({ navigation }) => {
   );
 };
 
-export default SignupStep9;
+export default SignupStep10;
