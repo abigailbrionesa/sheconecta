@@ -102,16 +102,25 @@ const FeedOfPosts = () => {
         opacity: selectedTags.includes(tag.name) ? 0.6 : 1,
       }}
     >
-      <Image source={{ uri: tag.imageUrl }} style={{ width: 60, height: 60, borderRadius: 30 }} />
+      <Image
+        source={{ uri: tag.imageUrl }}
+        style={{ width: 60, height: 60, borderRadius: 30 }}
+      />
       <Text style={[fontStyle.p, fontStyle.light]}>{tag.name}</Text>
     </TouchableOpacity>
   );
 
   const renderPublications = (type) => (
-    <View key={type} style={{ backgroundColor: "#faf5f3", flex: 1, padding: 20, gap: 15 }}>
+    <View
+      key={type}
+      style={{ backgroundColor: "#faf5f3", flex: 1, padding: 20, gap: 15 }}
+    >
       <Text style={[fontStyle.h3, fontStyle.pink]}>{type}</Text>
       {groupedByType[type].map((item) => (
-        <View key={item.publicationId} style={{ backgroundColor: "#e6dafd", padding: 10, borderRadius: 10 }}>
+        <View
+          key={item.publicationId}
+          style={{ backgroundColor: "#e6dafd", padding: 10, borderRadius: 10 }}
+        >
           <Text style={fontStyle.h4}>{item.title}</Text>
           <Text style={fontStyle.p}>Autor: {item.author}</Text>
           <View style={{ backgroundColor: "gray", width: "100%", height: 1 }} />
@@ -132,12 +141,35 @@ const FeedOfPosts = () => {
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         <View style={{ padding: 20, gap: 15 }}>
           <Text style={[fontStyle.h3, fontStyle.light]}>Filtrar por tema</Text>
-          <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, justifyContent: "space-between" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              marginTop: 10,
+              justifyContent: "space-between",
+            }}
+          >
             {tagOptions.map(renderTagButton)}
           </View>
 
           {loading ? (
-            <Loading />
+            <>
+              <Loading />
+              <Text style={[fontStyle.h4, fontStyle.light]}>
+                {" "}
+                Estamos trabajando para brindarte la mejor experiencia. El
+                contenido se está cargando... ¡Gracias por tu paciencia!
+              </Text>
+              <Text style={[fontStyle.p, fontStyle.light]}>
+                ¡Bienvenida a SheConecta! 🌟 Una app creada por mujeres en STEM,
+                pensada para empoderar a todas las que se enfrentan a la falta
+                de guía, mentoras y una comunidad de apoyo. Con un modelo de
+                suscripción accesible y planes escalables, nos unimos a
+                universidades, voluntariados y organizaciones para generar un
+                impacto real. Porque cuando una mujer se conecta, crece. Y
+                cuando crecen juntas, ¡transforman el mundo! 💪💫
+              </Text>
+            </>
           ) : (
             <View>
               {typeOptions.map(
