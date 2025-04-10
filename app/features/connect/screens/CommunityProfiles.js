@@ -8,7 +8,7 @@ import NextButton from "../../welcome/components/NextButton";
 import Button1 from "../../welcome/components/Button1";
 import { Ionicons } from "@expo/vector-icons";
 import UserProfileCard from "../components/UserProfileCard";
-
+import Loading from "../../welcome/components/Loading";
 export default function CommunityProfiles({ navigation }) {
   const [users, setUsers] = useState([]);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
@@ -161,7 +161,7 @@ export default function CommunityProfiles({ navigation }) {
             onMessagePress={() => startChat(userBeingDisplayed.id)}
           />
         ) : (
-          <Text>Loading...</Text>
+          <Loading/>
         )}
       </View>
 
