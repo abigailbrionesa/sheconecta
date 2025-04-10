@@ -16,7 +16,7 @@ import NextButton from "../components/NextButton";
 import Button1 from "../components/Button1"; 
 import { fontStyle } from "../../../utils/fontStyle";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
-
+import { fontStyle } from "../../../utils/fontStyle";
 const plans = [
   {
     name: "Plan Free",
@@ -65,10 +65,10 @@ const plans = [
 
 const PlanCard = ({ plan }) => (
   <View style={styles.card}>
-    <Text style={styles.planName}>{plan.name}</Text>
-    <Text style={styles.planPrice}>{plan.price}</Text>
+    <Text style={[fontStyle.h4]}>{plan.name}</Text>
+    <Text style={[fontStyle.p]}>{plan.price}</Text>
     {plan.features.map((feature, index) => (
-      <Text key={index} style={styles.feature}>• {feature}</Text>
+      <Text key={index} style={[fontStyle.p]}>• {feature}</Text>
     ))}
   </View>
 );
@@ -143,7 +143,7 @@ const SubscriptionScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Planes de Suscripción</Text>
+      <Text style={[fontStyle.h2]}>Planes de Suscripción</Text>
       <FlatList
         data={plans}
         keyExtractor={(item) => item.name}
