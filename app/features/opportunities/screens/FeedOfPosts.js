@@ -113,7 +113,7 @@ const FeedOfPosts = () => {
   const renderPublications = (type) => (
     <View
       key={type}
-      style={{ backgroundColor: "#faf5f3", flex: 1, padding: 20, gap: 15 }}
+      style={{ backgroundColor: "#faf5f3", flex: 1, padding: 20, gap: 15, borderRadius:10 }}
     >
       <Text style={[fontStyle.h3, fontStyle.pink]}>{type}</Text>
       {groupedByType[type].map((item) => (
