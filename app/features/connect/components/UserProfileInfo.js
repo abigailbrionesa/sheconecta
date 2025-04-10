@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { fontStyle } from "../../../utils/fontStyle";
-
 export default function UserProfileInfo({ user }) {
   if (!user) return null;
 
@@ -32,7 +31,9 @@ export default function UserProfileInfo({ user }) {
           />
         )}
 
-        {user.type && <Text style={[fontStyle.h3, fontStyle.darker]}>{user.type}</Text>}
+        {user.type && (
+          <Text style={[fontStyle.h3, fontStyle.darker]}>{user.type}</Text>
+        )}
 
         {user.firstName && user.lastName && (
           <Text style={[fontStyle.h2, fontStyle.pink]}>
@@ -40,9 +41,13 @@ export default function UserProfileInfo({ user }) {
           </Text>
         )}
 
-        {user.career && <Text style={[fontStyle.p, fontStyle.darker]}>{user.career}</Text>}
+        {user.career && (
+          <Text style={[fontStyle.p, fontStyle.darker]}>{user.career}</Text>
+        )}
 
-        {user.university && <Text style={[fontStyle.p, fontStyle.darker]}>{user.university}</Text>}
+        {user.university && (
+          <Text style={[fontStyle.p, fontStyle.darker]}>{user.university}</Text>
+        )}
 
         {user.yearsExperience && (
           <Text style={[fontStyle.p, fontStyle.darker]}>
