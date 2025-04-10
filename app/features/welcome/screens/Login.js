@@ -40,7 +40,7 @@ const Login = () => {
           source={require("../../../../assets/background.png")}
           style={backgroundStyle.background}
         >
-      <View style={{ padding: 20, marginTop: 100 }}>
+      <View style={{ padding: 20, marginTop: 100, gap:15 }}>
         <Text style={[fontStyle.h1, fontStyle.light]}>Iniciar Sesión</Text>
 
         <TextInput
@@ -66,7 +66,7 @@ const Login = () => {
         )}
 
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text>
+          <Text style={[fontStyle.p, fontStyle.light]}>
             ¿No tienes cuenta? <Text>Crea una</Text>
           </Text>
         </TouchableOpacity>
