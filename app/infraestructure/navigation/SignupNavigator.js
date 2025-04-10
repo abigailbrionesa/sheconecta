@@ -9,7 +9,7 @@ import SignupStep7 from '../../features/welcome/screens/SignupStep7';
 import SignupStep8 from '../../features/welcome/screens/SignupStep8';
 import SignupStep9 from '../../features/welcome/screens/SignupStep9';
 import SignupStep10 from '../../features/welcome/screens/SignupStep10';
-
+import SubscriptionScreen from '../../features/welcome/screens/SuscriptionScreen';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +26,7 @@ const SignupNavigator = () => {
       <Stack.Screen name="SignupStep8" component={SignupStep8} options={{ headerShown: false }} />
       <Stack.Screen name="SignupStep9" component={SignupStep9} options={{ headerShown: false }} />
       <Stack.Screen name="SignupStep10" component={SignupStep10} options={{ headerShown: false }} />
+      <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} options={{ headerShown: false }} />
 
     </Stack.Navigator>
   );
