@@ -16,7 +16,7 @@ export default function PersonalChat() {
   const sendMessage = () => {
     if (text.trim()) {
       setMessages((prev) => [...prev, { text, id: Date.now().toString() }]);
-      setText("");
+      setText(""); 
     }
   };
 
@@ -25,7 +25,7 @@ export default function PersonalChat() {
       <HeaderChat
         recipientName={recipientName}
         recipientPhoto={recipientPhoto}
-        onBackPress={() => navigation.navigate("ChatScreen")}
+        onBackPress={() => navigation.navigate("MessagesInbox")}
       />
       <MessageList messages={messages} />
       <MessageInput text={text} setText={setText} onSend={sendMessage} />
