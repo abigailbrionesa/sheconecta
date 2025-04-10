@@ -16,7 +16,8 @@ import NextButton from "../components/NextButton";
 import Button1 from "../components/Button1"; 
 import { fontStyle } from "../../../utils/fontStyle";
 import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
-import { fontStyle } from "../../../utils/fontStyle";
+
+
 const plans = [
   {
     name: "Plan Free",
