@@ -6,10 +6,11 @@ import { Ionicons } from "@expo/vector-icons";
 import UserProfileInfo from "./UserProfileInfo";
 
 const UserProfileCard = ({ user, alreadyLiked, onHeartPress, onMessagePress }) => {
+  const backgroundColor = user.type === "mentor" ? "#e8d4ff" : "#d3d9f5"; 
   return (
     <View
       style={{
-        backgroundColor: "#e8d4ff",
+        backgroundColor: backgroundColor, 
         borderRadius: 60,
         padding: 30,
         gap: 15,
