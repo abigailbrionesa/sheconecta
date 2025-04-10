@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "wieehackathon",
+    "name": "SheConecta",
     "slug": "wieehackathon",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/orchid.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/orchid.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
