@@ -11,7 +11,7 @@ export const OpportunitiesNavigator = () => {
       <Stack.Screen 
         name="FeedOfPosts" 
         component={FeedOfPosts} 
-        options={{ title: 'Posts' }} 
+        options={{ title: 'Oportunidades STEM 🌸' }} 
       />
       <Stack.Screen 
         name="CreatePost" 
