@@ -15,10 +15,20 @@ export const ChallengesNavigator = () => {
       <Stack.Screen
         name="ChallengeDetails"
         component={ChallengeDetails}
+
         options={{
           headerShown: true,
-          title: "Más Detalles",
-        }}
+          title: 'Más Detalles',
+          headerStyle: {
+            backgroundColor: '#7f84cb', 
+          },
+          headerTintColor: '#ffffff', 
+          headerTitleStyle: {
+            fontSize: 20, 
+            fontFamily: 'AbhayaLibre-ExtraBold', 
+          },
+        }} 
+
       />
     </Stack.Navigator>
   );
