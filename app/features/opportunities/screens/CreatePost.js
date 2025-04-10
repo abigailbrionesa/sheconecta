@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, ImageBackground } from "react-native";
+import { View, ImageBackground,ScrollView } from "react-native";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
@@ -81,6 +81,7 @@ const CreatePost = () => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
+      <ScrollView>
       <View style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}>
         <PostForm
           title={title}
@@ -100,6 +101,7 @@ const CreatePost = () => {
         />
         <Button1 onPress={handlePostSubmit}>Publicar</Button1>
       </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
