@@ -94,7 +94,7 @@ const CreatePost = () => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={[uiStyle.container, { gap: 15, flexGrow: 1, justifyContent: "space-between" }]}>
+      <ScrollView contentContainerStyle={[uiStyle.container, { gap: 15, flexGrow: 1, justifyContent: "space-between", marginTop:10, }]}>
         <PostForm
           title={title}
           setTitle={setTitle}
