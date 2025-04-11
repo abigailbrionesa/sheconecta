@@ -54,7 +54,6 @@ const SignupStep4 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View
           style={[
             uiStyle.container,
@@ -107,14 +106,13 @@ const SignupStep4 = ({ navigation }) => {
               </>
             )}
 
-
+</View>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
               <GoBackButton onPress={() => navigation.goBack()} />
               <NextButton onPress={goToStep5} />
             </View>
-          </View>
+         
         </View>
-      </ScrollView>
     </ImageBackground>
   );
 };
