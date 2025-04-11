@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  ImageBackground,
-} from "react-native";
+import { View, Text, ScrollView, ImageBackground } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { uiStyle } from "../../../utils/uiStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
@@ -18,14 +13,14 @@ const SignupStep6 = ({ navigation }) => {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
 
   const languagesoptions = [
-    "Español", 
-    "Quechua", 
-    "Aymara", 
-    "Awajún", 
-    "Shipibo", 
-    "Ashaninka", 
-    "Matsigenka", 
-    "Kandozi-Chapra"
+    "Español",
+    "Quechua",
+    "Aymara",
+    "Awajún",
+    "Shipibo",
+    "Ashaninka",
+    "Matsigenka",
+    "Kandozi-Chapra",
   ];
 
   const toggleLanguage = (language) => {
@@ -74,10 +69,15 @@ const SignupStep6 = ({ navigation }) => {
     >
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View
-          style={[uiStyle.container, { gap: 15, flex: 1, justifyContent: "space-between" }]}
+          style={[
+            uiStyle.container,
+            { gap: 15, flex: 1, justifyContent: "space-between", alignItems: "center" },
+          ]}
         >
-          <View>
-            <Text style={fontStyle.h3}>¿Qué idiomas hablas?</Text>
+          <View style={{gap:15}}>
+            <Text style={[fontStyle.h2, fontStyle.light]}>
+              ¿Qué idiomas hablas?
+            </Text>
 
             <TagSelector
               tags={languagesoptions}
@@ -86,7 +86,9 @@ const SignupStep6 = ({ navigation }) => {
             />
           </View>
 
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}
+          >
             <GoBackButton onPress={() => navigation.goBack()} />
             <NextButton onPress={goToStep7} />
           </View>

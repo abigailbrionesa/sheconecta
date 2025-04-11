@@ -105,82 +105,79 @@ const SignupStep5 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
-        <View
-          style={[
-            uiStyle.container,
-            { gap: 15, flex: 1, justifyContent: "space-between" },
-          ]}
-        >
-          <View style={{ gap: 15 }}>
-            <Text style={[fontStyle.h2, fontStyle.light]}>
-              Cuéntanos un poco más sobre ti
-            </Text>
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 40, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View style={{ gap: 15 }}>
+          <Text style={[fontStyle.h2, fontStyle.light]}>
+            Cuéntanos un poco más sobre ti
+          </Text>
 
-            <Text style={[fontStyle.h3, fontStyle.light]}>Universidad:</Text>
+          <Text style={[fontStyle.h3, fontStyle.light]}>Universidad:</Text>
+
+
             <TagSelector
               tags={universityTypeOptions}
               selectedTags={selectedTags}
               toggleTag={toggleTag}
             />
 
-            {universityType && (
-              <>
-                <Text style={[fontStyle.h3, fontStyle.light]}>Universidad</Text>
-                <DropDownPicker
-                  open={uniOpen}
-                  setOpen={setUniOpen}
-                  value={university}
-                  setValue={setUniversity}
-                  items={formattedUniversities}
-                  style={uiStyle.input}
-                  placeholder="Selecciona tu universidad"
-                  zIndex={3000}
-                  zIndexInverse={1000}
-                />
-              </>
-            )}
+          {universityType && (
+            <>
+              <DropDownPicker
+                open={uniOpen}
+                setOpen={setUniOpen}
+                value={university}
+                setValue={setUniversity}
+                items={formattedUniversities}
+                style={uiStyle.input}
+                placeholder="Selecciona tu universidad"
+                zIndex={3000}
+                zIndexInverse={1000}
+              />
+            </>
+          )}
 
-            {university && (
-              <>
-                <Text style={[fontStyle.h3, fontStyle.light]}>Carrera</Text>
-                <DropDownPicker
-                  open={careerOpen}
-                  setOpen={setCareerOpen}
-                  value={career}
-                  setValue={setCareer}
-                  items={formattedCareers}
-                  style={uiStyle.input}
-                  placeholder="Selecciona tu carrera"
-                  zIndex={2000}
-                  zIndexInverse={2000}
-                />
-              </>
-            )}
+          {university && (
+            <>
+              <Text style={[fontStyle.h3, fontStyle.light]}>Carrera</Text>
+              <DropDownPicker
+                open={careerOpen}
+                setOpen={setCareerOpen}
+                value={career}
+                setValue={setCareer}
+                items={formattedCareers}
+                style={uiStyle.input}
+                placeholder="Selecciona tu carrera"
+                zIndex={2000}
+                zIndexInverse={2000}
+              />
+            </>
+          )}
 
-            {career && (
-              <>
-                <Text style={[fontStyle.h3, fontStyle.light]}>
-                  Años de experiencia
-                </Text>
-                <TextInput
-                  style={uiStyle.input}
-                  value={experience}
-                  placeholder="Años de experiencia"
-                  keyboardType="numeric"
-                  onChangeText={setExperience}
-                />
-              </>
-            )}
-          </View>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <GoBackButton onPress={() => navigation.goBack()} />
-            <NextButton onPress={goToStep6} />
-          </View>
+          {career && (
+            <>
+              <Text style={[fontStyle.h3, fontStyle.light]}>
+                Años de experiencia
+              </Text>
+              <TextInput
+                style={uiStyle.input}
+                value={experience}
+                placeholder="Años de experiencia"
+                keyboardType="numeric"
+                onChangeText={setExperience}
+              />
+            </>
+          )}
         </View>
-      </ScrollView>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <GoBackButton onPress={() => navigation.goBack()} />
+          <NextButton onPress={goToStep6} />
+        </View>
+      </View>
     </ImageBackground>
   );
 };

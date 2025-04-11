@@ -12,6 +12,8 @@ function LoginHeader() {
             />
             <Text style={[fontStyle.h1, fontStyle.light]}>SheConecta</Text>
             <Text style={[fontStyle.h3, fontStyle.light]}>Descubre tu potencial</Text>
+            <Text style={[fontStyle.h4, fontStyle.light]}>Caminamos juntas, crecemos juntas</Text>
+
         </View>
 
     );

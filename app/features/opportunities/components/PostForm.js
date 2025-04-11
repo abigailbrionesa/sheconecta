@@ -23,12 +23,12 @@ const PostForm = ({
 }) => {
   return (
     <View style={{ gap: 15 }}>
-      <Text style={fontStyle.h2}>Crear publicación</Text>
-      <Text style={fontStyle.h3}>Tipo de publicación</Text>
+      <Text style={[fontStyle.h2, fontStyle.light]}>Crear publicación</Text>
+      <Text style={[fontStyle.h3, fontStyle.light]}>Tipo de publicación</Text>
       
       <PostTypePicker type={type} setType={setType} />
 
-      <Text style={fontStyle.h3}>Título</Text>
+      <Text style={[fontStyle.h3, fontStyle.light]}>Título</Text>
       <TextInput
         placeholder="Título"
         style={uiStyle.input}
@@ -36,7 +36,7 @@ const PostForm = ({
         onChangeText={setTitle}
       />
 
-      <Text style={fontStyle.h3}>Descripción</Text>
+      <Text style={[fontStyle.h3, fontStyle.light]}>Descripción</Text>
       <TextInput
         placeholder="Descripción"
         style={[styles.input, { height: 120 }]}
@@ -45,21 +45,21 @@ const PostForm = ({
         multiline
       />
 
-      <Text style={fontStyle.h3}>Etiquetas</Text>
+      <Text style={[fontStyle.h3, fontStyle.light]}>Etiquetas</Text>
       <TagSelector
         tags={allTopicTags}
         selectedTags={selectedTopicTags}
         toggleTag={toggleTopicTag}
       />
 
-      <Text style={fontStyle.h3}>Languages</Text>
+      <Text style={[fontStyle.h3, fontStyle.light]}>Languages</Text>
       <TagSelector
         tags={allLanguageTags}
         selectedTags={selectedLanguageTags}
         toggleTag={toggleLanguageTag}
       />
 
-      <Text style={[fontStyle.p, { textAlign: "right" }]}>
+      <Text style={[fontStyle.p, fontStyle.light, { textAlign: "right"}]}>
         De: {firstName} {lastName}
       </Text>
     </View>

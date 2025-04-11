@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "wieehackathon",
+    "name": "SheConecta",
     "slug": "wieehackathon",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/orchid.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/orchid.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/orchid.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.abigail_br987.wieehackathon"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/orchid.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8e6ff0b4-bae7-44f0-9662-74067da1a217"
+      }
     }
   }
 }

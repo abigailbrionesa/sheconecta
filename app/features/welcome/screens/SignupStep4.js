@@ -54,7 +54,6 @@ const SignupStep4 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View
           style={[
             uiStyle.container,
@@ -72,17 +71,17 @@ const SignupStep4 = ({ navigation }) => {
 
             <DropDownPicker
               open={openDepartment}
+              setOpen={setOpenDepartment}
               value={departamento}
+              setValue={handleDepartamentoChange}
               items={Object.keys(departments).map((department) => ({
                 label: department,
                 value: department,
               }))}
-              setOpen={setOpenDepartment}
-              setValue={handleDepartamentoChange}
               style={uiStyle.input}
-              containerStyle={{ marginBottom: 10, zIndex: 10 }}
               placeholder="Selecciona tu departamento"
-              dropDownContainerStyle={{ zIndex: 20, position: "absolute" }}
+              zIndex={3000}
+              zIndexInverse={1000}
             />
 
 
@@ -92,29 +91,28 @@ const SignupStep4 = ({ navigation }) => {
                 <DropDownPicker
                   open={openProvince}
                   value={provincia}
+                  setOpen={setOpenProvince}
+                  setValue={setProvincia}
                   items={getProvincias().map((province) => ({
                     label: province,
                     value: province,
                   }))}
-                  setOpen={setOpenProvince}
-                  setValue={setProvincia}
                   style={uiStyle.input}
-                  containerStyle={{ marginBottom: 10, zIndex: 10 }}
                   placeholder="Selecciona tu provincia"
                   disabled={!departamento}
-                  dropDownContainerStyle={{ zIndex: 20, position: "absolute" }}
+                  zIndex={2000}
+                  zIndexInverse={2000}
                 />
               </>
             )}
 
-
+</View>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
               <GoBackButton onPress={() => navigation.goBack()} />
               <NextButton onPress={goToStep5} />
             </View>
-          </View>
+         
         </View>
-      </ScrollView>
     </ImageBackground>
   );
 };

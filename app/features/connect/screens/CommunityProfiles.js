@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ImageBackground, Alert } from "react-native";
-import {
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  setDoc,
-} from "firebase/firestore";
+import { View, Text, ImageBackground, Alert, Button } from "react-native";
+import { collection, getDocs, doc, getDoc, setDoc } from "firebase/firestore";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../../../FirebaseConfig";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import GoBackButton from "../../welcome/components/GoBackButton";
@@ -14,11 +8,12 @@ import NextButton from "../../welcome/components/NextButton";
 import Button1 from "../../welcome/components/Button1";
 import { Ionicons } from "@expo/vector-icons";
 import UserProfileCard from "../components/UserProfileCard";
-
+import Loading from "../../welcome/components/Loading";
 export default function CommunityProfiles({ navigation }) {
   const [users, setUsers] = useState([]);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [savedContacts, setSavedContacts] = useState([]);
+  const [filterMentors, setFilterMentors] = useState(false);
 
   const currentAuthenticatedUser = FIREBASE_AUTH.currentUser;
   const currentAuthenticatedUserId = currentAuthenticatedUser?.uid;
@@ -30,11 +25,15 @@ export default function CommunityProfiles({ navigation }) {
         ...doc.data(),
         id: doc.id,
       }));
-      const filteredUsers = list.filter((user) => user.id !== currentAuthenticatedUserId);
+      const filteredUsers = list.filter(
+        (user) =>
+          user.id !== currentAuthenticatedUserId &&
+          (!filterMentors || user.type === "mentor")
+      );
       setUsers(filteredUsers);
     };
     fetchUsers();
-  }, [currentAuthenticatedUserId]);
+  }, [currentAuthenticatedUserId, filterMentors]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -78,7 +77,6 @@ export default function CommunityProfiles({ navigation }) {
       Alert.alert("Error", "Ocurrió un error. Inténtalo de nuevo.");
     }
   };
-  
 
   const startChat = async (otherUserId) => {
     try {
@@ -121,27 +119,37 @@ export default function CommunityProfiles({ navigation }) {
     }
   };
 
-  const alreadySaved = userBeingDisplayed && savedContacts.includes(userBeingDisplayed.id);
+  const alreadySaved =
+    userBeingDisplayed && savedContacts.includes(userBeingDisplayed.id);
 
   return (
     <ImageBackground
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
+
+      <View style={{ justifyContent: "space-between", alignItems: "center", padding:20, marginTop:10, gap:15 }}> 
       <Button1
         onPress={() => navigation.navigate("FavoriteProfiles")}
         icon={<Ionicons name="bookmark-outline" size={20} color="white" />}
       >
-        Aliadas STEM Guardadas
+        Guardadas
       </Button1>
 
+      <Button1
+        onPress={() => setFilterMentors(!filterMentors)}
+        color="#9c6f97"
+        icon={<Ionicons name="people-outline" size={20} color="white" />}
+      >
+        {filterMentors ? "Mostrar Todos" : "Mostrar Mentores"}
+      </Button1>
+      </View>
       <View
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
           alignContent: "center",
-          marginTop: 80,
         }}
       >
         {userBeingDisplayed ? (
@@ -152,7 +160,7 @@ export default function CommunityProfiles({ navigation }) {
             onMessagePress={() => startChat(userBeingDisplayed.id)}
           />
         ) : (
-          <Text>Loading...</Text>
+          <Loading/>
         )}
       </View>
 

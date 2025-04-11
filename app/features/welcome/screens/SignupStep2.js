@@ -171,7 +171,7 @@ const SignupStep2 = ({ navigation }) => {
   );
 };
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   orchidImage: {
     width: 80,
     height: 80,

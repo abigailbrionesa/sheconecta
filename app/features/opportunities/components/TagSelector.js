@@ -10,7 +10,7 @@ const TagSelector = ({ tags, selectedTags, toggleTag }) => (
         style={[styles.tag, selectedTags.includes(tag) && styles.tagSelected]}
         onPress={() => toggleTag(tag)}
       >
-        <Text style={[ fontStyle.p, { color: selectedTags.includes(tag) ? "#faf5f3" : "#746ba8" }]}>
+        <Text style={[ fontStyle.h4, { color: selectedTags.includes(tag) ? "#faf5f3" : "#746ba8" }]}>
           {tag}
         </Text>
       </TouchableOpacity>
@@ -24,16 +24,27 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: 10,
     marginBottom: 10,
+    justifyContent: "center",
+
   },
+  
   tag: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: "#faf5f3",
+    backgroundColor: "#ffff",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 40,
+    alignItems: "center",
+
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   tagSelected: {
-    backgroundColor: "#746ba8",
+    backgroundColor: "#ae80b3",
   },
+
+
 });
 
 export default TagSelector;

@@ -14,6 +14,9 @@ import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
+import Button1 from "../components/Button1";
+import Loading from "../../welcome/components/Loading"
+
 const Login = () => {
   const navigation = useNavigation();
 
@@ -40,8 +43,8 @@ const Login = () => {
           source={require("../../../../assets/background.png")}
           style={backgroundStyle.background}
         >
-      <View style={{ padding: 20, marginTop: 100 }}>
-        <Text style={fontStyle.h1}>Iniciar Sesión</Text>
+      <View style={{ padding: 20, marginTop: 100, gap:15 }}>
+        <Text style={[fontStyle.h1, fontStyle.light]}>Iniciar Sesión</Text>
 
         <TextInput
           style={uiStyle.input}
@@ -60,16 +63,20 @@ const Login = () => {
         />
 
         {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <Loading/>
         ) : (
-          <Button title="Iniciar Sesión" onPress={signIn} />
+          <Button1  onPress={signIn}>
+          Iniciar Sesión
+          </Button1>
         )}
 
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-          <Text>
+          <Text style={[fontStyle.p, fontStyle.light]}>
             ¿No tienes cuenta? <Text>Crea una</Text>
           </Text>
         </TouchableOpacity>
+
+
       </View>
       </ImageBackground>
   );

@@ -58,18 +58,30 @@ const SignupStep8 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={backgroundStyle.background}
     >
-      <View style={uiStyle.container}>
-        <Text style={[fontStyle.h2, fontStyle.light]}>Añade una foto de perfil (opcional)</Text>
-
-        {profilePicture ? (
-          <Image
-            source={{ uri: profilePicture }}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
-          />
-        ) : (
-          <Text>No Profile Picture</Text>
-        )}
-
+      <View
+        style={[
+          uiStyle.container,
+          { gap: 40, flex: 1, justifyContent: "space-between" },
+        ]}
+      >
+        <View
+          style={{ gap: 15, alignItems: "center" }}
+        >
+          <Text style={[fontStyle.h2, fontStyle.light]}>
+            Añade una foto de perfil
+          </Text>
+          <Text style={[fontStyle.h3, fontStyle.light]}>
+            (OPCIONAL)
+          </Text>
+          {profilePicture ? (
+            <Image
+              source={{ uri: profilePicture }}
+              style={{ width: 200, height: 200, borderRadius: 100 }}
+            />
+          ) : (
+            <Text>No Profile Picture</Text>
+          )}
+        </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <GoBackButton onPress={() => navigation.goBack()} />
           <NextButton onPress={handleContinue} />

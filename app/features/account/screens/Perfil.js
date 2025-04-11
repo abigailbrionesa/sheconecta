@@ -201,7 +201,7 @@ export default function Perfil() {
             }
             color="#769ad4"
           >
-            {editando ? "Guardar cambios" : "Editar perfil"}
+            {editando ? "Guardar" : "Editar"}
           </Button1>
           </View>
 

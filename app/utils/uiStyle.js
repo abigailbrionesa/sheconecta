@@ -13,6 +13,6 @@ export const uiStyle = StyleSheet.create({
   container: {
     padding: 20,
     margin: 20,
-    marginTop: 50,
+    marginTop: 40,
   },
 });
