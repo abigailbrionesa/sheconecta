@@ -46,22 +46,22 @@ const SignupStep3 = ({ navigation }) => {
       source={require("../../../../assets/background.png")}
       style={[backgroundStyle.background]}
     >
-      <View style={[uiStyle.container, { gap: 15, flex:1, justifyContent: "space-between" }]}>
-        <Image
-          source={require("../../../../assets/orchid.png")}
-          style={{
-            width: 80,
-            height: 80,
-            resizeMode: "contain",
-            marginBottom: 20,
-          }}
-        />
+      <Image
+        source={require("../../../../assets/orchid.png")}
+        style={styles.orchidImage}
+      />
+
+  <View
+          style={[
+            uiStyle.container,
+            { gap: 40, flex: 1, justifyContent: "space-between" },
+          ]}
+        >
+        <View style={{gap:15}}>
         <Text style={[fontStyle.h1, fontStyle.light]}>
           ¿Cómo quieres participar?
         </Text>
-        
-        <Text style={[fontStyle.h1, styles.headerText]}>¿Cómo quieres participar?</Text>
-        
+               
         <TouchableOpacity 
           style={[styles.button, role === 'estudiante' && styles.selectedButton]}
           onPress={() => {
@@ -69,8 +69,8 @@ const SignupStep3 = ({ navigation }) => {
             handleRoleSelection("estudiante");
           }}
         >
-          <Text style={styles.buttonTitle}>Soy estudiante</Text>
-          <Text style={styles.buttonSubtitle}>Quiero aprender</Text>
+          <Text style={[fontStyle.h3,fontStyle.light]}>Soy estudiante</Text>
+          <Text  style={[fontStyle.h4,fontStyle.light]}>Quiero aprender</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
@@ -80,11 +80,11 @@ const SignupStep3 = ({ navigation }) => {
             handleRoleSelection("mentor");
           }}
         >
-          <Text style={styles.buttonTitle}>Soy mentor</Text>
-          <Text style={styles.buttonSubtitle}>Quiero guiar</Text>
+          <Text style={[fontStyle.h3,fontStyle.light]}>Soy mentor</Text>
+          <Text  style={[fontStyle.h4,fontStyle.light]}>Quiero guiar</Text>
         </TouchableOpacity>
 
-
+        </View>
         <View
           style={{
             flexDirection: "row",
@@ -100,18 +100,12 @@ const SignupStep3 = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  headerText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-    marginTop: 10,
-  },
+
   button: {
     backgroundColor: "#4c82af",
     paddingVertical: 15,
     paddingHorizontal: 30,
-    borderRadius: 5,
+    borderRadius: 40,
     alignItems: "center",
     marginVertical: 10,
     marginHorizontal: 20,
@@ -121,16 +115,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   selectedButton: {
-    backgroundColor: "#388E3C",
+    backgroundColor: "#ae80b3",
   },
-  buttonTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#fff",
-  },
-  buttonSubtitle: {
-    fontSize: 14,
-    color: "#fff",
+  orchidImage: {
+    width: 80,
+    height: 80,
+    resizeMode: "contain",
+    alignSelf: "center",
+    marginTop: 120,
   },
 });
 
