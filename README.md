@@ -1,19 +1,19 @@
-# 🚀 SheConecta — Empowering Women in STEM
+# SheConecta — Empowering Women in STEM
 
 > Developed during the WIEE Hackathon 2024  
-> 🌍 Building an inclusive future for women in STEM, one connection at a time.
+> Building an inclusive future for women in STEM, one connection at a time.
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
 **SheConecta** is a mobile app designed to boost the personal and professional growth of young women in STEM by providing mentorship, networking, and collaboration opportunities.  
 
-🎯 **Goal**: Close the gender gap in STEM through connection, guidance, and inclusive project spaces — aligned with **SDG 5** (Gender Equality) and **SDG 9** (Industry, Innovation, and Infrastructure).
+**Goal**: Close the gender gap in STEM through connection, guidance, and inclusive project spaces — aligned with **SDG 5** (Gender Equality) and **SDG 9** (Industry, Innovation, and Infrastructure).
 
 ---
 
-## 🧩 The Problem
+## The Problem
 
 According to **UNESCO (2023)**, only **35%** of STEM students globally are women. Many female university students face:
 
@@ -25,7 +25,7 @@ According to **UNESCO (2023)**, only **35%** of STEM students globally are women
 
 ---
 
-## 💡 Our Solution
+## Our Solution
 
 > An intuitive mobile app that helps young women:
 - Create personalized profiles
@@ -37,27 +37,27 @@ According to **UNESCO (2023)**, only **35%** of STEM students globally are women
 
 ---
 
-## 🔥 MVP Features
+## MVP Features
 
-✅ **Custom Auth Flow**  
+**Custom Auth Flow**  
 Multi-step registration with real-time validations and Firebase Authentication.
 
-✅ **Mentor/Student Matching**  
+**Mentor/Student Matching**  
 Smart suggestions and bookmarking system based on shared fields and interests.
 
-✅ **STEM Opportunities Feed**  
+**STEM Opportunities Feed**  
 Filterable by category (Science, Tech, Engineering, Math), language tags, and relevance.
 
-✅ **Real-Time Messaging**  
+**Real-Time Messaging**  
 Built with Firebase Firestore for smooth 1-on-1 chats.
 
-✅ **Profile Customization**  
+**Profile Customization**  
 Editable user profiles with goals, interests, location & more.
 
-✅ **Gamification System**  
+**Gamification System**  
 Earn points and rewards by completing actions in the app.
 
-✅ **Subscription Tiers**  
+**Subscription Tiers**  
 Scalable business model supporting free and premium accounts:
 - **Connect+**
 - **SheTeam**
