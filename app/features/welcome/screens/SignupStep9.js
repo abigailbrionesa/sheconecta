@@ -14,7 +14,7 @@ import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import NextButton from "../components/NextButton";
 import GoBackButton from "../components/GoBackButton";
-
+import TagSelector from "../../opportunities/components/TagSelector";
 const SignupStep9 = ({ navigation }) => {
   const route = useRoute();
   const areas = ["Ciencia", "Tecnología", "Ingeniería", "Matemática"];
@@ -53,7 +53,7 @@ const SignupStep9 = ({ navigation }) => {
       return;
     }
 
-    navigation.navigate("SubscriptionScreen", {
+    navigation.navigate("SubscriptionStack", {
       email,
       password,
       firstName,
@@ -83,27 +83,25 @@ const SignupStep9 = ({ navigation }) => {
         style={styles.orchidImage}
       />
 
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={[fontStyle.h2, fontStyle.light]}>
+        <View
+          style={[
+            uiStyle.container,
+            { gap: 40, flex: 1, justifyContent: "space-between" },
+          ]}
+        >       
+        
+        <View >
+          <Text style={[fontStyle.h2, fontStyle.light, {marginBottom: 15}]}>
             ¿Cuál es el área de tu interés?
           </Text>
 
-          <View style={styles.areasContainer}>
-            {areas.map((area) => (
-              <TouchableOpacity
-                key={area}
-                style={[
-                  styles.areaButton,
-                  selectedAreas.includes(area) && styles.selectedAreaButton,
-                ]}
-                onPress={() => handleAreaSelect(area)}
-              >
-                <Text style={fontStyle.h4}>{area}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
+
+  <TagSelector
+    tags={areas}
+    selectedTags={selectedAreas}
+    toggleTag={handleAreaSelect} 
+  />
+</View>
 
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <GoBackButton onPress={() => navigation.goBack()} />
@@ -133,8 +131,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   areasContainer: {
-    flexWrap: "wrap",
-    justifyContent: "center",
     width: "100%",
     marginTop: 20,
   },
@@ -151,6 +147,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderWidth: 3,
     borderColor: "purple",
+  },
+  orchidImage: {
+    width: 80,
+    height: 80,
+    resizeMode: "contain",
+    alignSelf: "center",
+    marginTop: 120,
   },
 });
 
