@@ -39,25 +39,26 @@ According to **UNESCO (2023)**, only **35%** of STEM students globally are women
 
 ## MVP Features
 
-**Custom Auth Flow**  
+- **Custom Auth Flow**  
 Multi-step registration with real-time validations and Firebase Authentication.
 
-**Mentor/Student Matching**  
+- **Mentor/Student Matching**  
 Smart suggestions and bookmarking system based on shared fields and interests.
 
-**STEM Opportunities Feed**  
+- **STEM Opportunities Feed**  
 Filterable by category (Science, Tech, Engineering, Math), language tags, and relevance.
 
-**Real-Time Messaging**  
+- **Real-Time Messaging**  
 Built with Firebase Firestore for smooth 1-on-1 chats.
 
-**Profile Customization**  
+- **Profile Customization**  
 Editable user profiles with goals, interests, location & more.
 
-**Gamification System**  
+- **Gamification System**  
 Earn points and rewards by completing actions in the app.
 
-**Subscription Tiers**  
+- **Subscription Tiers**
+- 
 Scalable business model supporting free and premium accounts:
 - **Connect+**
 - **SheTeam**
@@ -65,25 +66,25 @@ Scalable business model supporting free and premium accounts:
 
 ---
 
-## 👥 Team
+## Team
 
 | Role | Name |
 |------|------|
-| 👩‍💻 Lead Full-Stack Dev | Abigail Briones |
-| 🎨 UX Designer | Brigitte Chavez |
-| 🖥️ UX + Backend Dev | Dayana Gomez |
-| 🧭 PM | Fatima Campos |
+| Lead Full-Stack Dev | Abigail Briones |
+| UX Designer | Brigitte Chavez |
+| 🖥UX + Backend Dev | Dayana Gomez |
+| PM | Fatima Campos |
 
 ---
 
-## 📱 APK Download
+## APK Download
 
 Test the SheConecta MVP on Android:  
-📦 [Download APK](https://expo.dev/artifacts/eas/hMJe7dnkQFuf41dohVqdiN.apk)
+[Download APK](https://expo.dev/artifacts/eas/hMJe7dnkQFuf41dohVqdiN.apk)
 
 ---
 
-## 🧭 App Navigation Structure
+## App Navigation Structure
 
 ```bash
 app/
