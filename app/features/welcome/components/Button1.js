@@ -6,7 +6,7 @@ const Button1 = ({
   onPress,
   children,
   icon,
-  color = '#6391d0',
+  color = '#849ad5',
   iconColor = 'white',
   textColor = '#f0f7fd',
 }) => {
