@@ -63,8 +63,9 @@ const SignupStep7 = ({ navigation }) => {
         ]}
       >
         <View style={{ gap: 15 }}>
-          <Text style={[fontStyle.h2, fontStyle.light]}>Añade tus redes sociales (opcional)</Text>
-          
+          <Text style={[fontStyle.h2, fontStyle.light]}>Añade tus redes sociales</Text>
+          <Text style={[fontStyle.h3, fontStyle.light, {textAlign: "center"}]}>(OPCIONAL)</Text>
+
           <Text style={[fontStyle.h3, fontStyle.light]}>Instagram</Text>
           <TextInput
             style={uiStyle.input}
