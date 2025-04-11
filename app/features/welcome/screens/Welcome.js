@@ -14,8 +14,8 @@ const Welcome = () => {
     >
       <View style={{ padding: 20, marginTop: 100 }}>
         <LoginHeader />
-        <View style={{ gap: 15 }}>
-          <Button1 onPress={() => navigation.navigate("SignUp")}>
+        <View style={{ gap: 15, padding:40 }}>
+          <Button1 color="#bf77a9" onPress={() => navigation.navigate("SignUp")}>
             Crear Cuenta
           </Button1>
           <Button1 onPress={() => navigation.navigate("Login")}>
