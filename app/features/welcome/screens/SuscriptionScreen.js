@@ -163,6 +163,8 @@ const SubscriptionScreen = ({ navigation }) => {
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <GoBackButton onPress={() => navigation.goBack()} />
       </View>
+
+      
     </ScrollView>
   );
 };
