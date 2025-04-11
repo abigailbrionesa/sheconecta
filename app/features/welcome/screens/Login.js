@@ -14,6 +14,9 @@ import { uiStyle } from "../../../utils/uiStyle";
 import { fontStyle } from "../../../utils/fontStyle";
 import { backgroundStyle } from "../../../utils/backgroundStyle";
 import { ImageBackground } from "react-native";
+import Button1 from "../components/Button1";
+import Loading from "../../welcome/components/Loading"
+
 const Login = () => {
   const navigation = useNavigation();
 
@@ -60,9 +63,11 @@ const Login = () => {
         />
 
         {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <Loading/>
         ) : (
-          <Button title="Iniciar Sesión" onPress={signIn} />
+          <Button1  onPress={signIn}>
+          Iniciar Sesión
+          </Button1>
         )}
 
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
@@ -70,6 +75,8 @@ const Login = () => {
             ¿No tienes cuenta? <Text>Crea una</Text>
           </Text>
         </TouchableOpacity>
+
+
       </View>
       </ImageBackground>
   );
