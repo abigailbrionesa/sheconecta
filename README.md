@@ -1,99 +1,88 @@
-# SheConecta — Empowering Women in STEM
+![SheConecta preview](assets/background.png)
 
-> Developed during the WIEE Hackathon 2024  
-> Building an inclusive future for women in STEM, one connection at a time.
+<samp>
 
----
+# SheConecta
 
-## Project Overview
+<p>
+SheConecta is an Expo and React Native community app designed around connection, opportunities, challenges, messaging, and onboarding for women-centered professional growth. The codebase includes authentication flows, profile setup, feeds, community discovery, and Firebase-backed app foundations.
+</p>
 
-**SheConecta** is a mobile app designed to boost the personal and professional growth of young women in STEM by providing mentorship, networking, and collaboration opportunities.  
+<p>
+Built with <strong>Expo, React Native, JavaScript, Firebase, React Navigation, custom fonts, and multi-screen mobile flows</strong>.
+</p>
 
-**Goal**: Close the gender gap in STEM through connection, guidance, and inclusive project spaces — aligned with **SDG 5** (Gender Equality) and **SDG 9** (Industry, Innovation, and Infrastructure).
+<p>
+<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=111111">
+<img alt="React" src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB">
+<img alt="Expo" src="https://img.shields.io/badge/Expo-000020?style=flat-square&logo=expo&logoColor=white">
+<img alt="Firebase" src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=111111">
+</p>
 
----
+## Highlights
 
-## The Problem
+<ul>
+  <li>Multi-step signup and profile onboarding with validation utilities.</li>
+  <li>Tab and stack navigation for community, opportunities, messages, and challenges.</li>
+  <li>Firebase configuration and reusable feature components for app data flows.</li>
+  <li>Custom assets, typography, and style helpers for a cohesive mobile identity.</li>
+</ul>
 
-According to **UNESCO (2023)**, only **35%** of STEM students globally are women. Many female university students face:
+## Tech Stack
 
-- Lack of access to mentors
-- Few role models
-- Limited networking and project collaboration opportunities
+<table>
+  <tr><th>Layer</th><th>Tools</th></tr>
+  <tr><td>Core stack</td><td>JavaScript, Expo, React Native, Firebase</td></tr>
+  <tr><td>Supporting tools</td><td>React Navigation, Expo Image Picker, Custom Fonts</td></tr>
+</table>
 
-**SheConecta** addresses this with a safe and smart platform to match students and mentors based on their interests, fields, and goals.
+## Quick Start
 
----
+<pre><code>npm install
+npm start
+npm run ios
+npm run android
+npm run web</code></pre>
 
-## Our Solution
+## Project Structure
 
-> An intuitive mobile app that helps young women:
-- Create personalized profiles
-- Connect with aligned mentors and peers
-- Access curated STEM projects, scholarships, and courses
-- Chat in real-time
-- Track achievements through gamification
-- Manage subscriptions for enhanced features
+<pre>App.js and index.js - Expo entry points
+FirebaseConfig.js - Firebase setup
+app/infraestructure/ - Navigation stacks and app shell
+app/features/ - Welcome, chat, opportunities, connect, and challenge screens
+app/utils/ - Validation, lists, options, styles, and geography data
+assets/ - Images, icons, splash assets, and fonts</pre>
 
----
+## Validation
 
-## MVP Features
+<p>
+Run <code>npm start</code> and test the app in Expo Go or a simulator.
+</p>
 
-- **Custom Auth Flow**  
-Multi-step registration with real-time validations and Firebase Authentication.
+## Scope Notes
 
-- **Mentor/Student Matching**  
-Smart suggestions and bookmarking system based on shared fields and interests.
+<p>
+Firebase credentials and backend rules must be configured outside the README before production use.
+</p>
 
-- **STEM Opportunities Feed**  
-Filterable by category (Science, Tech, Engineering, Math), language tags, and relevance.
+## Roadmap
 
-- **Real-Time Messaging**  
-Built with Firebase Firestore for smooth 1-on-1 chats.
+<ul>
+  <li>Document required Firebase collections and auth rules.</li>
+  <li>Add screenshots of onboarding, community, and opportunity flows.</li>
+  <li>Add lint/test scripts for repeatable validation.</li>
+</ul>
 
-- **Profile Customization**  
-Editable user profiles with goals, interests, location & more.
+## License
 
-- **Gamification System**  
-Earn points and rewards by completing actions in the app.
+<p>
+No license file is currently included.
+</p>
 
-- **Subscription Tiers**
-- 
-Scalable business model supporting free and premium accounts:
-- **Connect+**
-- **SheTeam**
-- **ConnectPro**
+## Built By
 
----
+<p>
+Built by <strong>Abigail Briones Aranda</strong> as part of a growing AI/software engineering portfolio focused on readable systems, thoughtful interfaces, and reproducible project documentation.
+</p>
 
-## Team
-
-| Role | Name |
-|------|------|
-| Lead Full-Stack Dev | Abigail Briones |
-| UX Designer | Brigitte Chavez |
-| 🖥UX + Backend Dev | Dayana Gomez |
-| PM | Fatima Campos |
-
----
-
-## APK Download
-
-Test the SheConecta MVP on Android:  
-[Download APK](https://expo.dev/artifacts/eas/hMJe7dnkQFuf41dohVqdiN.apk)
-
----
-
-## App Navigation Structure
-
-```bash
-app/
-├── features/
-│   ├── account/
-│   ├── challenges/
-│   ├── chat/
-│   ├── connect/
-│   ├── opportunities/
-│   └── welcome/
-├── infrastructure/
-├── utils/ 
+</samp>
